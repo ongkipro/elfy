@@ -1,4 +1,4 @@
-# Build Log — vellum
+# Build Log — elfy
 
 Record only durable implementation changes, validation evidence, and gotchas that the next maintainer needs. Temporary task narration belongs in neither this file nor global memory.
 

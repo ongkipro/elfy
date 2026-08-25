@@ -198,8 +198,8 @@ export function ProductAccordion({ descriptionHtml, locale = 'ms' }: ProductAcco
             <p>
               <strong className="text-neutral-950 font-semibold">100% Jaminan Ketulenan:</strong>{' '}
               {locale === 'ms'
-                ? 'Semua produk dijamin tulen, melepasi kawalan kualiti ketat dan disertakan kad jaminan rasmi VELLUM.'
-                : 'Every piece is guaranteed 100% authentic and covered by VELLUM standard warranty.'}
+                ? 'Semua produk dijamin tulen, melepasi kawalan kualiti ketat dan disertakan kad jaminan rasmi ELFY.'
+                : 'Every piece is guaranteed 100% authentic and covered by ELFY standard warranty.'}
             </p>
           </div>
         )}

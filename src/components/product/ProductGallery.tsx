@@ -69,7 +69,7 @@ export function ProductGallery({ images, title }: ProductGalleryProps) {
         {/* Brand Tag Overlay */}
         <div className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-black/75 backdrop-blur-md text-stone-100 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest px-2.5 sm:px-3 py-1 rounded-full flex items-center gap-1.5 border border-white/10 shadow-sm">
           <Sparkles className="w-3 h-3 text-[#B89768]" />
-          <span>VELLUM Atelier</span>
+          <span>ELFY Atelier</span>
         </div>
 
         {/* Carousel Navigation Arrows */}

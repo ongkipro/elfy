@@ -1,21 +1,22 @@
-# STATUS — VELLUM Storefront
+# STATUS — ELFY Storefront
 
 - **Current State**: Phase 1 to Phase 4 Fully Integrated & Live-Fetched.
-- **Repository**: `/Users/feriromansyah/Projects/vellum`
+- **Repository**: `/Users/feriromansyah/Projects/elfy`
 - **Shopify Store**: `vvxgev-3p.myshopify.com` (50 live products with full variant matrices).
-- **Stack**: Astro 5 (Server SSR), React Islands, Tailwind CSS v4, TypeScript, Lucide Icons.
- - Features Implemented:
-   - Full Live Catalog Fetch via Storefront API 2025-01 (50 Live Products).
-   - Luxury Desktop Editorial Collection Explorer (`CollectionExplorer.tsx`):
-     - Dynamic Category Filtering (Semua, Footwear 43, Timepieces 7) without full-page reloads.
-     - Live Client-Side Sorting (Pilihan Disyorkan, Harga Rendah-Tinggi, Harga Tinggi-Rendah, Nama A-Z).
-     - Desktop Grid Density Switcher (3-Column Editorial vs 4-Column Compact).
-     - Product Card Hover Animations (Secondary Angle Reveal, Size Matrix, Discount Badge).
-     - Desktop Editorial Guarantee Reassurance Panels.
-   - Multi-Variant Handling: Real size pills (EU 39-44), stock state badges, instant price calculation.
-   - Sizing Guide & Technical Spec sheets.
-   - Tabbed Editorial Description (Description, Domestic Courier Delivery, 7-Day Exchange).
-   - Floating Sticky Mobile Add-to-Cart bar.
-   - WhatsApp Dynamic Pre-filled Concierge Order Generator.
-   - Cart Drawer with RM 150 Free Shipping progress bar.
- - **Verification**: `pnpm run build` PASS (0 errors), Browser Visual Validation at 1440×900 PASS.
+- **Stack**: Astro 5 (Server SSR), React Islands, Tailwind CSS v4, TypeScript, Lucide Icons, Cloudflare Workers.
+- **Domain**: `elfy.my` (`https://elfy.my` & `https://elfy.ongki.workers.dev`)
+- **Features Implemented**:
+  - Full Live Catalog Fetch via Storefront API 2025-01 (50 Live Products).
+  - Luxury Desktop Editorial Collection Explorer (`CollectionExplorer.tsx`):
+    - Dynamic Category Filtering (Semua, Footwear 43, Timepieces 7) without full-page reloads.
+    - Live Client-Side Sorting (Pilihan Disyorkan, Harga Rendah-Tinggi, Harga Tinggi-Rendah, Nama A-Z).
+    - Desktop Grid Density Switcher (3-Column Editorial vs 4-Column Compact).
+    - Product Card Hover Animations (Secondary Angle Reveal, Size Matrix, Discount Badge).
+    - Desktop Editorial Guarantee Reassurance Panels.
+  - Multi-Variant Handling: Real size pills (EU 39-44), stock state badges, instant price calculation.
+  - Sizing Guide & Technical Spec sheets.
+  - Tabbed Editorial Description (Description, Domestic Courier Delivery, 7-Day Exchange).
+  - Floating Sticky Mobile Add-to-Cart bar.
+  - WhatsApp Dynamic Pre-filled Concierge Order Generator.
+  - Cart Drawer with RM 150 Free Shipping progress bar.
+- **Verification**: `pnpm run build` PASS (0 errors), Browser Visual Validation at 1440×900 PASS.

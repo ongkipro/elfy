@@ -2,12 +2,12 @@
 
 @layer base {
   :root {
-    --color-vellum-bg: #FDFBF7;
-    --color-vellum-dark: #121212;
-    --color-vellum-cream: #F7F4EC;
-    --color-vellum-accent: #B89768;
-    --color-vellum-border: #E8E3DA;
-    --color-vellum-muted: #736E66;
+    --color-elfy-bg: #FDFBF7;
+    --color-elfy-dark: #121212;
+    --color-elfy-cream: #F7F4EC;
+    --color-elfy-accent: #B89768;
+    --color-elfy-border: #E8E3DA;
+    --color-elfy-muted: #736E66;
   }
 
   html {
@@ -18,8 +18,8 @@
   }
 
   body {
-    background-color: var(--color-vellum-bg);
-    color: var(--color-vellum-dark);
+    background-color: var(--color-elfy-bg);
+    color: var(--color-elfy-dark);
     font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;

@@ -1,4 +1,4 @@
-# Project Instructions — vellum
+# Project Instructions — elfy
 
 ## Scope
 

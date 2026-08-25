@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "vellum",
+  "name": "elfy",
   "main": "@astrojs/cloudflare/entrypoints/server",
   "compatibility_date": "2026-08-25",
   "compatibility_flags": ["nodejs_compat"],
@@ -11,10 +11,20 @@
   "observability": {
     "enabled": true
   },
+  "routes": [
+    {
+      "pattern": "elfy.my",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.elfy.my",
+      "custom_domain": true
+    }
+  ],
   "vars": {
     "PUBLIC_SHOPIFY_STORE_DOMAIN": "vvxgev-3p.myshopify.com",
     "PUBLIC_SHOPIFY_STOREFRONT_TOKEN": "d19296e111796d6877f879956789185d",
-    "PUBLIC_STORE_NAME": "VELLUM",
+    "PUBLIC_STORE_NAME": "ELFY",
     "PUBLIC_DEFAULT_LOCALE": "ms",
     "PUBLIC_SUPPORTED_LOCALES": "ms,en",
     "PUBLIC_WHATSAPP_NUMBER": "601123456789",

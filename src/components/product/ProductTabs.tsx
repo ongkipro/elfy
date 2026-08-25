@@ -120,8 +120,8 @@ export function ProductTabs({ descriptionHtml, isShoe, isWatch, locale = 'ms' }:
                 </h5>
                 <p className="text-amber-900 text-xs leading-relaxed">
                   {locale === 'ms'
-                    ? 'Setiap produk VELLUM dijamin menggunakan material asli berkualiti tinggi dan disertakan kad jaminan rasmi.'
-                    : 'Every VELLUM piece is crafted with genuine high-grade materials and includes official warranty verification.'}
+                    ? 'Setiap produk ELFY dijamin menggunakan material asli berkualiti tinggi dan disertakan kad jaminan rasmi.'
+                    : 'Every ELFY piece is crafted with genuine high-grade materials and includes official warranty verification.'}
                 </p>
               </div>
             </div>

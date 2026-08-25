@@ -1,7 +1,7 @@
-# Architecture — vellum
+# Architecture — elfy
 
-Updated: 2026-08-24
-Expected stack: Astro (minimal TypeScript template)
+Updated: 2026-08-25
+Expected stack: Astro 5 (Cloudflare Workers SSR, React Islands, Tailwind CSS v4, TypeScript)
 
 ## Selected capabilities
 

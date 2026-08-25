@@ -1,8 +1,8 @@
-# PRD — VELLUM Storefront (Headless Shopify Malaysia: Footwear & Timepieces)
+# PRD — ELFY Storefront (Headless Shopify Malaysia: Footwear & Timepieces)
 
 ## 1. Executive Summary & Brand Identity
 
-- **Brand Name**: **VELLUM** (VELLUM Goods / VELLUM Kuala Lumpur)
+- **Brand Name**: **ELFY** (ELFY Goods / ELFY Kuala Lumpur)
 - **Tagline**: *Curated Footwear & Precision Timepieces*
 - **Aesthetic**: Minimalist Luxury, Warm Earthy Neutrals (`#121212`, `#FDFBF7`, `#C5A880`, `#E5E0D8`), High Sartorial Craftsmanship.
 - **Niche**: Premium Footwear (Dress Shoes, Loafers, Minimal Sneakers) and Curated Watches (Automatic, Quartz, Sapphire Crystal).
@@ -19,7 +19,7 @@
 
 | Dimension | Specification | Implementation Strategy |
 | :--- | :--- | :--- |
-| **Brand Label** | **VELLUM** | Unified storefront branding, packaging callouts, and clean typographic mark. |
+| **Brand Label** | **ELFY** | Unified storefront branding, packaging callouts, and clean typographic mark. |
 | **Currency** | Ringgit Malaysia (`MYR` / `RM`) | Formatted as `RM 249.00` via `Intl.NumberFormat('ms-MY', { style: 'currency', currency: 'MYR' })`. |
 | **Languages** | English (`en-MY`) & Bahasa Melayu (`ms-MY`) | Subpath routing (`/en/...` and `/ms/...`) with Shopify `@inContext(language: MS, country: MY)` Storefront API queries. |
 | **Payment Ecosystem** | FPX, DuitNow QR, TNG eWallet, GrabPay, SPayLater, Atome | Native Shopify Hosted Checkout handoff with local gateway badges displayed prominently on PDP and Cart Drawer. |
@@ -33,7 +33,7 @@
 ```mermaid
 flowchart TD
     subgraph Client ["Browser / Edge Client"]
-        A[Mobile Visitor] -->|SSR / Hydrated Island| B[VELLUM Astro 5 Frontend]
+        A[Mobile Visitor] -->|SSR / Hydrated Island| B[ELFY Astro 5 Frontend]
     end
 
     subgraph Storefront ["Astro Application Layer"]
@@ -59,7 +59,7 @@ flowchart TD
   - `WatchSpecSheet` (Technical specification sheet)
   - `ProductGallery` (Mobile swipeable gallery with touch pinch-to-zoom)
   - `WhatsAppFloatingButton` (Direct chat link with product context)
-- **Styling**: Tailwind CSS with VELLUM brand design tokens.
+- **Styling**: Tailwind CSS with ELFY brand design tokens.
 - **Icons**: `lucide-astro` (server-rendered SVGs) and `lucide-react` (for interactive client islands).
 - **Type Safety**: Strictly typed Shopify Storefront API GraphQL responses and client schemas via TypeScript.
 
@@ -99,5 +99,5 @@ flowchart TD
    - Strict Content Security Policy (CSP) and CORS boundaries.
 3. **SEO & Metadata**:
    - Automated OpenGraph (`og:image`, `og:title`) and Twitter Cards.
-   - JSON-LD Structured Data for `Product`, `BreadcrumbList`, and `Organization` (VELLUM).
+   - JSON-LD Structured Data for `Product`, `BreadcrumbList`, and `Organization` (ELFY).
    - Dynamic `sitemap-index.xml` and localized `hreflang` tags (`en-MY`, `ms-MY`).

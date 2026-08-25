@@ -314,7 +314,7 @@ export async function getCollections(): Promise<Collection[]> {
       descriptionMs: 'Direka untuk keselesaan sepanjang hari, tapak kusyen anti-gelincir dan gaya kasual harian.',
       image: {
         url: 'https://images.unsplash.com/photo-1614252369475-531eba835eb1?auto=format&fit=crop&w=1200&q=80',
-        altText: 'Koleksi Kasut VELLUM',
+        altText: 'Koleksi Kasut ELFY',
       },
       productCount: shoeCount,
     },
@@ -327,7 +327,7 @@ export async function getCollections(): Promise<Collection[]> {
       descriptionMs: 'Koleksi jam tangan mewah analog kronograf dan quartz dengan kaca kalis calar.',
       image: {
         url: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1200&q=80',
-        altText: 'Koleksi Jam Tangan VELLUM',
+        altText: 'Koleksi Jam Tangan ELFY',
       },
       productCount: watchCount,
     },
@@ -335,12 +335,12 @@ export async function getCollections(): Promise<Collection[]> {
       id: 'col-all',
       handle: 'all',
       title: 'All Collections',
-      titleMs: 'Semua Koleksi VELLUM',
+      titleMs: 'Semua Koleksi ELFY',
       description: 'Explore our complete catalog of curated footwear and timepieces.',
-      descriptionMs: 'Lihat keseluruhan katalog kasut dan jam tangan eksklusif VELLUM.',
+      descriptionMs: 'Lihat keseluruhan katalog kasut dan jam tangan eksklusif ELFY.',
       image: {
         url: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1200&q=80',
-        altText: 'Semua Koleksi VELLUM',
+        altText: 'Semua Koleksi ELFY',
       },
       productCount: allProducts.length,
     },

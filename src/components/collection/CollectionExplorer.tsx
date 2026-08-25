@@ -94,8 +94,7 @@ export default function CollectionExplorer({
       ? 'Rekaan kasut sukan dan kasual dengan kusyen ergonomik lembut, tapak anti-slip, dan bahan tahan lasak.'
       : selectedCategory === 'watches'
         ? 'Koleksi jam tangan analog & quartz eksklusif berketepatan tinggi disertakan kotak hadiah premium percuma.'
-        : 'Jelajahi rekaan penuh kasut lelaki sartorial dan jam tangan eksklusif VELLUM Kuala Lumpur.';
-
+        : 'Jelajahi rekaan penuh kasut lelaki sartorial dan jam tangan eksklusif ELFY Kuala Lumpur.';
   return (
     <div class="min-h-screen bg-[#FDFBF7] text-neutral-950">
       {/* 1. Breadcrumbs Header */}
@@ -160,7 +159,7 @@ export default function CollectionExplorer({
               <div class="bg-neutral-900/60 backdrop-blur-md rounded-2xl border border-neutral-800/80 p-6 space-y-4 shadow-xl">
                 <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
                   <span class="text-[11px] font-bold uppercase tracking-widest text-[#D4AF37]">
-                    Standard Jaminan VELLUM
+                    Standard Jaminan ELFY
                   </span>
                   <span class="text-[10px] text-stone-300 font-mono">KL Express</span>
                 </div>
@@ -441,7 +440,7 @@ export default function CollectionExplorer({
                       {/* Micro Brand Header */}
                       <div class="flex items-center gap-1 text-[9px] sm:text-[10px] text-[#B89768] font-bold uppercase tracking-widest">
                         <Sparkles class="w-2.5 h-2.5 text-[#B89768]" />
-                        <span>VELLUM KL</span>
+                        <span>ELFY KL</span>
                       </div>
 
                       {/* Product Title */}
@@ -538,7 +537,7 @@ export default function CollectionExplorer({
                   Khidmat VIP Concierge WhatsApp
                 </h4>
                 <p class="text-xs text-neutral-500 mt-1 leading-relaxed">
-                  Perlukan cadangan gaya atau bantuan saiz? Hubungi stylist peribadi VELLUM secara langsung di WhatsApp.
+                  Perlukan cadangan gaya atau bantuan saiz? Hubungi stylist peribadi ELFY secara langsung di WhatsApp.
                 </p>
               </div>
             </div>

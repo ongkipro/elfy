@@ -1,4 +1,4 @@
-# Release Manifest — vellum
+# Release Manifest — elfy
 
 Release-ID: UNSET
 Base: UNSET

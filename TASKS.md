@@ -1,7 +1,7 @@
-# TASKS — VELLUM Storefront (Headless Shopify Malaysia)
+# TASKS — ELFY Storefront (Headless Shopify Malaysia)
 
 ## Phase 1: Foundation & Shopify GraphQL SDK
-- [x] **TASK-01**: Setup Astro 5 project with TypeScript, Tailwind CSS, and Lucide icons configured with VELLUM design tokens.
+- [x] **TASK-01**: Setup Astro 5 project with TypeScript, Tailwind CSS, and Lucide icons configured with ELFY design tokens.
   - *Done when*: `pnpm dev` builds cleanly, Tailwind classes compile, and TypeScript passes `pnpm tsc --noEmit`.
 - [x] **TASK-02**: Implement Shopify Storefront GraphQL Client (`src/lib/shopify/client.ts`).
   - *Done when*: Pinned to Storefront API `2025-01`, typed request/response handlers with error wrapping, `@inContext` support for `MS` and `EN`.
@@ -14,7 +14,7 @@
 - [x] **TASK-05**: Implement interactive `CartDrawer` island with Free Shipping progress bar (RM threshold) and Malaysian payment method badges.
   - *Done when*: Drawer slides open smoothly upon add-to-cart, updates quantities optimistically, and checkout button directs to Shopify checkout URL.
 
-## Phase 3: Merchandising & Fashion Product Experience (VELLUM)
+## Phase 3: Merchandising & Fashion Product Experience (ELFY)
 - [x] **TASK-06**: Build Shoe Size Converter & Sizing Guide Modal component.
   - *Done when*: Switcher displays EU, UK, US, and Foot Length in CM with clear fit recommendations (e.g. "True to size / Ambil 1 saiz lebih besar jika kaki lebar").
 - [x] **TASK-07**: Build Watch Specification Sheet component.
@@ -26,6 +26,6 @@
 - [x] **TASK-09**: Implement Dual-Locale Routing (`/en` and `/ms`) with subpath i18n middleware.
   - *Done when*: Switching locales switches UI strings and passes matching language code to Shopify `@inContext`.
 - [x] **TASK-10**: Build Floating WhatsApp Concierge Order Button with auto-populated message.
-  - *Done when*: Clicking sends pre-filled message: "Hai VELLUM, saya nak tanya pasal [Product Name] - [Variant] (RM XXX): [URL]".
+  - *Done when*: Clicking sends pre-filled message: "Hai ELFY, saya nak tanya pasal [Product Name] - [Variant] (RM XXX): [URL]".
 - [x] **TASK-11**: Schema.org JSON-LD & OpenGraph Generator for Fashion PDPs.
   - *Done when*: Google Rich Results Test validates Product, Offer, and Availability schemas.

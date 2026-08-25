@@ -34,7 +34,7 @@ const jsonLd = {
   description: title,
   brand: {
     '@type': 'Brand',
-    name: 'VELLUM',
+    name: 'ELFY',
   },
   offers: {
     '@type': 'Offer',
@@ -45,13 +45,13 @@ const jsonLd = {
 };
 ---
 
-<Layout title={`${title} | VELLUM Malaysia`} description={`${title} - VELLUM Kuala Lumpur`}>
+<Layout title={`${title} | ELFY Malaysia`} description={`${title} - ELFY Kuala Lumpur`}>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
   <!-- Breadcrumbs Bar -->
   <div class="bg-[#F7F4EC]/60 border-b border-[#E8E3DA] py-3 sm:py-3.5">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 text-[10px] sm:text-[11px] text-neutral-500 uppercase tracking-widest flex items-center gap-2 overflow-x-auto whitespace-nowrap">
-      <a href="/" class="hover:text-neutral-950 transition-colors">VELLUM</a>
+      <a href="/" class="hover:text-neutral-950 transition-colors">ELFY</a>
       <span>/</span>
       <a href={`/collections/${isShoe ? 'shoes' : 'watches'}`} class="hover:text-neutral-950 transition-colors">
         {isShoe ? 'Footwear' : 'Timepieces'}
@@ -90,7 +90,7 @@ const jsonLd = {
               Padanan Gaya Sempurna
             </span>
             <h2 class="font-serif text-xl sm:text-2xl font-bold text-neutral-950">
-              {isShoe ? 'Padankan dengan Jam Tangan' : 'Padankan dengan Kasut VELLUM'}
+              {isShoe ? 'Padankan dengan Jam Tangan' : 'Padankan dengan Kasut ELFY'}
             </h2>
           </div>
 

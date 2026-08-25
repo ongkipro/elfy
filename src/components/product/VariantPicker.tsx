@@ -138,7 +138,7 @@ export function VariantPicker({ product, locale = 'ms' }: VariantPickerProps) {
               </span>
               <span className="text-[11px] text-neutral-600">
                 {locale === 'ms'
-                  ? 'Termasuk Kotak Hadiah Premium & Kad Jaminan VELLUM'
+                  ? 'Termasuk Kotak Hadiah Premium & Kad Jaminan ELFY'
                   : 'Includes Luxury Gift Box & Official Warranty Card'}
               </span>
             </div>
@@ -266,8 +266,8 @@ export function VariantPicker({ product, locale = 'ms' }: VariantPickerProps) {
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
           <span className="font-medium text-[11px]">
             {locale === 'ms'
-              ? 'Khidmat Pelanggan VELLUM Online • Balas Segera < 5 Minit'
-              : 'VELLUM Concierge Online • Quick Response < 5 Mins'}
+              ? 'Khidmat Pelanggan ELFY Online • Balas Segera < 5 Minit'
+              : 'ELFY Concierge Online • Quick Response < 5 Mins'}
           </span>
         </div>
         <a

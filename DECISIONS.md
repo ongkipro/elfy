@@ -1,4 +1,4 @@
-# Decision Register — vellum
+# Decision Register — elfy
 
 Updated: 2026-08-24
 

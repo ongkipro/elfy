@@ -1,4 +1,4 @@
-# Observability Contract — vellum
+# Observability Contract — elfy
 
 Updated: 2026-08-24
 Status: REQUIRED

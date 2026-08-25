@@ -1,4 +1,4 @@
-# Development Kit — VELLUM Storefront (Astro 5 + TypeScript + Tailwind + Lucide)
+# Development Kit — ELFY Storefront (Astro 5 + TypeScript + Tailwind + Lucide)
 
 ## 1. Project Directory Structure
 
@@ -14,7 +14,7 @@
 │   │   └── Layout.astro
 │   ├── components/
 │   │   ├── common/
-│   │   │   ├── Header.astro (VELLUM brand identity)
+│   │   │   ├── Header.astro (ELFY brand identity)
 │   │   │   ├── Footer.astro (Payment trust badges)
 │   │   │   ├── WhatsAppFloating.astro
 │   │   │   └── LocaleSwitcher.astro
@@ -222,13 +222,13 @@ export async function shopifyFetch<T>({
   });
 
   if (!response.ok) {
-    throw new Error(`[VELLUM Shopify API Error] ${response.status}: ${response.statusText}`);
+    throw new Error(`[ELFY Shopify API Error] ${response.status}: ${response.statusText}`);
   }
 
   const json = await response.json();
 
   if (json.errors) {
-    console.error('[VELLUM Shopify GraphQL Error Details]:', json.errors);
+    console.error('[ELFY Shopify GraphQL Error Details]:', json.errors);
     throw new Error(json.errors[0]?.message || 'GraphQL Query Execution Failed');
   }
 
@@ -447,8 +447,8 @@ export function generateWhatsAppOrderUrl({
 }: WhatsAppOrderParams): string {
   const text =
     language === 'MS'
-      ? `Hai VELLUM! Saya berminat nak order:\n\n*${productTitle}*\n${variantTitle ? `Variasi/Saiz: ${variantTitle}\n` : ''}Harga: ${formatRinggit(price)}\nLink: ${productUrl}\n\nAda stok lagi ke?`
-      : `Hi VELLUM! I would like to enquire / order:\n\n*${productTitle}*\n${variantTitle ? `Variant/Size: ${variantTitle}\n` : ''}Price: ${formatRinggit(price)}\nLink: ${productUrl}\n\nIs this available?`;
+      ? `Hai ELFY! Saya berminat nak order:\n\n*${productTitle}*\n${variantTitle ? `Variasi/Saiz: ${variantTitle}\n` : ''}Harga: ${formatRinggit(price)}\nLink: ${productUrl}\n\nAda stok lagi ke?`
+      : `Hi ELFY! I would like to enquire / order:\n\n*${productTitle}*\n${variantTitle ? `Variant/Size: ${variantTitle}\n` : ''}Price: ${formatRinggit(price)}\nLink: ${productUrl}\n\nIs this available?`;
 
   return `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
 }
@@ -577,11 +577,11 @@ const specs = [
 
 ```bash
 # Shopify Storefront API Credentials
-PUBLIC_SHOPIFY_STORE_DOMAIN="vellum-my.myshopify.com"
-PUBLIC_SHOPIFY_STOREFRONT_TOKEN="your_public_storefront_access_token"
+PUBLIC_SHOPIFY_STORE_DOMAIN="vvxgev-3p.myshopify.com"
+PUBLIC_SHOPIFY_STOREFRONT_TOKEN="d19296e111796d6877f879956789185d"
 
 # Localization & Merchant Contact
-PUBLIC_STORE_NAME="VELLUM"
+PUBLIC_STORE_NAME="ELFY"
 PUBLIC_DEFAULT_LOCALE="ms"
 PUBLIC_SUPPORTED_LOCALES="ms,en"
 PUBLIC_WHATSAPP_NUMBER="60123456789"

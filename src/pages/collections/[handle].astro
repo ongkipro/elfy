@@ -7,7 +7,7 @@ const { handle = 'all' } = Astro.params;
 const allProducts = await getProducts();
 
 let title = 'Semua Koleksi';
-let subtitle = 'Jelajahi rekaan penuh kasut dan jam tangan eksklusif VELLUM Kuala Lumpur.';
+let subtitle = 'Jelajahi rekaan penuh kasut dan jam tangan eksklusif ELFY Kuala Lumpur.';
 
 if (handle === 'shoes') {
   title = 'Koleksi Footwear & Sneakers';
@@ -22,7 +22,7 @@ const watchCount = allProducts.filter((p) => p.productType === 'Watches').length
 const totalCount = allProducts.length;
 ---
 
-<Layout title={`${title} | VELLUM Malaysia`} description={subtitle}>
+<Layout title={`${title} | ELFY Malaysia`} description={subtitle}>
   <CollectionExplorer
     client:load
     initialProducts={allProducts}

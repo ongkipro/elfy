@@ -4,7 +4,7 @@ export const en = {
     footwear: 'Footwear',
     timepieces: 'Timepieces',
     collections: 'Collections',
-    about: 'About VELLUM',
+    about: 'About ELFY',
     cart: 'Shopping Bag',
   },
   announcement: {
@@ -71,7 +71,7 @@ export const en = {
     securePayment: 'Guaranteed Safe & Secure Checkout:',
   },
   footer: {
-    aboutText: 'VELLUM is a contemporary Malaysian sartorial label celebrating high-craftsmanship footwear and curated timepieces.',
+    aboutText: 'ELFY is a contemporary Malaysian sartorial label celebrating high-craftsmanship footwear and curated timepieces.',
     customerCare: 'Customer Care',
     shippingPolicy: 'Shipping Policy',
     returns: 'Size Exchange & Returns',

@@ -96,7 +96,7 @@ export function ShoeProductDetail({ product, locale = 'ms' }: ShoeProductDetailP
       {/* Category Tag & Title */}
       <div>
         <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[#B89768] mb-1">
-          <span>VELLUM Footwear • Kasut Lelaki</span>
+          <span>ELFY Footwear • Kasut Lelaki</span>
         </div>
         <h1 className="font-serif text-2xl sm:text-3xl font-bold text-neutral-950 leading-tight">
           {product.title}

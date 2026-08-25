@@ -1,0 +1,60 @@
+---
+import { Ruler, CheckCircle2 } from '@lucide/astro';
+
+interface Props {
+  locale?: string;
+}
+
+const { locale = 'ms' } = Astro.props;
+
+const sizeChart = [
+  { eu: '39', uk: '5.5', us: '6.5', cm: '24.5' },
+  { eu: '40', uk: '6.5', us: '7.5', cm: '25.0' },
+  { eu: '41', uk: '7.5', us: '8.5', cm: '26.0' },
+  { eu: '42', uk: '8.0', us: '9.0', cm: '26.5' },
+  { eu: '43', uk: '9.0', us: '10.0', cm: '27.5' },
+  { eu: '44', uk: '9.5', us: '10.5', cm: '28.0' },
+  { eu: '45', uk: '10.5', us: '11.5', cm: '29.0' },
+];
+---
+
+<div class="border border-[#E8E3DA] rounded-xl p-5 bg-[#FDFBF7]">
+  <div class="flex items-center gap-2 mb-3">
+    <Ruler class="w-4 h-4 text-[#B89768]" />
+    <h3 class="font-semibold text-neutral-900 text-xs tracking-wider uppercase">
+      {locale === 'ms' ? 'Panduan Saiz Kasut (Size Conversion Chart)' : 'Shoe Sizing Guide'}
+    </h3>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="w-full text-xs text-left border-collapse">
+      <thead>
+        <tr class="border-b border-[#E8E3DA] text-neutral-500 font-medium">
+          <th class="py-2 px-2.5">EU</th>
+          <th class="py-2 px-2.5">UK</th>
+          <th class="py-2 px-2.5">US</th>
+          <th class="py-2 px-2.5">Panjang Kaki (CM)</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-[#E8E3DA]">
+        {sizeChart.map((row) => (
+          <tr class="hover:bg-white transition-colors">
+            <td class="py-2 px-2.5 font-bold text-neutral-900">{row.eu}</td>
+            <td class="py-2 px-2.5 text-neutral-600">{row.uk}</td>
+            <td class="py-2 px-2.5 text-neutral-600">{row.us}</td>
+            <td class="py-2 px-2.5 text-neutral-900 font-mono">{row.cm} cm</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-3 flex items-start gap-2 text-xs text-neutral-600 bg-white p-3 rounded-lg border border-[#E8E3DA]">
+    <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+    <p>
+      {locale === 'ms'
+        ? 'Tips: Ukur dari tumit hingga hujung jari kaki. Jika tapak kaki anda lebar, pilih 1 saiz lebih besar untuk keselesaan optimum.'
+        : 'Tip: Measure from heel to longest toe. If you have wider feet, we recommend choosing 1 size up.'}
+    </p>
+  </div>
+</div>

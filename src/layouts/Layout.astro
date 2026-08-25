@@ -1,0 +1,56 @@
+---
+import '../styles/global.css';
+import Header from '../components/common/Header.astro';
+import Footer from '../components/common/Footer.astro';
+import { CartDrawer } from '../components/cart/CartDrawer';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'VELLUM | Curated Footwear & Precision Timepieces (Malaysia)',
+  description = 'Jenama kasut lelaki berkusyen ergonomik dan koleksi jam tangan eksklusif di Malaysia. Penghantaran percuma Semenanjung & bayaran selamat melalui FPX.',
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en-MY" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO & Metadata -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_MY" />
+
+    <!-- Google Fonts for Editorial Luxury -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="min-h-screen flex flex-col bg-[#FDFBF7] text-neutral-900 selection:bg-[#B89768]/20 selection:text-neutral-900">
+    <Header currentPath={currentPath} />
+
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <!-- Client-side Cart Island -->
+    <CartDrawer client:idle />
+  </body>
+</html>

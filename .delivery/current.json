@@ -1,0 +1,14 @@
+{
+  "activeRun": null,
+  "lastRun": {
+    "finishedAt": "2026-08-24T11:20:27Z",
+    "result": "PASS",
+    "runId": "RUN-20260824T112023Z-536290de"
+  },
+  "observedHead": null,
+  "observedState": "PLANNED",
+  "project": "vellum",
+  "schemaVersion": 1,
+  "statusAuthority": "STATUS.md",
+  "updatedAt": "2026-08-24T11:20:27Z"
+}

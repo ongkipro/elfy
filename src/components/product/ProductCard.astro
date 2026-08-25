@@ -1,0 +1,95 @@
+---
+import type { Product } from '../../lib/shopify/types';
+import { formatRinggit } from '../../lib/utils/currency';
+import { Sparkles, ArrowUpRight } from '@lucide/astro';
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+
+const productUrl = `/products/${product.handle}`;
+const title = product.title;
+const minPrice = product.priceRange.minVariantPrice.amount;
+const comparePrice = product.compareAtPriceRange?.minVariantPrice?.amount;
+const hasDiscount = Boolean(comparePrice && parseFloat(comparePrice) > parseFloat(minPrice));
+const isShoe = product.productType === 'Shoes';
+---
+
+<div class="group relative flex flex-col bg-white rounded-xl sm:rounded-2xl border border-[#E8E3DA] overflow-hidden hover:border-neutral-400 hover:shadow-md transition-all duration-300 w-full">
+  <!-- Image Container -->
+  <a href={productUrl} class="relative aspect-square w-full overflow-hidden bg-stone-100 block">
+    <img
+      src={product.featuredImage?.url || '/images/placeholder.jpg'}
+      alt={product.featuredImage?.altText || title}
+      class="h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+      loading="lazy"
+    />
+
+    <!-- Badge Tag Top Left -->
+    <div class="absolute top-2 left-2 sm:top-3 sm:left-3 flex flex-col gap-1 z-10">
+      {hasDiscount && (
+        <span class="bg-[#121212] text-stone-100 text-[8px] sm:text-[9px] font-bold uppercase tracking-wider px-1.5 sm:px-2 py-0.5 rounded-full shadow-xs">
+          Best Value
+        </span>
+      )}
+      <span class="bg-[#F7F4EC]/90 backdrop-blur-xs text-neutral-800 text-[8px] sm:text-[9px] font-bold uppercase tracking-widest px-1.5 sm:px-2 py-0.5 rounded-full border border-[#E8E3DA]">
+        {isShoe ? 'Footwear' : 'Horology'}
+      </span>
+    </div>
+
+    <!-- Quick Link Arrow Top Right (Desktop Only) -->
+    <div class="absolute top-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 p-1 rounded-full shadow-xs hidden sm:block">
+      <ArrowUpRight class="w-3.5 h-3.5 text-neutral-900" />
+    </div>
+  </a>
+
+  <!-- Content Info -->
+  <div class="p-2.5 sm:p-4 flex-1 flex flex-col justify-between space-y-2 sm:space-y-3 bg-[#FDFBF7]/50">
+    <div class="space-y-0.5 sm:space-y-1">
+      <div class="flex items-center gap-1 text-[8px] sm:text-[10px] text-[#B89768] font-bold uppercase tracking-widest">
+        <Sparkles class="w-2.5 h-2.5" />
+        <span>VELLUM</span>
+      </div>
+
+      <h3 class="font-serif text-xs sm:text-sm font-bold text-neutral-950 line-clamp-1 group-hover:text-[#B89768] transition-colors leading-snug">
+        <a href={productUrl}>
+          {title}
+        </a>
+      </h3>
+
+      {isShoe && product.variants.nodes.length > 1 && (
+        <p class="text-[9px] sm:text-[11px] text-neutral-500 font-mono">
+          Saiz EU 39–44
+        </p>
+      )}
+      {!isShoe && (
+        <p class="text-[9px] sm:text-[11px] text-neutral-500 line-clamp-1">
+          Kotak Hadiah Termasuk
+        </p>
+      )}
+    </div>
+
+    <!-- Pricing & Action CTA -->
+    <div class="pt-1.5 sm:pt-2 border-t border-[#E8E3DA] flex items-center justify-between gap-1">
+      <div class="flex flex-col min-w-0">
+        <span class="font-mono text-xs sm:text-sm lg:text-base font-bold text-neutral-950 truncate">
+          {formatRinggit(minPrice)}
+        </span>
+        {hasDiscount && comparePrice && (
+          <span class="font-mono text-[8px] sm:text-[10px] text-neutral-400 line-through truncate">
+            {formatRinggit(comparePrice)}
+          </span>
+        )}
+      </div>
+
+      <a
+        href={productUrl}
+        class="text-[9px] sm:text-[11px] font-bold uppercase tracking-wider text-neutral-900 bg-[#F7F4EC] hover:bg-neutral-900 hover:text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg border border-[#E8E3DA] transition-colors shrink-0"
+      >
+        Lihat
+      </a>
+    </div>
+  </div>
+</div>

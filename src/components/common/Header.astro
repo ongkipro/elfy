@@ -1,0 +1,224 @@
+---
+import { ShoppingBag, Menu, X, ArrowRight, ShieldCheck, Truck } from '@lucide/astro';
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '' } = Astro.props;
+---
+
+<!-- Announcement Bar (Slim Luxury) -->
+<div class="bg-[#121212] text-stone-300 text-[11px] py-2 px-4 text-center tracking-wider flex items-center justify-center gap-2 border-b border-neutral-800">
+  <span class="bg-[#B89768] text-neutral-950 text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">
+    PROMOSI
+  </span>
+  <span class="font-medium text-stone-200">
+    PENGHANTARAN PERCUMA SEMENANJUNG UNTUK PESANAN RM 150 KE ATAS
+  </span>
+</div>
+
+<!-- Main Sticky Header -->
+<header class="sticky top-0 z-40 bg-[#FDFBF7]/95 backdrop-blur-md border-b border-[#E8E3DA] transition-all">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 grid grid-cols-3 items-center">
+    
+    <!-- 1. LEFT COLUMN: Mobile Hamburger & Desktop Nav Links -->
+    <div class="flex items-center justify-start gap-6">
+      <!-- Mobile Menu Button (Hamburger) -->
+      <button
+        type="button"
+        id="mobile-menu-open-btn"
+        class="md:hidden p-2 text-neutral-900 hover:text-[#B89768] transition-colors cursor-pointer -ml-2"
+        aria-label="Buka Menu"
+      >
+        <Menu class="w-6 h-6" />
+      </button>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6 lg:gap-8 text-xs font-bold uppercase tracking-[0.15em] text-neutral-800">
+        <a
+          href="/collections/shoes"
+          class={`relative py-1 transition-colors hover:text-[#B89768] ${
+            currentPath.includes('/collections/shoes') ? 'text-[#B89768] font-bold' : ''
+          }`}
+        >
+          Footwear
+          {currentPath.includes('/collections/shoes') && (
+            <span class="absolute bottom-0 left-0 right-0 h-[2px] bg-[#B89768] rounded-full"></span>
+          )}
+        </a>
+
+        <a
+          href="/collections/watches"
+          class={`relative py-1 transition-colors hover:text-[#B89768] ${
+            currentPath.includes('/collections/watches') ? 'text-[#B89768] font-bold' : ''
+          }`}
+        >
+          Timepieces
+          {currentPath.includes('/collections/watches') && (
+            <span class="absolute bottom-0 left-0 right-0 h-[2px] bg-[#B89768] rounded-full"></span>
+          )}
+        </a>
+
+        <a
+          href="/collections/all"
+          class={`relative py-1 transition-colors hover:text-[#B89768] ${
+            currentPath === '/collections/all' ? 'text-[#B89768] font-bold' : ''
+          }`}
+        >
+          Collections
+          {currentPath === '/collections/all' && (
+            <span class="absolute bottom-0 left-0 right-0 h-[2px] bg-[#B89768] rounded-full"></span>
+          )}
+        </a>
+      </nav>
+    </div>
+
+    <!-- 2. CENTER COLUMN: Mathematically Centered Brand Logo -->
+    <div class="flex items-center justify-center text-center">
+      <a href="/" class="inline-flex flex-col items-center group py-1">
+        <span class="font-serif text-2xl sm:text-3xl font-bold tracking-[0.2em] text-neutral-950 uppercase group-hover:text-[#B89768] transition-colors leading-none">
+          VELLUM
+        </span>
+        <span class="block text-[8px] sm:text-[9px] uppercase tracking-[0.35em] text-[#8C827A] mt-1 font-sans font-medium">
+          Kuala Lumpur
+        </span>
+      </a>
+    </div>
+
+    <!-- 3. RIGHT COLUMN: Shopping Bag Button -->
+    <div class="flex items-center justify-end gap-3 sm:gap-4">
+      <!-- Shopping Bag Button -->
+      <button
+        id="cart-trigger-button"
+        class="relative flex items-center gap-2 p-2.5 text-neutral-900 bg-white hover:bg-stone-50 rounded-xl border border-[#E8E3DA] hover:border-neutral-400 transition-all cursor-pointer shadow-2xs group"
+        aria-label="Troli Pembelian"
+        onclick="window.dispatchEvent(new CustomEvent('toggle-cart'))"
+      >
+        <ShoppingBag class="w-4 h-4 text-neutral-900 group-hover:text-[#B89768] transition-colors" />
+        <span class="hidden sm:inline text-xs font-bold uppercase tracking-wider text-neutral-800">
+          Beg
+        </span>
+        <span
+          id="cart-badge-count"
+          class="bg-[#121212] text-stone-100 text-[10px] font-bold min-w-4 h-4 px-1 rounded-full flex items-center justify-center font-mono"
+        >
+          0
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Slide-over Drawer -->
+  <div id="mobile-menu-drawer" class="fixed inset-0 z-50 hidden transition-opacity">
+    <!-- Backdrop -->
+    <div id="mobile-menu-backdrop" class="fixed inset-0 bg-black/60 backdrop-blur-xs"></div>
+
+    <!-- Drawer Panel -->
+    <div class="relative w-full max-w-xs bg-[#FDFBF7] h-full shadow-2xl flex flex-col z-10 border-r border-[#E8E3DA]">
+      <!-- Drawer Header -->
+      <div class="p-5 border-b border-[#E8E3DA] flex items-center justify-between bg-white">
+        <div class="text-left">
+          <span class="font-serif text-xl font-bold tracking-widest text-neutral-950 uppercase block">
+            VELLUM
+          </span>
+          <span class="block text-[8px] uppercase tracking-[0.25em] text-[#8C827A]">
+            Kuala Lumpur
+          </span>
+        </div>
+
+        <button
+          type="button"
+          id="mobile-menu-close-btn"
+          class="p-2 text-neutral-600 hover:text-neutral-950 transition-colors cursor-pointer"
+          aria-label="Tutup Menu"
+        >
+          <X class="w-5 h-5" />
+        </button>
+      </div>
+
+      <!-- Nav Links -->
+      <div class="p-6 flex-1 overflow-y-auto space-y-6">
+        <div class="space-y-1">
+          <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#B89768] block mb-2">
+            Kategori Koleksi
+          </span>
+
+          <a
+            href="/"
+            class="flex items-center justify-between py-3 text-sm font-bold uppercase tracking-wider text-neutral-900 border-b border-[#E8E3DA]"
+          >
+            <span>Home</span>
+            <ArrowRight class="w-4 h-4 text-neutral-400" />
+          </a>
+
+          <a
+            href="/collections/shoes"
+            class="flex items-center justify-between py-3 text-sm font-bold uppercase tracking-wider text-neutral-900 border-b border-[#E8E3DA]"
+          >
+            <span>Footwear &amp; Kasut</span>
+            <ArrowRight class="w-4 h-4 text-neutral-400" />
+          </a>
+
+          <a
+            href="/collections/watches"
+            class="flex items-center justify-between py-3 text-sm font-bold uppercase tracking-wider text-neutral-900 border-b border-[#E8E3DA]"
+          >
+            <span>Timepieces &amp; Jam Tangan</span>
+            <ArrowRight class="w-4 h-4 text-neutral-400" />
+          </a>
+
+          <a
+            href="/collections/all"
+            class="flex items-center justify-between py-3 text-sm font-bold uppercase tracking-wider text-neutral-900 border-b border-[#E8E3DA]"
+          >
+            <span>Semua Koleksi</span>
+            <ArrowRight class="w-4 h-4 text-neutral-400" />
+          </a>
+        </div>
+
+        <!-- Trust Mini Banner -->
+        <div class="p-4 bg-[#F7F4EC] rounded-xl border border-[#E8E3DA] space-y-2.5 text-xs text-neutral-700">
+          <div class="flex items-center gap-2">
+            <Truck class="w-3.5 h-3.5 text-[#B89768]" />
+            <span class="text-[11px]">Free Shipping Semenanjung (RM 150+)</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <ShieldCheck class="w-3.5 h-3.5 text-[#B89768]" />
+            <span class="text-[11px]">Jaminan Tukar Saiz 7 Hari</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drawer Footer -->
+      <div class="p-5 border-t border-[#E8E3DA] bg-white text-center">
+        <p class="text-[11px] font-mono text-neutral-500">
+          FPX • DuitNow • TNG • SPayLater
+        </p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const openBtn = document.getElementById('mobile-menu-open-btn');
+  const closeBtn = document.getElementById('mobile-menu-close-btn');
+  const backdrop = document.getElementById('mobile-menu-backdrop');
+  const drawer = document.getElementById('mobile-menu-drawer');
+
+  const toggleMenu = (show: boolean) => {
+    if (drawer) {
+      if (show) {
+        drawer.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+      } else {
+        drawer.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }
+    }
+  };
+
+  openBtn?.addEventListener('click', () => toggleMenu(true));
+  closeBtn?.addEventListener('click', () => toggleMenu(false));
+  backdrop?.addEventListener('click', () => toggleMenu(false));
+</script>

@@ -1,0 +1,143 @@
+---
+import { ShieldCheck, Truck, RotateCcw, CreditCard } from '@lucide/astro';
+import { getTranslations } from '../../lib/i18n';
+
+interface Props {
+  locale?: string;
+}
+
+const { locale = 'ms' } = Astro.props;
+const t = getTranslations(locale);
+const currentLocale = locale === 'en' ? 'en' : 'ms';
+---
+
+<!-- Value Proposition Grid -->
+<section class="border-t border-[#E8E3DA] bg-[#F7F4EC] py-10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="flex items-start gap-3.5">
+      <Truck class="w-6 h-6 text-[#B89768] shrink-0 mt-0.5" />
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-wider text-neutral-900">
+          {locale === 'ms' ? 'Penghantaran Pantas' : 'Fast Domestic Delivery'}
+        </h4>
+        <p class="text-xs text-neutral-600 mt-1">
+          {locale === 'ms' ? '2-3 hari Semenanjung, 3-5 hari Sabah & Sarawak.' : '2-3 days Peninsular, 3-5 days East Malaysia.'}
+        </p>
+      </div>
+    </div>
+
+    <div class="flex items-start gap-3.5">
+      <ShieldCheck class="w-6 h-6 text-[#B89768] shrink-0 mt-0.5" />
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-wider text-neutral-900">
+          {locale === 'ms' ? '100% Ketulenan Dijamin' : '100% Authentic Guarantee'}
+        </h4>
+        <p class="text-xs text-neutral-600 mt-1">
+          {locale === 'ms' ? 'Material kulit tulen & cermin Sapphire berkualiti.' : 'Genuine leather & scratch-resistant Sapphire.'}
+        </p>
+      </div>
+    </div>
+
+    <div class="flex items-start gap-3.5">
+      <RotateCcw class="w-6 h-6 text-[#B89768] shrink-0 mt-0.5" />
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-wider text-neutral-900">
+          {locale === 'ms' ? 'Tukar Saiz 7 Hari' : '7-Day Size Exchange'}
+        </h4>
+        <p class="text-xs text-neutral-600 mt-1">
+          {locale === 'ms' ? 'Saiz tak muat? Kami bantu tukar tanpa kerumitan.' : 'Size does not fit? Seamless exchange support.'}
+        </p>
+      </div>
+    </div>
+
+    <div class="flex items-start gap-3.5">
+      <CreditCard class="w-6 h-6 text-[#B89768] shrink-0 mt-0.5" />
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-wider text-neutral-900">
+          {locale === 'ms' ? 'Pembayaran Selamat' : 'Secure Payment'}
+        </h4>
+        <p class="text-xs text-neutral-600 mt-1">
+          {locale === 'ms' ? 'Bayaran pantas melalui FPX, DuitNow, TNG & SPayLater.' : 'Fast payments via FPX, DuitNow, TNG & SPayLater.'}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer Main -->
+<footer class="bg-[#121212] text-stone-300 pt-14 pb-8 border-t border-neutral-800 text-xs">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
+    <!-- Brand Info -->
+    <div class="space-y-3 md:col-span-1">
+      <span class="font-serif text-2xl font-bold tracking-widest text-stone-100 uppercase">
+        VELLUM
+      </span>
+      <p class="text-stone-400 leading-relaxed text-xs">
+        {t.footer.aboutText}
+      </p>
+      <p class="text-[11px] text-stone-500 font-mono">
+        Kuala Lumpur, Malaysia
+      </p>
+    </div>
+
+    <!-- Quick Links: Footwear -->
+    <div>
+      <h5 class="text-xs font-bold uppercase tracking-widest text-stone-100 mb-3">
+        {t.nav.footwear}
+      </h5>
+      <ul class="space-y-2 text-stone-400">
+        <li><a href={`/${currentLocale}/collections/shoes`} class="hover:text-stone-100 transition-colors">Penny Loafers</a></li>
+        <li><a href={`/${currentLocale}/collections/shoes`} class="hover:text-stone-100 transition-colors">Chelsea Suede Boots</a></li>
+        <li><a href={`/${currentLocale}/collections/shoes`} class="hover:text-stone-100 transition-colors">Classic Oxfords</a></li>
+        <li><a href={`/${currentLocale}/collections/shoes`} class="hover:text-stone-100 transition-colors">Court Leather Sneakers</a></li>
+      </ul>
+    </div>
+
+    <!-- Quick Links: Timepieces -->
+    <div>
+      <h5 class="text-xs font-bold uppercase tracking-widest text-stone-100 mb-3">
+        {t.nav.timepieces}
+      </h5>
+      <ul class="space-y-2 text-stone-400">
+        <li><a href={`/${currentLocale}/collections/watches`} class="hover:text-stone-100 transition-colors">Automatic 39mm</a></li>
+        <li><a href={`/${currentLocale}/collections/watches`} class="hover:text-stone-100 transition-colors">Heritage Chronograph 41mm</a></li>
+        <li><a href={`/${currentLocale}/collections/watches`} class="hover:text-stone-100 transition-colors">Slim Dress Quartz 38mm</a></li>
+        <li><a href={`/${currentLocale}/collections/watches`} class="hover:text-stone-100 transition-colors">Italian Leather Straps</a></li>
+      </ul>
+    </div>
+
+    <!-- Customer Care & Security -->
+    <div>
+      <h5 class="text-xs font-bold uppercase tracking-widest text-stone-100 mb-3">
+        {t.footer.customerCare}
+      </h5>
+      <ul class="space-y-2 text-stone-400">
+        <li><span class="text-stone-400">{t.footer.shippingPolicy} (Pos Laju / J&T)</span></li>
+        <li><span class="text-stone-400">{t.footer.returns} (7 Hari)</span></li>
+        <li><span class="text-stone-400">{t.footer.faq}</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Bottom Bar: Malaysian Payment Badges -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-6 border-t border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="text-[11px] text-stone-400">
+      &copy; {new Date().getFullYear()} VELLUM. {t.footer.rights}
+    </div>
+
+    <!-- Payment Badges Pill -->
+    <div class="flex items-center gap-2 flex-wrap justify-center text-[10px] font-mono text-stone-300 bg-neutral-900 px-3 py-1.5 rounded-lg border border-neutral-800">
+      <span class="font-bold text-amber-400">FPX</span>
+      <span>•</span>
+      <span class="font-bold text-pink-400">DuitNow QR</span>
+      <span>•</span>
+      <span class="font-bold text-blue-400">Touch 'n Go</span>
+      <span>•</span>
+      <span class="font-bold text-emerald-400">GrabPay</span>
+      <span>•</span>
+      <span>Visa / Mastercard</span>
+      <span>•</span>
+      <span class="font-bold text-orange-400">SPayLater</span>
+    </div>
+  </div>
+</footer>

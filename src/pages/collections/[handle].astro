@@ -1,0 +1,36 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getProducts } from '../../lib/shopify/client';
+import CollectionExplorer from '../../components/collection/CollectionExplorer';
+
+const { handle = 'all' } = Astro.params;
+const allProducts = await getProducts();
+
+let title = 'Semua Koleksi';
+let subtitle = 'Jelajahi rekaan penuh kasut dan jam tangan eksklusif VELLUM Kuala Lumpur.';
+
+if (handle === 'shoes') {
+  title = 'Koleksi Footwear & Sneakers';
+  subtitle = 'Rekaan kasut sukan kasual dan santai dengan kusyen ergonomik lembut.';
+} else if (handle === 'watches') {
+  title = 'Koleksi Timepieces & Jam Tangan';
+  subtitle = 'Koleksi jam tangan eksklusif berketepatan tinggi disertakan kotak hadiah premium.';
+}
+
+const shoeCount = allProducts.filter((p) => p.productType === 'Shoes').length;
+const watchCount = allProducts.filter((p) => p.productType === 'Watches').length;
+const totalCount = allProducts.length;
+---
+
+<Layout title={`${title} | VELLUM Malaysia`} description={subtitle}>
+  <CollectionExplorer
+    client:load
+    initialProducts={allProducts}
+    currentHandle={handle}
+    shoeCount={shoeCount}
+    watchCount={watchCount}
+    totalCount={totalCount}
+    title={title}
+    subtitle={subtitle}
+  />
+</Layout>

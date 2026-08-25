@@ -1,0 +1,205 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getProducts } from '../lib/shopify/client';
+import { ProductSlider } from '../components/product/ProductSlider';
+import { ShieldCheck, Truck, RotateCcw, ArrowRight, Sparkles, CheckCircle2, Footprints, Watch } from '@lucide/astro';
+
+const allProducts = await getProducts();
+const shoes = allProducts.filter((p) => p.productType === 'Shoes');
+const watches = allProducts.filter((p) => p.productType === 'Watches');
+---
+
+<Layout
+  title="VELLUM | Curated Footwear & Precision Timepieces (Malaysia)"
+  description="Koleksi kasut lelaki buatan tangan dan jam tangan eksklusif di Malaysia. Penghantaran percuma Semenanjung & bayaran selamat melalui FPX."
+>
+  <!-- FULL-WIDTH IMMERSIVE HERO SECTION -->
+  <section class="relative min-h-[560px] sm:min-h-[640px] lg:min-h-[740px] flex items-center justify-center overflow-hidden border-b border-neutral-800 bg-[#121212]">
+    <!-- Background Image with High-End Color Grading -->
+    <img
+      src="/images/hero-banner.jpg"
+      alt="VELLUM Sartorial Footwear and Timepieces Collection Background"
+      class="absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.55] contrast-[1.1] scale-102 select-none"
+      loading="eager"
+    />
+
+    <!-- Multi-Layered Cinematic Dark & Vignette Overlays -->
+    <div class="absolute inset-0 bg-gradient-to-t from-[#121212] via-[#121212]/50 to-[#121212]/75"></div>
+    <div class="absolute inset-0 bg-radial from-transparent via-[#121212]/30 to-[#121212]/85"></div>
+    
+    <!-- Ambient Gold Radial Glow in Center -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[700px] h-[350px] bg-[#B89768]/15 blur-[140px] pointer-events-none rounded-full"></div>
+    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center flex flex-col items-center justify-center">
+      <!-- Collection Release Badge (Frosted Glass) -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-[#B89768]/40 text-[#B89768] text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-5 sm:mb-6 shadow-md">
+        <Sparkles class="w-3.5 h-3.5" />
+        <span>Koleksi Rasmi 2025 • Kuala Lumpur</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-white uppercase leading-[1.12] drop-shadow-md max-w-4xl">
+        Sartorial Footwear &amp; Precision Timepieces
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="mt-4 sm:mt-6 text-xs sm:text-base text-stone-200 max-w-2xl mx-auto leading-relaxed font-normal drop-shadow-sm px-2">
+        Ketukangan kasut kulit berinsole ergonomik dan jam tangan berketepatan tinggi untuk gaya maskulin moden di seluruh Malaysia.
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-md sm:max-w-none">
+        <a
+          href="/collections/shoes"
+          class="w-full sm:w-auto bg-[#B89768] hover:bg-[#917349] text-neutral-950 font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-xl shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-102"
+        >
+          <Footprints class="w-4 h-4" />
+          <span>Beli Footwear ({shoes.length})</span>
+        </a>
+
+        <a
+          href="/collections/watches"
+          class="w-full sm:w-auto bg-black/50 hover:bg-black/80 text-white border border-white/30 backdrop-blur-md font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer hover:border-[#B89768] hover:scale-102 shadow-lg"
+        >
+          <Watch class="w-4 h-4" />
+          <span>Beli Timepieces ({watches.length})</span>
+        </a>
+      </div>
+
+      <!-- Floating Glass Trust Indicators Strip (Responsive Grid) -->
+      <div class="mt-10 sm:mt-14 w-full max-w-3xl bg-black/40 backdrop-blur-md rounded-2xl border border-white/10 p-3.5 sm:p-4 shadow-xl">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-left text-[11px] sm:text-xs text-stone-300">
+          <div class="flex items-center gap-2">
+            <Truck class="w-4 h-4 text-[#B89768] shrink-0" />
+            <span class="leading-tight">Free Shipping Semenanjung</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <RotateCcw class="w-4 h-4 text-[#B89768] shrink-0" />
+            <span class="leading-tight">Jaminan Tukar Saiz 7 Hari</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <ShieldCheck class="w-4 h-4 text-[#B89768] shrink-0" />
+            <span class="leading-tight">100% Tulen &amp; Ready Stock</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <CheckCircle2 class="w-4 h-4 text-[#B89768] shrink-0" />
+            <span class="leading-tight">FPX, DuitNow &amp; SPayLater</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1. DEDICATED SLIDER: FOOTWEAR & SNEAKERS -->
+  <ProductSlider
+    client:load
+    title="Koleksi Footwear & Sneakers Pilihan"
+    subtitle="Rekaan kasut kasual & formal dengan kusyen ergonomik untuk keselesaan harian di Malaysia."
+    categoryTag="VELLUM Footwear"
+    collectionHandle="shoes"
+    viewAllLabel="Lihat Semua Kasut"
+    products={shoes}
+  />
+
+  <!-- EDITORIAL CRAFTSMANSHIP INTERMISSION BANNER -->
+  <section class="bg-[#F7F4EC] border-t border-b border-[#E8E3DA] py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7 space-y-4">
+          <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-[#B89768]">
+            The VELLUM Standard
+          </span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-neutral-950 leading-tight">
+            Keseimbangan Sempurna Antara Ketukangan, Keselesaan &amp; Gaya
+          </h2>
+          <p class="text-xs sm:text-sm text-neutral-700 leading-relaxed">
+            Setiap rekaan kasut dan jam tangan VELLUM dihasilkan dengan standard ketukangan tinggi. Dari pemilihan insole lembut berdaya serap hentakan hingga pergerakan jam tangan berketepatan tinggi dengan kaca anti-calar.
+          </p>
+        </div>
+
+        <div class="lg:col-span-5 grid grid-cols-2 gap-3 text-xs">
+          <div class="p-4 bg-white rounded-2xl border border-[#E8E3DA] shadow-2xs">
+            <span class="font-mono text-2xl font-bold text-neutral-950 block">4.9 / 5.0</span>
+            <span class="text-neutral-600 mt-1 block">Purata kepuasan pelanggan di seluruh Malaysia.</span>
+          </div>
+          <div class="p-4 bg-white rounded-2xl border border-[#E8E3DA] shadow-2xs">
+            <span class="font-mono text-2xl font-bold text-[#B89768] block">Ready Stock</span>
+            <span class="text-neutral-600 mt-1 block">Dihantar terus dari Hub Kuala Lumpur.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. DEDICATED SLIDER: TIMEPIECES & WATCHES -->
+  <ProductSlider
+    client:load
+    title="Koleksi Timepieces & Jam Tangan Eksklusif"
+    subtitle="Koleksi jam tangan berketepatan tinggi dengan kaca mineral anti-calar & kemasan elegan."
+    categoryTag="VELLUM Horology"
+    collectionHandle="watches"
+    viewAllLabel="Lihat Semua Jam Tangan"
+    products={watches}
+  />
+
+  <!-- CATEGORY QUICK EXPLORER -->
+  <section class="border-t border-[#E8E3DA] bg-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#B89768] block mb-1">
+          Kategori Pilihan
+        </span>
+        <h3 class="font-serif text-2xl font-bold text-neutral-950">
+          Terokai Berdasarkan Kategori
+        </h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Kasut Card -->
+        <a
+          href="/collections/shoes"
+          class="group relative overflow-hidden rounded-3xl bg-neutral-900 text-white p-8 sm:p-12 flex flex-col justify-between min-h-[280px] shadow-sm hover:shadow-xl transition-all"
+        >
+          <div class="relative z-10 space-y-2">
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#B89768]">
+              43 Rekaan Tersedia
+            </span>
+            <h4 class="font-serif text-3xl font-bold text-white group-hover:text-[#B89768] transition-colors">
+              Koleksi Footwear &amp; Sneakers
+            </h4>
+            <p class="text-xs text-stone-300 max-w-md leading-relaxed">
+              Kasut kasual, sneakers sukan, dan rekaan semi-formal dengan sokongan kusyen insole lembut.
+            </p>
+          </div>
+
+          <div class="relative z-10 pt-6 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#B89768] group-hover:translate-x-1 transition-transform">
+            <span>Beli Koleksi Kasut</span>
+            <ArrowRight class="w-4 h-4" />
+          </div>
+        </a>
+
+        <!-- Jam Card -->
+        <a
+          href="/collections/watches"
+          class="group relative overflow-hidden rounded-3xl bg-neutral-900 text-white p-8 sm:p-12 flex flex-col justify-between min-h-[280px] shadow-sm hover:shadow-xl transition-all"
+        >
+          <div class="relative z-10 space-y-2">
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#B89768]">
+              7 Rekaan Eksklusif
+            </span>
+            <h4 class="font-serif text-3xl font-bold text-white group-hover:text-[#B89768] transition-colors">
+              Koleksi Timepieces &amp; Horology
+            </h4>
+            <p class="text-xs text-stone-300 max-w-md leading-relaxed">
+              Jam tangan analog quartz berketepatan tinggi lengkap dengan kotak hadiah mewah eksklusif.
+            </p>
+          </div>
+
+          <div class="relative z-10 pt-6 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#B89768] group-hover:translate-x-1 transition-transform">
+            <span>Beli Koleksi Jam Tangan</span>
+            <ArrowRight class="w-4 h-4" />
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

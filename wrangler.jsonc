@@ -1,0 +1,23 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "vellum",
+  "main": "@astrojs/cloudflare/entrypoints/server",
+  "compatibility_date": "2026-08-25",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "vars": {
+    "PUBLIC_SHOPIFY_STORE_DOMAIN": "vvxgev-3p.myshopify.com",
+    "PUBLIC_SHOPIFY_STOREFRONT_TOKEN": "d19296e111796d6877f879956789185d",
+    "PUBLIC_STORE_NAME": "VELLUM",
+    "PUBLIC_DEFAULT_LOCALE": "ms",
+    "PUBLIC_SUPPORTED_LOCALES": "ms,en",
+    "PUBLIC_WHATSAPP_NUMBER": "601123456789",
+    "PUBLIC_FREE_SHIPPING_THRESHOLD_MYR": "150"
+  }
+}

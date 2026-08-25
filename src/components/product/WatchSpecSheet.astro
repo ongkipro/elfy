@@ -1,0 +1,48 @@
+---
+import { Watch, ShieldCheck, Droplets, Sparkles, SlidersHorizontal, Layers } from '@lucide/astro';
+
+interface Props {
+  caseDiameter?: string;
+  lugWidth?: string;
+  movement?: string;
+  glass?: string;
+  waterResistance?: string;
+  strap?: string;
+  locale?: string;
+}
+
+const {
+  caseDiameter = '39.0 mm',
+  lugWidth = '20.0 mm',
+  movement = 'Japanese Automatic Mechanical (24 Jewels)',
+  glass = 'Double-Domed Sapphire Crystal (Anti-Scratch)',
+  waterResistance = '5 ATM / 50 Metres',
+  strap = 'Top-Grain Italian Leather / 316L Solid Steel',
+  locale = 'ms',
+} = Astro.props;
+
+const specs = [
+  { label: locale === 'ms' ? 'Diameter Kerangka' : 'Case Diameter', value: caseDiameter, icon: Watch },
+  { label: locale === 'ms' ? 'Lebar Tali (Lug Width)' : 'Lug Width', value: lugWidth, icon: SlidersHorizontal },
+  { label: locale === 'ms' ? 'Enjin / Pergerakan' : 'Movement', value: movement, icon: Sparkles },
+  { label: locale === 'ms' ? 'Jenis Kaca' : 'Glass Type', value: glass, icon: ShieldCheck },
+  { label: locale === 'ms' ? 'Ketahanan Air' : 'Water Resistance', value: waterResistance, icon: Droplets },
+  { label: locale === 'ms' ? 'Bahan Tali' : 'Strap Material', value: strap, icon: Layers },
+];
+---
+
+<div class="border border-[#E8E3DA] rounded-xl p-5 bg-white shadow-2xs">
+  <h3 class="font-semibold text-neutral-900 text-xs tracking-wider uppercase mb-4 flex items-center gap-2">
+    <Watch class="w-4 h-4 text-[#B89768]" />
+    {locale === 'ms' ? 'Spesifikasi Teknikal Jam' : 'Technical Specifications'}
+  </h3>
+
+  <dl class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+    {specs.map((item) => (
+      <div class="p-3 bg-[#FDFBF7] rounded-lg border border-[#E8E3DA] flex flex-col justify-between">
+        <dt class="text-neutral-500 font-medium mb-1">{item.label}</dt>
+        <dd class="text-neutral-900 font-semibold">{item.value}</dd>
+      </div>
+    ))}
+  </dl>
+</div>

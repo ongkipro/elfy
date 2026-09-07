@@ -1,4 +1,6 @@
-import {ChevronUp, Zap} from 'lucide-react';
+import React from 'react';
+import {ChevronUp, Zap, ShoppingCart, Check} from 'lucide-react';
+import {getShopifyImageUrl} from '~/lib/image';
 
 interface StickyAddToCartProps {
   title: string;
@@ -44,8 +46,12 @@ export function StickyAddToCart({
         <div className="flex items-center gap-2 min-w-0 flex-1">
           {imageUrl && (
             <img
-              src={imageUrl}
+              src={getShopifyImageUrl(imageUrl, {width: 100, height: 100, format: 'webp', crop: 'center'})}
               alt={title}
+              width={44}
+              height={44}
+              loading="lazy"
+              decoding="async"
               className="w-11 h-11 object-cover rounded-lg border border-stone-200 shrink-0 bg-stone-100"
             />
           )}

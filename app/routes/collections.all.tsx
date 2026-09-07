@@ -6,7 +6,9 @@ import {ProductItem} from '~/components/ProductItem';
 import {TrustPaymentBadges} from '~/components/TrustPaymentBadges';
 import {CategoryPills} from '~/components/CategoryPills';
 import {Breadcrumb} from '~/components/Breadcrumb';
+import {CollectionAssurancePillars} from '~/components/CollectionDescription';
 import {getCollectionSeo} from '~/lib/seo-catalog';
+import {getShopifyImageUrl, getShopifyImageSrcSet} from '~/lib/image';
 import type {CollectionItemFragment} from 'storefrontapi.generated';
 
 export const meta: Route.MetaFunction = () => {
@@ -45,7 +47,7 @@ export async function loader(args: Route.LoaderArgs) {
 async function loadCriticalData({context, request}: Route.LoaderArgs) {
   const {storefront} = context;
   const paginationVariables = getPaginationVariables(request, {
-    pageBy: 8,
+    pageBy: 24,
   });
 
   const [{products}] = await Promise.all([
@@ -62,39 +64,69 @@ function loadDeferredData({context}: Route.LoaderArgs) {
 
 export default function CollectionAll() {
   const {products} = useLoaderData<typeof loader>();
+  const heroBgImage =
+    (products?.nodes as any[])?.[0]?.featuredImage?.url ||
+    '/banners/mens-sneakers-3x2.webp';
 
   return (
     <div className="bg-[#FAF9F6] min-h-screen text-[#191817] pb-20">
-      {/* Breadcrumb Navigation */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3.5 pb-1">
-        <Breadcrumb
-          items={[
-            {label: 'Utama', to: '/'},
-            {label: 'Semua Koleksi'},
-          ]}
-          currentUrl="https://elfy.my/collections/all"
-        />
-      </div>
+      {/* Full-Bleed Cinematic Collection Hero: Background = Catalog Featured Image */}
+      <section className="relative w-full overflow-hidden bg-stone-950 text-white min-h-[360px] sm:min-h-[460px] lg:min-h-[500px] flex flex-col justify-between border-b border-[#2A2724]">
+        {/* Background Featured Image */}
+        {heroBgImage && (
+          <img
+            src={getShopifyImageUrl(heroBgImage, {width: 1600, format: 'webp'})}
+            srcSet={getShopifyImageSrcSet(heroBgImage, [480, 768, 1024, 1440, 1920])}
+            sizes="100vw"
+            alt="Semua Koleksi ELFY"
+            className="absolute inset-0 w-full h-full object-cover object-center brightness-[0.50] sm:brightness-[0.55] transition-transform duration-1000 scale-[1.01]"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+            width={1600}
+            height={900}
+          />
+        )}
 
-      {/* Editorial Header (Bright & Luxurious) */}
-      <div className="bg-gradient-to-b from-[#F4F0E8] via-[#FAF9F6] to-[#FAF9F6] text-[#191817] py-10 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-[#EBE6DF]">
-        <div className="max-w-7xl mx-auto text-center">
-          <span className="text-xs uppercase tracking-[0.25em] font-semibold text-[#B48344] block mb-2 sm:mb-2.5">
+        {/* Cinematic Vignette & Readability Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#151413] via-black/45 to-black/35 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/60 pointer-events-none" />
+
+        {/* Top: Breadcrumb Navigation */}
+        <div className="relative z-10 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-5 sm:pt-6">
+          <Breadcrumb
+            items={[
+              {label: 'Utama', to: '/'},
+              {label: 'Semua Koleksi'},
+            ]}
+            currentUrl="https://elfy.my/collections/all"
+            theme="light"
+          />
+        </div>
+
+        {/* Center/Bottom: Editorial Typography & Quick Switcher */}
+        <div className="relative z-10 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-8 sm:pt-14 sm:pb-12 text-center flex flex-col items-center">
+          <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-[#D4AF37] block mb-2 sm:mb-3 drop-shadow-xs">
             Katalog Lengkap ELFY • Kuala Lumpur
           </span>
-          <h1 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#191817]">
+
+          <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight max-w-3xl drop-shadow-md">
             Semua Koleksi Eksklusif
           </h1>
-          <p className="mt-3 sm:mt-4 text-xs sm:text-sm text-stone-600 max-w-2xl mx-auto leading-relaxed font-normal">
+
+          <p className="mt-3 sm:mt-4 text-xs sm:text-sm text-stone-200 max-w-2xl mx-auto leading-relaxed font-normal drop-shadow-xs">
             Terokai rangkaian penuh kasut kasual kulit premium dan jam tangan horologi moden dengan jaminan tukar saiz 7 hari percuma.
           </p>
 
           {/* Quick Category Switcher */}
-          <div className="mt-5 sm:mt-8">
-            <CategoryPills activeHandle="all" />
+          <div className="mt-6 sm:mt-8 w-full">
+            <CategoryPills activeHandle="all" theme="light" />
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Assurance Pillars */}
+      <CollectionAssurancePillars />
 
       {/* Main Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">

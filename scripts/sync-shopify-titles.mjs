@@ -30,21 +30,46 @@ if (!existsSync(catalogPath)) {
 }
 
 const catalog = JSON.parse(readFileSync(catalogPath, 'utf-8'));
+const targetArg = process.argv[2];
+const queue = targetArg && targetArg !== '--all'
+  ? catalog.filter((c) => c.handle === targetArg)
+  : catalog;
 
-async function fetchProductGid(handle) {
-  const res = await fetch(`https://${storeDomain}/api/2025-01/graphql.json`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Shopify-Storefront-Access-Token': sfToken,
-    },
-    body: JSON.stringify({
-      query: `query getProduct($handle: String!) { product(handle: $handle) { id title handle } }`,
-      variables: { handle },
-    }),
-  });
-  const json = await res.json();
-  return json?.data?.product;
+if (queue.length === 0) {
+  console.error(`❌ No product found matching handle: ${targetArg}`);
+  process.exit(1);
+}
+
+async function fetchAllProductGids() {
+  const map = new Map();
+  let cursor = null;
+  let hasNext = true;
+  while (hasNext) {
+    const res = await fetch(`https://${storeDomain}/api/2025-01/graphql.json`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Storefront-Access-Token': sfToken,
+      },
+      body: JSON.stringify({
+        query: `query getAll($cursor: String) {
+          products(first: 100, after: $cursor) {
+            pageInfo { hasNextPage endCursor }
+            nodes { id title handle }
+          }
+        }`,
+        variables: { cursor },
+      }),
+    });
+    const json = await res.json();
+    const nodes = json?.data?.products?.nodes || [];
+    for (const node of nodes) {
+      map.set(node.handle, node);
+    }
+    hasNext = json?.data?.products?.pageInfo?.hasNextPage || false;
+    cursor = json?.data?.products?.pageInfo?.endCursor || null;
+  }
+  return map;
 }
 
 const MUTATION_FILE = '/tmp/shopify-product-update.graphql';
@@ -68,19 +93,22 @@ const UPDATE_MUTATION = `mutation updateProduct($input: ProductInput!) {
 writeFileSync(MUTATION_FILE, UPDATE_MUTATION, 'utf-8');
 
 async function main() {
-  console.log(`\n🚀 SYNCHRONIZING PRODUCT TITLES & SEO TO SHOPIFY [${storeDomain}]`);
-  console.log(`Total Products in Queue: ${catalog.length}\n`);
+  console.log(`\n🚀 SYNCHRONIZING PRODUCT DESCRIPTIONS, TITLES & SEO TO SHOPIFY [${storeDomain}]`);
+  console.log(`Fetching live catalog mapping...`);
+  const liveMap = await fetchAllProductGids();
+  console.log(`Fetched ${liveMap.size} live products from Shopify.`);
+  console.log(`Total Products in Sync Queue: ${queue.length}\n`);
 
   let successCount = 0;
   let failCount = 0;
 
-  for (let i = 0; i < catalog.length; i++) {
-    const item = catalog[i];
-    const prefix = `[${(i + 1).toString().padStart(2, ' ')}/${catalog.length}] ${item.handle}`;
+  for (let i = 0; i < queue.length; i++) {
+    const item = queue[i];
+    const prefix = `[${(i + 1).toString().padStart(2, ' ')}/${queue.length}] ${item.handle}`;
     process.stdout.write(`${prefix.padEnd(52)} ... `);
 
     try {
-      const liveProduct = await fetchProductGid(item.handle);
+      const liveProduct = liveMap.get(item.handle);
       if (!liveProduct?.id) {
         console.log(`⚠️  NOT FOUND on live store`);
         failCount++;

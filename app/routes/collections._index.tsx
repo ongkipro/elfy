@@ -1,156 +1,197 @@
 import {useLoaderData, Link} from 'react-router';
 import type {Route} from './+types/collections._index';
-import {getPaginationVariables, Image} from '@shopify/hydrogen';
-import type {CollectionFragment} from 'storefrontapi.generated';
-import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
+import {Breadcrumb} from '~/components/Breadcrumb';
+import {CategoryPills} from '~/components/CategoryPills';
+import {CollectionAssurancePillars} from '~/components/CollectionDescription';
+import {TrustPaymentBadges} from '~/components/TrustPaymentBadges';
+import {ArrowRight, Sparkles} from 'lucide-react';
+import {getShopifyImageUrl, getShopifyImageSrcSet} from '~/lib/image';
 
 export const meta: Route.MetaFunction = () => {
+  const title = 'Direktori Koleksi Eksklusif - ELFY Official';
+  const description =
+    'Terokai direktori koleksi kasut kasual kulit lembut dan jam tangan sartorial ELFY Malaysia. Sedia pos seluruh negara & jaminan tukar saiz 7 hari percuma.';
+  const canonicalUrl = 'https://elfy.my/collections';
+
   return [
-    {title: 'Koleksi Eksklusif - ELFY Official'},
-    {
-      name: 'description',
-      content:
-        'Koleksi lengkap kasut kasual kulit asli & jam tangan sartorial berkualiti tinggi jenama ELFY Malaysia.',
-    },
-    {tagName: 'link', rel: 'canonical', href: 'https://elfy.my/collections'},
+    {title},
+    {name: 'description', content: description},
+    {tagName: 'link', rel: 'canonical', href: canonicalUrl},
     {property: 'og:site_name', content: 'ELFY'},
     {property: 'og:locale', content: 'ms_MY'},
     {property: 'og:type', content: 'website'},
-    {property: 'og:title', content: 'Koleksi Eksklusif - ELFY Official'},
-    {
-      property: 'og:description',
-      content:
-        'Koleksi lengkap kasut kasual kulit asli & jam tangan sartorial berkualiti tinggi jenama ELFY Malaysia.',
-    },
-    {property: 'og:url', content: 'https://elfy.my/collections'},
+    {property: 'og:title', content: title},
+    {property: 'og:description', content: description},
+    {property: 'og:url', content: canonicalUrl},
     {name: 'twitter:card', content: 'summary_large_image'},
-    {name: 'twitter:title', content: 'Koleksi Eksklusif - ELFY Official'},
+    {name: 'twitter:title', content: title},
+    {name: 'twitter:description', content: description},
   ];
 };
 
 export async function loader(args: Route.LoaderArgs) {
-  // Start fetching non-critical data without blocking time to first byte
-  const deferredData = loadDeferredData(args);
-
-  // Await the critical data required to render initial state of the page
-  const criticalData = await loadCriticalData(args);
-
-  return {...deferredData, ...criticalData};
-}
-
-/**
- * Load data necessary for rendering content above the fold. This is the critical data
- * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
- */
-async function loadCriticalData({context, request}: Route.LoaderArgs) {
-  const paginationVariables = getPaginationVariables(request, {
-    pageBy: 4,
-  });
+  const {storefront} = args.context;
 
   const [{collections}] = await Promise.all([
-    context.storefront.query(COLLECTIONS_QUERY, {
-      variables: paginationVariables,
-    }),
-    // Add other queries here, so that they are loaded in parallel
+    storefront.query(STORE_COLLECTIONS_DIRECTORY_QUERY),
   ]);
 
-  return {collections};
-}
+  // Filter out internal empty frontpage collection
+  const activeCollections = (collections?.nodes || []).filter(
+    (c: any) => c.handle !== 'frontpage',
+  );
 
-/**
- * Load data for rendering content below the fold. This data is deferred and will be
- * fetched after the initial page load. If it's unavailable, the page should still 200.
- * Make sure to not throw any errors here, as it will cause the page to 500.
- */
-function loadDeferredData({context}: Route.LoaderArgs) {
-  return {};
+  return {collections: activeCollections};
 }
 
 export default function Collections() {
   const {collections} = useLoaderData<typeof loader>();
 
   return (
-    <div className="collections">
-      <h1>Collections</h1>
-      <PaginatedResourceSection<CollectionFragment>
-        connection={collections}
-        resourcesClassName="collections-grid"
-      >
-        {({node: collection, index}) => (
-          <CollectionItem
-            key={collection.id}
-            collection={collection}
-            index={index}
-          />
-        )}
-      </PaginatedResourceSection>
+    <div className="bg-[#FAF9F6] min-h-screen text-[#191817] pb-20">
+      {/* Breadcrumb Navigation */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3.5 pb-2">
+        <Breadcrumb
+          items={[
+            {label: 'Utama', to: '/'},
+            {label: 'Semua Koleksi'},
+          ]}
+          currentUrl="https://elfy.my/collections"
+        />
+      </div>
+
+      {/* Editorial Header */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-1 pb-4 sm:pb-6">
+        <div className="bg-gradient-to-b from-[#F4F0E8] via-[#FAF9F6] to-[#FAF9F6] rounded-2xl sm:rounded-3xl text-[#191817] py-10 sm:py-16 px-4 sm:px-6 lg:px-8 border border-[#EBE6DF] text-center">
+          <span className="text-xs uppercase tracking-[0.25em] font-semibold text-[#B48344] block mb-2 sm:mb-2.5">
+            Koleksi Rasmi ELFY • Kuala Lumpur
+          </span>
+          <h1 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#191817]">
+            Direktori Koleksi Eksklusif
+          </h1>
+          <p className="mt-3 sm:mt-4 text-xs sm:text-sm text-stone-600 max-w-2xl mx-auto leading-relaxed font-normal">
+            Pilihan kasut kasual kulit lembut dan jam tangan sartorial yang direka teliti untuk gaya hidup urban Malaysia. Sedia pos pantas dari KL.
+          </p>
+        </div>
+
+        {/* Quick Category Switcher */}
+        <div className="mt-4 sm:mt-6">
+          <CategoryPills activeHandle="all" />
+        </div>
+      </div>
+
+      {/* Reassurance Pillars */}
+      <CollectionAssurancePillars />
+
+      {/* Collections Grid */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+        <div className="flex items-center justify-between pb-4 mb-6 border-b border-[#EBE6DF] text-xs text-stone-500">
+          <span>Koleksi Rasmi Terbitan Shopify</span>
+          <span className="font-semibold text-[#191817]">
+            {collections.length} Koleksi Aktif
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {collections.map((collection: any) => (
+            <Link
+              key={collection.id}
+              to={`/collections/${collection.handle}`}
+              className="group relative rounded-2xl overflow-hidden border border-[#EBE6DF] hover:border-stone-400 bg-stone-900 aspect-[16/11] transition-all duration-300 flex flex-col justify-end p-6 sm:p-7 shadow-xs hover:shadow-md"
+            >
+              {collection.image ? (
+                <img
+                  src={getShopifyImageUrl(collection.image.url, {width: 800, format: 'webp'})}
+                  srcSet={getShopifyImageSrcSet(collection.image.url, [360, 480, 640, 800, 1024])}
+                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                  alt={collection.image.altText || collection.title}
+                  className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-[0.80] group-hover:brightness-[0.85]"
+                  loading="lazy"
+                  decoding="async"
+                  width={800}
+                  height={550}
+                />
+              ) : (
+                <div className="absolute inset-0 bg-stone-900" />
+              )}
+              {/* Dark Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
+
+              <div className="relative z-10">
+                <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.2em] text-[#D4AF37] block mb-1">
+                  Koleksi ELFY
+                </span>
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-white leading-snug">
+                  {collection.title}
+                </h3>
+                {collection.description && (
+                  <p className="text-xs text-stone-200 mt-1.5 line-clamp-2 leading-relaxed">
+                    {collection.description}
+                  </p>
+                )}
+                <div className="mt-3.5">
+                  <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white/95 text-[#191817] group-hover:bg-[#B48344] group-hover:text-white font-medium text-xs uppercase tracking-wider transition-all duration-200">
+                    <span>Terokai Koleksi</span>
+                    <ArrowRight className="w-3.5 h-3.5 shrink-0 group-hover:translate-x-0.5 transition-transform duration-200" />
+                  </span>
+                </div>
+              </div>
+            </Link>
+          ))}
+
+          {/* Full Catalog Card */}
+          <Link
+            to="/collections/all"
+            className="group relative rounded-2xl overflow-hidden border border-[#EBE6DF] hover:border-stone-400 bg-gradient-to-br from-stone-900 via-stone-950 to-[#191817] aspect-[16/11] transition-all duration-300 flex flex-col justify-end p-6 sm:p-7 shadow-xs hover:shadow-md"
+          >
+            <div className="relative z-10">
+              <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.2em] text-[#D4AF37] flex items-center gap-1.5 mb-1">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Katalog Penuh</span>
+              </span>
+              <h3 className="font-serif text-xl sm:text-2xl font-bold text-white leading-snug">
+                Semua Koleksi &amp; Produk
+              </h3>
+              <p className="text-xs text-stone-300 mt-1.5 line-clamp-2 leading-relaxed">
+                Lihat kesemua 51+ model kasut kasual kulit dan jam tangan mewah sedia pos dari Kuala Lumpur.
+              </p>
+              <div className="mt-3.5">
+                <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#B48344] text-white group-hover:bg-white group-hover:text-[#191817] font-medium text-xs uppercase tracking-wider transition-all duration-200">
+                  <span>Lihat Semua Produk</span>
+                  <ArrowRight className="w-3.5 h-3.5 shrink-0 group-hover:translate-x-0.5 transition-transform duration-200" />
+                </span>
+              </div>
+            </div>
+          </Link>
+        </div>
+
+        {/* Bottom Trust Row */}
+        <div className="mt-16">
+          <TrustPaymentBadges variant="full" />
+        </div>
+      </div>
     </div>
   );
 }
 
-function CollectionItem({
-  collection,
-  index,
-}: {
-  collection: CollectionFragment;
-  index: number;
-}) {
-  return (
-    <Link
-      className="collection-item"
-      key={collection.id}
-      to={`/collections/${collection.handle}`}
-      prefetch="intent"
-    >
-      {collection?.image && (
-        <Image
-          alt={collection.image.altText || collection.title}
-          aspectRatio="1/1"
-          data={collection.image}
-          loading={index < 3 ? 'eager' : undefined}
-          sizes="(min-width: 45em) 400px, 100vw"
-        />
-      )}
-      <h5>{collection.title}</h5>
-    </Link>
-  );
-}
-
-const COLLECTIONS_QUERY = `#graphql
-  fragment Collection on Collection {
-    id
-    title
-    handle
-    image {
-      id
-      url
-      altText
-      width
-      height
-    }
-  }
-  query StoreCollections(
+const STORE_COLLECTIONS_DIRECTORY_QUERY = `#graphql
+  query StoreCollectionsDirectory(
     $country: CountryCode
-    $endCursor: String
-    $first: Int
     $language: LanguageCode
-    $last: Int
-    $startCursor: String
   ) @inContext(country: $country, language: $language) {
-    collections(
-      first: $first,
-      last: $last,
-      before: $startCursor,
-      after: $endCursor
-    ) {
+    collections(first: 10) {
       nodes {
-        ...Collection
-      }
-      pageInfo {
-        hasNextPage
-        hasPreviousPage
-        startCursor
-        endCursor
+        id
+        title
+        handle
+        description
+        image {
+          id
+          url
+          altText
+          width
+          height
+        }
       }
     }
   }

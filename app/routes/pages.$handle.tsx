@@ -9,6 +9,10 @@ import {
   PhoneCall,
   CheckCircle2,
   ChevronRight,
+  Mail,
+  Clock,
+  MapPin,
+  MessageSquare,
 } from 'lucide-react';
 import {Breadcrumb} from '~/components/Breadcrumb';
 import {getPageSeo} from '~/lib/seo-catalog';
@@ -49,6 +53,7 @@ const STATIC_PAGES: Record<string, {title: string; type: string}> = {
   'size-guide': {title: 'Panduan Saiz Kaki Malaysia (CM)', type: 'size-guide'},
   'warranty-returns': {title: 'Jaminan Tukar Saiz 7 Hari & Waranti', type: 'warranty-returns'},
   'shipping-faq': {title: 'Kadar & Masa Penghantaran Pos', type: 'shipping-faq'},
+  contact: {title: 'Hubungi Khidmat Pelanggan ELFY', type: 'contact'},
   about: {title: 'Tentang Jenama ELFY', type: 'about'},
 };
 
@@ -75,7 +80,7 @@ export async function loader(args: Route.LoaderArgs) {
     const res = await context.storefront.query(PAGE_QUERY, {
       variables: {handle},
     });
-    if (res.page) {
+    if (res.page && res.page.body && res.page.body.trim().length > 0) {
       page = res.page;
     }
   } catch {
@@ -313,6 +318,117 @@ function RenderStaticPageContent({type}: {type: string}) {
                 <br />
                 • <strong>Kurir:</strong> Pos Laju Air Freight berinsurans.
               </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (type === 'contact') {
+    return (
+      <div className="space-y-6">
+        <div className="bg-white border border-[#EBE6DF] rounded-2xl p-6 sm:p-8 space-y-6 shadow-xs">
+          <div>
+            <span className="text-[11px] font-bold uppercase tracking-widest text-[#B48344] block mb-1">
+              Bantuan Pantas Pelanggan
+            </span>
+            <h2 className="text-lg font-bold text-[#191817]">
+              Kami Sedia Membantu Anda Setiap Hari
+            </h2>
+            <p className="text-xs sm:text-sm text-stone-600 mt-1 leading-relaxed">
+              Ada pertanyaan mengenai status pesanan, cadangan saiz kasut, waranti jam tangan, atau urusan tukar saiz? Pasukan sokongan kami sedia membantu anda secara pantas.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* WhatsApp Card */}
+            <div className="bg-[#FAF9F6] border border-stone-200 rounded-xl p-5 flex flex-col justify-between space-y-4">
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 text-[#25D366]">
+                  <MessageSquare className="w-5 h-5" />
+                  <h3 className="font-bold text-sm text-[#191817]">Sokongan WhatsApp Rasmi</h3>
+                </div>
+                <p className="text-xs text-stone-600 leading-relaxed">
+                  Pilihan terpantas untuk pertanyaan pesanan, pengesahan saiz, dan pertukaran saiz 7 hari.
+                </p>
+                <div className="text-xs text-stone-500 flex items-center gap-1.5 pt-1">
+                  <Clock className="w-3.5 h-3.5 text-stone-400 shrink-0" />
+                  <span>Isnin – Ahad: 9:00 AM – 10:00 PM</span>
+                </div>
+              </div>
+              <a
+                href="https://wa.me/601111111111?text=Hi%20ELFY,%20saya%20perlukan%20bantuan%20pesanan"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-11 px-4 bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold text-xs rounded-xl flex items-center justify-center gap-2 transition-all shadow-xs"
+              >
+                <PhoneCall className="w-4 h-4" />
+                <span>Chat di WhatsApp (+60 11-1111 1111)</span>
+              </a>
+            </div>
+
+            {/* Email Card */}
+            <div className="bg-[#FAF9F6] border border-stone-200 rounded-xl p-5 flex flex-col justify-between space-y-4">
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 text-[#B48344]">
+                  <Mail className="w-5 h-5" />
+                  <h3 className="font-bold text-sm text-[#191817]">Emel Rasmi</h3>
+                </div>
+                <p className="text-xs text-stone-600 leading-relaxed">
+                  Untuk pertanyaan korporat, kerjasama perniagaan, atau dokumen waranti rasmi.
+                </p>
+                <div className="text-xs text-stone-500 flex items-center gap-1.5 pt-1">
+                  <Clock className="w-3.5 h-3.5 text-stone-400 shrink-0" />
+                  <span>Maklum balas dalam tempoh 24 jam bekerja</span>
+                </div>
+              </div>
+              <a
+                href="mailto:support@elfy.my"
+                className="h-11 px-4 bg-[#191817] hover:bg-stone-800 text-white font-semibold text-xs rounded-xl flex items-center justify-center gap-2 transition-all shadow-xs"
+              >
+                <Mail className="w-4 h-4" />
+                <span>Emel: support@elfy.my</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Quick links to Self Service */}
+          <div className="pt-4 border-t border-stone-200">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-stone-700 mb-3">
+              Perkhidmatan Layanan Diri Pantas:
+            </h4>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <Link
+                to="/pages/size-guide"
+                className="p-3 bg-[#F8F6F2] hover:bg-[#F2EFE9] border border-[#EBE6DF] rounded-xl flex items-center justify-between text-xs font-semibold text-stone-800 transition-colors"
+              >
+                <span className="flex items-center gap-2">
+                  <Ruler className="w-4 h-4 text-[#B48344]" />
+                  <span>Panduan Saiz (CM)</span>
+                </span>
+                <ChevronRight className="w-4 h-4 text-stone-400" />
+              </Link>
+              <Link
+                to="/pages/warranty-returns"
+                className="p-3 bg-[#F8F6F2] hover:bg-[#F2EFE9] border border-[#EBE6DF] rounded-xl flex items-center justify-between text-xs font-semibold text-stone-800 transition-colors"
+              >
+                <span className="flex items-center gap-2">
+                  <RefreshCw className="w-4 h-4 text-[#B48344]" />
+                  <span>Tukar Saiz 7 Hari</span>
+                </span>
+                <ChevronRight className="w-4 h-4 text-stone-400" />
+              </Link>
+              <Link
+                to="/pages/shipping-faq"
+                className="p-3 bg-[#F8F6F2] hover:bg-[#F2EFE9] border border-[#EBE6DF] rounded-xl flex items-center justify-between text-xs font-semibold text-stone-800 transition-colors"
+              >
+                <span className="flex items-center gap-2">
+                  <Truck className="w-4 h-4 text-[#B48344]" />
+                  <span>Status &amp; Kadar Pos</span>
+                </span>
+                <ChevronRight className="w-4 h-4 text-stone-400" />
+              </Link>
             </div>
           </div>
         </div>

@@ -11,6 +11,7 @@ export interface BreadcrumbProps {
   currentUrl?: string;
   className?: string;
   showHomeIcon?: boolean;
+  theme?: 'dark' | 'light';
 }
 
 export function Breadcrumb({
@@ -18,9 +19,11 @@ export function Breadcrumb({
   currentUrl,
   className = '',
   showHomeIcon = true,
+  theme = 'dark',
 }: BreadcrumbProps) {
   if (!items || items.length === 0) return null;
 
+  const isLight = theme === 'light';
   const origin = 'https://elfy.my';
 
   // Construct Google-compliant Schema.org BreadcrumbList structured data
@@ -55,7 +58,7 @@ export function Breadcrumb({
       aria-label="Breadcrumb"
       className={`w-full overflow-hidden ${className}`}
     >
-      <ol className="flex items-center gap-1.5 text-xs text-stone-500 w-full overflow-hidden whitespace-nowrap select-none py-0.5">
+      <ol className={`flex items-center gap-1.5 text-xs ${isLight ? 'text-stone-300' : 'text-stone-500'} w-full overflow-hidden whitespace-nowrap select-none py-0.5`}>
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
           const isFirst = index === 0;
@@ -72,12 +75,16 @@ export function Breadcrumb({
                 <Link
                   to={item.to}
                   title={item.label}
-                  className="flex items-center gap-1 text-stone-500 hover:text-[#191817] transition-colors focus-visible:outline-hidden focus-visible:underline"
+                  className={`flex items-center gap-1 ${
+                    isLight
+                      ? 'text-stone-300 hover:text-white'
+                      : 'text-stone-500 hover:text-[#191817]'
+                  } transition-colors focus-visible:outline-hidden focus-visible:underline`}
                 >
                   {isFirst && showHomeIcon ? (
-                    <span className="flex items-center justify-center p-0.5 hover:text-[#191817]" aria-label={item.label || 'Laman Utama'}>
+                    <span className={`flex items-center justify-center p-0.5 ${isLight ? 'hover:text-white' : 'hover:text-[#191817]'}`} aria-label={item.label || 'Laman Utama'}>
                       <Home
-                        className="w-3.5 h-3.5 stroke-[1.5] text-stone-500 hover:text-[#191817] shrink-0"
+                        className={`w-3.5 h-3.5 stroke-[1.5] ${isLight ? 'text-stone-300 hover:text-white' : 'text-stone-500 hover:text-[#191817]'} shrink-0`}
                         aria-hidden="true"
                       />
                     </span>
@@ -89,7 +96,7 @@ export function Breadcrumb({
                 </Link>
               ) : (
                 <span
-                  className="font-normal text-stone-800 truncate block w-full min-w-0"
+                  className={`font-normal ${isLight ? 'text-white font-medium' : 'text-stone-800'} truncate block w-full min-w-0`}
                   title={item.label}
                 >
                   {item.label}
@@ -98,7 +105,7 @@ export function Breadcrumb({
 
               {!isLast && (
                 <ChevronRight
-                  className="w-3 h-3 stroke-[1.5] text-stone-300 shrink-0 select-none"
+                  className={`w-3 h-3 stroke-[1.5] ${isLight ? 'text-stone-400/70' : 'text-stone-300'} shrink-0 select-none`}
                   aria-hidden="true"
                 />
               )}

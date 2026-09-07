@@ -757,47 +757,195 @@ export const CATALOG_MAPPING = [
   },
 ];
 
+export const WATCH_SPECS = {
+  'jam-tangan-pria-c24-analog-quartz': [
+    { label: 'Enjin Gerakan', val: 'High-Precision Japanese Quartz Movement yang jitu dan tahan lama' },
+    { label: 'Bahan Casing', val: 'Casing Alloy & Stainless Steel tahan karat dengan kemasan gilap premium' },
+    { label: 'Kaca Muka (Lens)', val: 'Hardened Mineral Crystal Glass tahan calar ringan dengan kejernihan tinggi' },
+    { label: 'Ketahanan Air', val: 'Kalis air 3 ATM (selamat untuk percikan harian, wuduk ringkas & hujan renyai)' },
+    { label: 'Gaya & Padanan', val: 'Sesuai untuk penampilan eksekutif formal pejabat, mesyuarat mahupun smart-casual' },
+  ],
+  'jam-tangan-pria-c27-analog-quartz': [
+    { label: 'Enjin Gerakan', val: 'Precision Quartz Movement untuk ketepatan masa tanpa kompromi' },
+    { label: 'Bahan Casing', val: 'Solid Stainless Steel tahan karat dengan rekaan bezel grand classic' },
+    { label: 'Dial & Indeks', val: 'Paparan analog klasik dengan penunjuk masa kontras yang jelas' },
+    { label: 'Ketahanan Air', val: 'Kalis air 3 ATM untuk perlindungan aktiviti harian' },
+    { label: 'Gaya & Padanan', val: 'Pilihan tepat untuk eksekutif korporat dan ahli perniagaan' },
+  ],
+  'jam-tangan-pria-fn-c15-analog-quartz': [
+    { label: 'Enjin Gerakan', val: 'Japanese Precision Quartz Caliber berdaya tahan tinggi' },
+    { label: 'Bahan Casing', val: 'Keluli tahan karat berprofil maskulin dengan ketahanan fizikal mantap' },
+    { label: 'Kaca Muka (Lens)', val: 'Hardened Mineral Glass tahan calar ringan' },
+    { label: 'Ketahanan Air', val: 'Kalis air 3 ATM (Daily splash & rain resistant)' },
+    { label: 'Tali Jam', val: 'Rantai keluli boleh laras mengikut lilitan pergelangan tangan' },
+  ],
+  'jam-tangan-pria-notionr01-analog-quartz': [
+    { label: 'Enjin Gerakan', val: 'Ultra-Slim Japanese Quartz Movement berketepatan tinggi' },
+    { label: 'Profil Casing', val: 'Casing ultra-nipis (7.5mm) yang ringan dan terletak kemas di bawah lengan kemeja' },
+    { label: 'Dial Rekaan', val: 'Minimalist kontemporari tanpa indeks serabut untuk visual bersih dan elegan' },
+    { label: 'Ketahanan Air', val: 'Kalis air 3 ATM untuk perlindungan percikan harian' },
+    { label: 'Tali Jam', val: 'Tali jam lembut berongga mikro yang tidak memerangkap peluh' },
+  ],
+  'jam-tangan-wanita-bs-elegant-quartz': [
+    { label: 'Enjin Gerakan', val: 'Precision Quartz Caliber tahan lama dengan penyelenggaraan minimum' },
+    { label: 'Kemasan Bezel', val: 'Bezel bertatah kristal berkilau dengan ketukangan halus' },
+    { label: 'Dial & Jarum', val: 'Dial anggun feminin dengan tona mewah bercahaya' },
+    { label: 'Ketahanan Air', val: 'Kalis air 3 ATM untuk ketenangan kegunaan harian' },
+    { label: 'Padanan Gaya', val: 'Pilihan sempurna untuk majlis makan malam, perkahwinan, dan wanita berkerjaya' },
+  ],
+  'jam-tangan-wanita-j8-elegant-quartz': [
+    { label: 'Enjin Gerakan', val: 'Japanese Quartz Caliber jitu dengan jangka hayat bateri berpanjangan' },
+    { label: 'Saiz Casing', val: 'Profil petite anggun yang padan elok dengan pergelangan tangan wanita' },
+    { label: 'Tali Jam', val: 'Tali kulit tulen lembut yang selesa dipakai sepanjang hari' },
+    { label: 'Kaca Muka (Lens)', val: 'Mineral Crystal Glass tahan calar harian' },
+    { label: 'Ketahanan Air', val: 'Kalis air 3 ATM untuk kegunaan harian' },
+  ],
+  'jam-tangan-wanita-j9-elegant-quartz': [
+    { label: 'Enjin Gerakan', val: 'Precision Quartz Movement dengan ketepatan masa mantap' },
+    { label: 'Kemasan Tona', val: 'Casing kemasan vintage rose gold yang memikat dan feminin' },
+    { label: 'Tali Jam', val: 'Tali kulit bertekstur klasik retro yang tahan lasak dan selesa' },
+    { label: 'Dial Analog', val: 'Paparan penunjuk masa analog berangka jelas dan rapi' },
+    { label: 'Ketahanan Air', val: 'Kalis air 3 ATM untuk pemakaian harian santai' },
+  ],
+};
+
+export const WATCH_DIMENSIONS = {
+  'jam-tangan-pria-c24-analog-quartz': {
+    dial: '42 mm (Diameter)',
+    thickness: '11.5 mm',
+    lugWidth: '22 mm',
+    wrist: '16.0 cm – 22.0 cm (boleh dilaras mengikut pergelangan tangan)',
+    note: 'Saiz 42mm memberikan penampilan maskulin seimbang yang kemas di bawah cuff kemeja atau pakaian kasual.',
+  },
+  'jam-tangan-pria-c27-analog-quartz': {
+    dial: '41 mm (Diameter)',
+    thickness: '10.5 mm',
+    lugWidth: '20 mm',
+    wrist: '16.0 cm – 22.0 cm (rantai keluli boleh dilaras)',
+    note: 'Rekaan profil klasik berprestij yang sesuai untuk gaya formal korporat dan eksekutif.',
+  },
+  'jam-tangan-pria-fn-c15-analog-quartz': {
+    dial: '42 mm (Diameter)',
+    thickness: '11.0 mm',
+    lugWidth: '22 mm',
+    wrist: '16.0 cm – 22.0 cm (rantai keluli tahan lasak boleh dilaras)',
+    note: 'Rekaan maskulin moden dengan ketahanan fizikal untuk aktiviti dinamik harian.',
+  },
+  'jam-tangan-pria-notionr01-analog-quartz': {
+    dial: '40 mm (Diameter)',
+    thickness: '7.5 mm (Ultra-Slim)',
+    lugWidth: '20 mm',
+    wrist: '15.5 cm – 21.0 cm (tali lembut selesa)',
+    note: 'Profil ultra-nipis yang terletak kemas dan rata di bawah cuff kemeja tanpa rasa berat atau tersangkut.',
+  },
+  'jam-tangan-wanita-bs-elegant-quartz': {
+    dial: '32 mm (Diameter)',
+    thickness: '8.5 mm',
+    lugWidth: '14 mm',
+    wrist: '14.0 cm – 19.0 cm (rantai bertatah kristal boleh dilaras)',
+    note: 'Saiz petite yang memancarkan kilauan kristal anggun untuk majlis rasmi dan gaya santai.',
+  },
+  'jam-tangan-wanita-j8-elegant-quartz': {
+    dial: '30 mm (Diameter)',
+    thickness: '8.0 mm',
+    lugWidth: '12 mm',
+    wrist: '13.5 cm – 18.5 cm (tali kulit lembut boleh dilaras)',
+    note: 'Siluet minimalist klasik yang terletak anggun pada pergelangan tangan wanita Asia.',
+  },
+  'jam-tangan-wanita-j9-elegant-quartz': {
+    dial: '31 mm (Diameter)',
+    thickness: '8.0 mm',
+    lugWidth: '14 mm',
+    wrist: '14.0 cm – 19.0 cm (tali kulit tekstur vintage boleh dilaras)',
+    note: 'Kemasan rose gold vintage yang manis dipadankan bersama busana moden mahupun tradisional.',
+  },
+};
+
+export function formatHighlight(h) {
+  const trimmed = h.trim();
+  if (trimmed.includes(':')) {
+    const idx = trimmed.indexOf(':');
+    const label = trimmed.slice(0, idx).trim();
+    const val = trimmed.slice(idx + 1).trim();
+    if (val.length > 0) {
+      return `  <li><strong>${label}:</strong> ${val}</li>`;
+    }
+    return `  <li>${label}</li>`;
+  }
+  return `  <li>${trimmed}</li>`;
+}
+
 export function generateProductHtmlDescription(item) {
   const isShoe = item.category === "Men's Shoes";
 
-  const intro = isShoe
-    ? `<p><strong>${item.newTitle}</strong> direka khas untuk lelaki moden Malaysia yang mengutamakan keselesaan maksima sepanjang hari, sama ada untuk kerja, bersiar-siar, mahupun bersukan kasual. Dibina dengan fabrik mesh bernafas (breathable) yang sejuk dan tapak getah anti-gelincir berdaya cengkaman tinggi, sesuai untuk cuaca panas dan hujan di Malaysia.</p>`
-    : `<p><strong>${item.newTitle}</strong> menampilkan gabungan keanggunan eksekutif dan ketahanan jam tangan harian. Dikuasakan oleh enjin Japanese Quartz Movement berketepatan tinggi serta kemasan casing keluli tahan karat, jam ini melengkapi penampilan sartorial anda di pejabat, majlis rasmi, mahupun gaya santai hujung minggu.</p>`;
+  let intro = '';
+  let specsHeader = '';
+  let specList = '';
+  let sizeSection = '';
 
-  const specList = item.highlights
-    .map((h) => `  <li><strong>${h.split(':')[0] || h}:</strong> ${h.split(':')[1] || ''}</li>`)
-    .join('\n');
+  if (isShoe) {
+    const titleLower = item.newTitle.toLowerCase();
+    let shoeVibe = 'kasut harian serba boleh yang menggabungkan keselesaan berpanjangan dan estetika moden';
+    if (titleLower.includes('running') || titleLower.includes('runner') || titleLower.includes('sprint') || titleLower.includes('pace') || titleLower.includes('speed')) {
+      shoeVibe = 'kasut sneakers berprestasi tinggi yang menawarkan kusyen responsif dan aliran udara optimum untuk langkah bertenaga sepanjang hari';
+    } else if (titleLower.includes('street') || titleLower.includes('luxe') || titleLower.includes('carbon')) {
+      shoeVibe = 'kasut sneakers kontemporari dengan siluet streetwear kemas yang mudah disesuaikan untuk gaya kasual bandar';
+    } else if (titleLower.includes('walking') || titleLower.includes('walk') || titleLower.includes('glide') || titleLower.includes('flow') || titleLower.includes('breeze') || titleLower.includes('cloud')) {
+      shoeVibe = 'kasut sneakers ultra-ringan dengan bantalan tapak empuk yang memberikan sensasi berjalan santai tanpa membebankan kaki';
+    } else if (titleLower.includes('terrain') || titleLower.includes('grip') || titleLower.includes('impact') || titleLower.includes('track')) {
+      shoeVibe = 'kasut sneakers lasak dengan tapak berprofil cengkaman mantap, direka untuk kestabilan langkah di pelbagai permukaan';
+    }
 
-  const specs = `<h3>Kelebihan &amp; Spesifikasi Utama:</h3>\n<ul>\n${specList}\n</ul>`;
-
-  const reassurance = isShoe
-    ? `<h3>Jaminan &amp; Kelebihan Servis ELFY Malaysia:</h3>
+    intro = `<p><strong>${item.newTitle}</strong> adalah ${shoeVibe}. Direka khas untuk lelaki aktif di Malaysia yang mengutamakan keselesaan berterusan dari waktu kerja santai hingga ke hujung minggu.</p>`;
+    specsHeader = '<h3>Spesifikasi &amp; Material:</h3>';
+    specList = item.highlights.map(formatHighlight).join('\n');
+    sizeSection = `<h3>Panduan Saiz (Ukuran Insole Dalam):</h3>
 <ul>
-  <li>🚚 <strong>Penghantaran Pantas:</strong> 1-3 hari bekerja untuk Semenanjung (Pos Laju / J&amp;T). Penghantaran Percuma untuk pesanan RM150 ke atas!</li>
-  <li>🔄 <strong>Jaminan Tukar Saiz 7 Hari Percuma:</strong> Jika saiz kurang muat, proses penukaran saiz pantas dan mudah tanpa soalan.</li>
-  <li>📦 <strong>100% Ready Stock Malaysia:</strong> Dihantar terus dari gudang tempatan (bukan dropship luar negara).</li>
-  <li>🎁 <strong>Pakej Eksklusif:</strong> Didatangkan dalam Kotak Kasut Khas ELFY &amp; pembungkusan bubble wrap tebal.</li>
+  <li><strong>EU 39:</strong> 24.5 cm</li>
+  <li><strong>EU 40:</strong> 25.0 cm</li>
+  <li><strong>EU 41:</strong> 25.5 cm</li>
+  <li><strong>EU 42:</strong> 26.0 cm</li>
+  <li><strong>EU 43:</strong> 26.5 cm</li>
+  <li><strong>EU 44:</strong> 27.0 cm</li>
 </ul>
+<p><em>*Tip Saiz: Mengikut piawaian saiz standard Asia. Jika tapak kaki anda jenis lebar (wide feet) atau instep tinggi, kami sarankan memilih 1 saiz lebih besar untuk keselesaan optimum.</em></p>`;
+  } else {
+    // Watches
+    const dim = WATCH_DIMENSIONS[item.handle] || {
+      dial: '41 mm',
+      thickness: '10 mm',
+      lugWidth: '20 mm',
+      wrist: '16.0 cm – 21.0 cm',
+      note: 'Saiz ideal yang padan dengan pergelangan tangan.',
+    };
 
-<h3>Panduan Memilih Saiz (Ukuran Tapak Kaki Dalam / Insole):</h3>
+    if (item.category === "Women's Watches") {
+      intro = `<p><strong>${item.newTitle}</strong> menampilkan rekaan dial elegan dengan profil langsing yang mempesona. Dicipta untuk wanita moden, jam tangan ini melengkapi gaya ke pejabat mahupun majlis rasmi dengan sentuhan sofistikated.</p>`;
+    } else {
+      intro = `<p><strong>${item.newTitle}</strong> menggabungkan ketelitian seni horologi dan karakter maskulin berprestij. Menampilkan kemasan keluli tahan karat dan enjin pergerakan jitu, jam ini menyempurnakan penampilan sartorial anda di pelbagai acara.</p>`;
+    }
+
+    specsHeader = '<h3>Spesifikasi &amp; Ketukangan:</h3>';
+    const watchSpecs = WATCH_SPECS[item.handle];
+    if (watchSpecs && Array.isArray(watchSpecs)) {
+      specList = watchSpecs
+        .map((s) => `  <li><strong>${s.label}:</strong> ${s.val}</li>`)
+        .join('\n');
+    } else {
+      specList = item.highlights.map(formatHighlight).join('\n');
+    }
+
+    sizeSection = `<h3>Dimensi &amp; Ukuran:</h3>
 <ul>
-  <li><strong>Saiz 39:</strong> 24.5 cm</li>
-  <li><strong>Saiz 40:</strong> 25.0 cm</li>
-  <li><strong>Saiz 41:</strong> 25.5 cm</li>
-  <li><strong>Saiz 42:</strong> 26.0 cm</li>
-  <li><strong>Saiz 43:</strong> 26.5 cm</li>
-  <li><strong>Saiz 44:</strong> 27.0 cm</li>
+  <li><strong>Diameter Dial:</strong> ${dim.dial}</li>
+  <li><strong>Ketebalan Casing:</strong> ${dim.thickness}</li>
+  <li><strong>Lebar Tali (Lug Width):</strong> ${dim.lugWidth}</li>
+  <li><strong>Lilitan Tali:</strong> ${dim.wrist}</li>
 </ul>
-<p><em>*Tip Saiz: Jika bentuk kaki anda lebar (wide feet), kami cadangkan ambil 1 saiz lebih besar untuk keselesaan optimum.</em></p>`
-    : `<h3>Jaminan &amp; Kelebihan Servis ELFY Malaysia:</h3>
-<ul>
-  <li>🚚 <strong>Penghantaran Pantas:</strong> 1-3 hari bekerja Semenanjung (Pos Laju / J&amp;T) &amp; 3-5 hari Sabah/Sarawak.</li>
-  <li>🛡️ <strong>Jaminan 1 Tahun:</strong> Perlindungan kerosakan enjin jam tangan untuk ketenangan minda anda.</li>
-  <li>📦 <strong>100% Ready Stock Malaysia:</strong> Penghantaran pantas dari gudang tempatan Malaysia.</li>
-  <li>🎁 <strong>Pakej Eksklusif Termasuk:</strong> 1x Jam Tangan ELFY, 1x Kotak Hadiah Premium (Watch Gift Box), &amp; Kad Jaminan.</li>
-</ul>`;
+<p><em>*Tip Pemakaian: ${dim.note}</em></p>`;
+  }
 
-  return `${intro}\n\n${specs}\n\n${reassurance}`;
+  return `${intro}\n\n${specsHeader}\n<ul>\n${specList}\n</ul>\n\n${sizeSection}`;
 }
 
 function verifyCatalog() {
@@ -858,6 +1006,24 @@ function escapeCsv(val) {
   if (val === null || val === undefined) return '""';
   const str = String(val).replace(/"/g, '""');
   return `"${str}"`;
+}
+
+export function exportJson() {
+  verifyCatalog();
+  const catalogWithHtml = CATALOG_MAPPING.map((item) => ({
+    handle: item.handle,
+    category: item.category,
+    currentTitle: item.currentTitle,
+    newTitle: item.newTitle,
+    wordCount: item.newTitle.split(/\s+/).length,
+    seoTitle: item.seoTitle,
+    seoDescription: item.seoDescription,
+    descriptionHtml: generateProductHtmlDescription(item),
+  }));
+
+  const outPath = resolve(process.cwd(), 'scripts/catalog-optimized.json');
+  writeFileSync(outPath, JSON.stringify(catalogWithHtml, null, 2), 'utf-8');
+  console.log(`💾 Saved catalog JSON to: ${outPath} (${catalogWithHtml.length} products)\n`);
 }
 
 function exportCsv() {

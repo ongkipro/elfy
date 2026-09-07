@@ -720,7 +720,7 @@ const PRODUCT_FRAGMENT = `#graphql
         height
       }
     }
-    collections(first: 1) {
+    collections(first: 5) {
       nodes {
         id
         title

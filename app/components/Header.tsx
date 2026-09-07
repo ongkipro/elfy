@@ -94,6 +94,24 @@ export function Header({
             </NavLink>
 
             <NavLink
+              to="/collections/new-arrivals"
+              className={({isActive}) =>
+                `relative py-2 text-xs uppercase tracking-[0.16em] font-semibold transition-colors hover:text-[#B48344] ${
+                  isActive ? 'text-[#191817]' : 'text-stone-700'
+                }`
+              }
+            >
+              {({isActive}) => (
+                <>
+                  <span>New Arrivals</span>
+                  {isActive && (
+                    <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#B48344] rounded-full animate-in fade-in duration-200" />
+                  )}
+                </>
+              )}
+            </NavLink>
+
+            <NavLink
               to="/collections/best-sellers"
               className={({isActive}) =>
                 `relative py-2 text-xs uppercase tracking-[0.16em] font-semibold transition-colors hover:text-[#B48344] flex items-center gap-1.5 ${
@@ -220,6 +238,20 @@ export function HeaderMenu({
               Jam Tangan Wanita
             </span>
             <span className="text-[10px] text-stone-500 mt-0.5">Koleksi Anggun & Minimalis</span>
+          </div>
+          <ChevronRight className="w-4 h-4 text-stone-400 group-hover:text-[#B48344] group-hover:translate-x-0.5 transition-all" />
+        </Link>
+
+        <Link
+          to="/collections/new-arrivals"
+          onClick={close}
+          className="group flex items-center justify-between p-3.5 rounded-xl bg-white border border-[#EBE6DF] hover:border-[#B48344]/50 shadow-2xs transition-all"
+        >
+          <div className="flex flex-col">
+            <span className="font-semibold text-xs text-[#191817] group-hover:text-[#B48344] transition-colors flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-[#B48344]" /> New Arrivals &amp; Latest Drops
+            </span>
+            <span className="text-[10px] text-stone-500 mt-0.5">Keluaran terkini kasut &amp; jam tangan</span>
           </div>
           <ChevronRight className="w-4 h-4 text-stone-400 group-hover:text-[#B48344] group-hover:translate-x-0.5 transition-all" />
         </Link>

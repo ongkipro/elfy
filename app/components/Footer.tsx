@@ -129,6 +129,15 @@ export function Footer({
               </li>
               <li>
                 <Link
+                  to="/collections/new-arrivals"
+                  className="group flex items-center gap-2.5 hover:text-white transition-colors"
+                >
+                  <Sparkles className="w-3.5 h-3.5 stroke-[1.5] text-stone-500 group-hover:text-[#B48344] transition-colors shrink-0" />
+                  <span>New Arrivals &amp; Latest Drops</span>
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/collections/best-sellers"
                   className="group flex items-center gap-2.5 hover:text-white transition-colors"
                 >

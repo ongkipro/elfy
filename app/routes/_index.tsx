@@ -4,6 +4,7 @@ import {Suspense} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import {ProductItem} from '~/components/ProductItem';
 import {GrandAtelierHero} from '~/components/GrandAtelierHero';
+import {CategoryPills} from '~/components/CategoryPills';
 import {
   Truck,
   ShieldCheck,
@@ -15,6 +16,25 @@ import {
   ChevronRight,
   CheckCircle2,
 } from 'lucide-react';
+
+export const links: Route.LinksFunction = () => {
+  return [
+    {
+      rel: 'preload',
+      as: 'image',
+      href: '/hero-desktop.webp',
+      media: '(min-width: 768px)',
+      type: 'image/webp',
+    },
+    {
+      rel: 'preload',
+      as: 'image',
+      href: '/hero-mobile.webp',
+      media: '(max-width: 767px)',
+      type: 'image/webp',
+    },
+  ];
+};
 
 export const meta: Route.MetaFunction = () => {
   const title = 'ELFY - Kasut Kasual & Jam Tangan Lelaki Malaysia (Official)';
@@ -151,7 +171,7 @@ export default function Homepage() {
             <picture>
               <source srcSet="/banners/mens-sneakers-3x2.webp" type="image/webp" />
               <img
-                src="/banners/mens-sneakers-3x2.jpg"
+                src="/banners/mens-sneakers-3x2.webp"
                 alt="Koleksi Kasut Kulit ELFY"
                 className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-[0.9] group-hover:brightness-[0.95]"
                 loading="lazy"
@@ -190,7 +210,7 @@ export default function Homepage() {
             <picture>
               <source srcSet="/banners/mens-watches-3x2.webp" type="image/webp" />
               <img
-                src="/banners/mens-watches-3x2.jpg"
+                src="/banners/mens-watches-3x2.webp"
                 alt="Koleksi Jam Tangan ELFY"
                 className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-[0.9] group-hover:brightness-[0.95]"
                 loading="lazy"
@@ -242,6 +262,11 @@ export default function Homepage() {
               <span>Lihat Semua Koleksi ({data.bestSellers.length}+)</span>
               <ArrowRight className="w-3.5 h-3.5 shrink-0 group-hover:translate-x-1 transition-transform duration-200" />
             </Link>
+          </div>
+
+          {/* Quick Collection Filters */}
+          <div className="mb-8">
+            <CategoryPills activeHandle="best-sellers" />
           </div>
 
           {/* Product Grid using unified ProductItem */}

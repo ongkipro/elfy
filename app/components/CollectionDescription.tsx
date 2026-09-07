@@ -113,3 +113,51 @@ export function CollectionHighlightsBar({description}: CollectionDescriptionProp
     </div>
   );
 }
+
+export function CollectionAssurancePillars() {
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 p-4 rounded-xl bg-[#F5F2EC]/70 border border-[#EBE6DF]">
+        <div className="flex items-center gap-2.5">
+          <span className="w-8 h-8 rounded-lg bg-white border border-[#EBE6DF] flex items-center justify-center text-[#8C6527] shrink-0">
+            <Sparkles className="w-4 h-4 stroke-[1.5]" />
+          </span>
+          <div>
+            <h4 className="text-[11px] font-semibold text-[#191817] leading-tight">Pos 1–3 Hari</h4>
+            <p className="text-[10px] text-stone-500 mt-0.5">Semenanjung &amp; Sabah</p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2.5">
+          <span className="w-8 h-8 rounded-lg bg-white border border-[#EBE6DF] flex items-center justify-center text-[#8C6527] shrink-0">
+            <CheckCircle2 className="w-4 h-4 stroke-[1.5]" />
+          </span>
+          <div>
+            <h4 className="text-[11px] font-semibold text-[#191817] leading-tight">Tukar Saiz 7 Hari</h4>
+            <p className="text-[10px] text-stone-500 mt-0.5">Jaminan terus ke pintu</p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2.5">
+          <span className="w-8 h-8 rounded-lg bg-white border border-[#EBE6DF] flex items-center justify-center text-[#8C6527] shrink-0">
+            <CheckCircle2 className="w-4 h-4 stroke-[1.5]" />
+          </span>
+          <div>
+            <h4 className="text-[11px] font-semibold text-[#191817] leading-tight">1-Tahun Waranti</h4>
+            <p className="text-[10px] text-stone-500 mt-0.5">Perlindungan rasmi ELFY</p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2.5">
+          <span className="w-8 h-8 rounded-lg bg-white border border-[#EBE6DF] flex items-center justify-center text-[#2B593F] shrink-0">
+            <CheckCircle2 className="w-4 h-4 stroke-[1.5]" />
+          </span>
+          <div>
+            <h4 className="text-[11px] font-semibold text-[#191817] leading-tight">Bayaran Selamat</h4>
+            <p className="text-[10px] text-stone-500 mt-0.5">FPX, TNG &amp; COD sedia ada</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

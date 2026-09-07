@@ -98,15 +98,13 @@ export function ProductForm({
 
   return (
     <div className="product-form space-y-6">
-      {/* 1. VARIANT SELECTORS */}
+      {/* 1. VARIANT SELECTORS (Hidden for single-variant or non-variant products) */}
       {productOptions
         .filter(
           (option) =>
-            !(
-              option.optionValues.length === 1 &&
-              (option.optionValues[0].name === 'Default Title' ||
-                option.name.toLowerCase() === 'title')
-            ),
+            option.optionValues.length > 1 &&
+            option.optionValues[0]?.name !== 'Default Title' &&
+            option.name.toLowerCase() !== 'title',
         )
         .map((option) => {
           const isSize =

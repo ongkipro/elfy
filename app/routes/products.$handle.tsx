@@ -212,7 +212,59 @@ export default function Product() {
     getAdjacentAndFirstAvailableVariants(product),
   );
 
-  useSelectedOptionInUrlParam(selectedVariant.selectedOptions);
+  // Check if product is non-variant or single default variant
+  const isDefaultOrSingleVariant =
+    !selectedVariant ||
+    selectedVariant.title === 'Default Title' ||
+    selectedVariant.selectedOptions.every(
+      (opt) =>
+        opt.name.toLowerCase() === 'title' ||
+        opt.value.toLowerCase() === 'default title',
+    );
+
+  // Only pass meaningful options (e.g. Size, Color) to URL sync
+  const realSelectedOptions = isDefaultOrSingleVariant
+    ? []
+    : selectedVariant.selectedOptions.filter(
+        (opt) =>
+          opt.name.toLowerCase() !== 'title' &&
+          opt.value.toLowerCase() !== 'default title',
+      );
+
+  useSelectedOptionInUrlParam(realSelectedOptions);
+
+  // Strip ?Title=Default+Title from address bar if present
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const currentParams = new URLSearchParams(window.location.search);
+    let dirty = false;
+
+    if (currentParams.has('Title')) {
+      currentParams.delete('Title');
+      dirty = true;
+    }
+    if (currentParams.has('title')) {
+      currentParams.delete('title');
+      dirty = true;
+    }
+
+    if (isDefaultOrSingleVariant) {
+      for (const opt of selectedVariant?.selectedOptions || []) {
+        if (currentParams.has(opt.name)) {
+          currentParams.delete(opt.name);
+          dirty = true;
+        }
+      }
+    }
+
+    if (dirty) {
+      const remainingSearch = currentParams.toString();
+      const cleanPath = remainingSearch
+        ? `${window.location.pathname}?${remainingSearch}`
+        : window.location.pathname;
+      window.history.replaceState({}, '', cleanPath);
+    }
+  }, [isDefaultOrSingleVariant, selectedVariant]);
 
   const productOptions = getProductOptions({
     ...product,

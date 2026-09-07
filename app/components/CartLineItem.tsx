@@ -82,16 +82,22 @@ export function CartLineItem({
               </div>
             </div>
 
-            {/* Selected Options Pills */}
+            {/* Selected Options Pills (Hidden for Default Title) */}
             <div className="flex flex-wrap gap-1.5 mt-1.5">
-              {selectedOptions.map((option) => (
-                <span
-                  key={option.name}
-                  className="inline-flex items-center text-[10px] font-medium bg-stone-100/90 text-stone-600 px-2 py-0.5 rounded-md border border-stone-200/50"
-                >
-                  <strong className="font-semibold text-stone-700 mr-1">{option.name}:</strong> {option.value}
-                </span>
-              ))}
+              {selectedOptions
+                .filter(
+                  (option) =>
+                    option.name.toLowerCase() !== 'title' &&
+                    option.value.toLowerCase() !== 'default title',
+                )
+                .map((option) => (
+                  <span
+                    key={option.name}
+                    className="inline-flex items-center text-[10px] font-medium bg-stone-100/90 text-stone-600 px-2 py-0.5 rounded-md border border-stone-200/50"
+                  >
+                    <strong className="font-semibold text-stone-700 mr-1">{option.name}:</strong> {option.value}
+                  </span>
+                ))}
             </div>
           </div>
 

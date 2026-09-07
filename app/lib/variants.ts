@@ -37,10 +37,23 @@ export function getVariantUrl({
     : `/products/${handle}`;
 
   selectedOptions?.forEach((option) => {
+    // Never append Default Title or Title to slug / url
+    if (
+      option.name === 'Title' ||
+      option.value === 'Default Title' ||
+      option.name.toLowerCase() === 'title' ||
+      option.value.toLowerCase() === 'default title'
+    ) {
+      return;
+    }
     searchParams.set(option.name, option.value);
   });
 
+  // Ensure no stale Title parameter remains
+  searchParams.delete('Title');
+  searchParams.delete('title');
+
   const searchString = searchParams.toString();
 
-  return path + (searchString ? '?' + searchParams.toString() : '');
+  return path + (searchString ? '?' + searchString : '');
 }

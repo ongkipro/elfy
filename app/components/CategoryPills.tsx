@@ -35,16 +35,16 @@ export const CATEGORIES = [
 
 export function CategoryPills({activeHandle}: CategoryPillsProps) {
   return (
-    <div className="flex flex-wrap items-center justify-center gap-2">
+    <div className="flex items-center gap-2 overflow-x-auto no-scrollbar sm:flex-wrap sm:justify-center px-4 sm:px-0 py-1">
       {CATEGORIES.map((cat) => {
         const isActive = activeHandle === cat.handle;
         return (
           <Link
             key={cat.handle}
             to={cat.to}
-            className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all select-none ${
+            className={`shrink-0 whitespace-nowrap px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all select-none ${
               isActive
-                ? 'bg-[#191817] text-white shadow-md scale-105 ring-2 ring-[#B48344]/40 font-bold'
+                ? 'bg-[#191817] text-white shadow-xs font-bold'
                 : 'bg-white border border-[#EBE6DF] text-[#191817] hover:bg-[#191817] hover:text-white hover:border-[#191817] shadow-2xs active:scale-95'
             }`}
           >

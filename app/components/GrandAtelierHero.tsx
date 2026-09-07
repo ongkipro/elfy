@@ -44,30 +44,30 @@ export function GrandAtelierHero({}: GrandAtelierHeroProps) {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[560px] sm:min-h-[640px] lg:min-h-[700px] flex flex-col justify-between pt-10 sm:pt-16 pb-8 z-10">
         {/* Top Minimal Trust Pill */}
         <div className="flex items-center justify-between">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-[#EBE6DF] text-[11px] font-semibold text-[#191817] shadow-2xs">
-            <span className="w-2 h-2 rounded-full bg-[#2B593F] animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-[#EBE6DF] text-[11px] font-medium text-[#191817]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#2B593F]" />
             <span>Koleksi Eksklusif Malaysia • Ready Stock KL</span>
           </div>
 
           <div className="hidden sm:inline-flex items-center gap-1.5 text-xs text-stone-600 bg-white/80 backdrop-blur-sm px-3.5 py-1.5 rounded-full border border-[#EBE6DF]">
             <div className="flex items-center text-amber-500">
-              <Star className="w-3 h-3 fill-amber-400" />
-              <Star className="w-3 h-3 fill-amber-400" />
-              <Star className="w-3 h-3 fill-amber-400" />
-              <Star className="w-3 h-3 fill-amber-400" />
-              <Star className="w-3 h-3 fill-amber-400" />
+              <Star className="w-3 h-3 fill-amber-400 stroke-amber-400" />
+              <Star className="w-3 h-3 fill-amber-400 stroke-amber-400" />
+              <Star className="w-3 h-3 fill-amber-400 stroke-amber-400" />
+              <Star className="w-3 h-3 fill-amber-400 stroke-amber-400" />
+              <Star className="w-3 h-3 fill-amber-400 stroke-amber-400" />
             </div>
-            <span className="font-bold text-[#191817]">4.9/5</span>
-            <span className="text-stone-400">•</span>
-            <span>2,400+ Lelaki di Malaysia</span>
+            <span className="font-semibold text-[#191817]">4.9/5</span>
+            <span className="text-stone-300">•</span>
+            <span className="text-stone-500">2,400+ Lelaki di Malaysia</span>
           </div>
         </div>
 
         {/* Center-Left Bold Minimal Hero Headline & Dual CTAs */}
         <div className="max-w-xl space-y-6 my-auto pt-8 pb-4">
           <div className="space-y-3">
-            <span className="text-xs uppercase tracking-[0.25em] font-bold text-[#B48344] block">
-              Sartorial Footwear & Horology
+            <span className="text-xs uppercase tracking-[0.25em] font-semibold text-[#B48344] block">
+              Sartorial Footwear &amp; Horology
             </span>
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#191817] leading-[1.08]">
               Langkah Selesa.<br />
@@ -79,20 +79,20 @@ export function GrandAtelierHero({}: GrandAtelierHeroProps) {
           </div>
 
           {/* Dual Action Primary CTAs */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-1">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
             <Link
               to="/collections/mens-sneakers"
-              className="group h-12 sm:h-14 px-7 sm:px-8 bg-[#191817] hover:bg-[#B48344] active:scale-[0.98] text-white border-2 border-[#191817] hover:border-[#B48344] rounded-xl font-bold text-xs uppercase tracking-wider inline-flex items-center justify-center gap-2.5 shadow-md hover:shadow-lg transition-all duration-200 select-none"
+              className="group h-12 px-7 bg-[#191817] hover:bg-[#2e2b29] active:scale-[0.99] text-white rounded-lg font-medium text-xs uppercase tracking-[0.14em] inline-flex items-center justify-center gap-2 transition-all duration-200 select-none cursor-pointer"
             >
-              <span className="text-white">Terokai Kasut</span>
-              <ArrowRight className="w-4 h-4 text-[#B48344] group-hover:text-white group-hover:translate-x-1.5 transition-all duration-200 shrink-0" />
+              <span>Terokai Kasut</span>
+              <ArrowRight className="w-3.5 h-3.5 stroke-[1.5] group-hover:translate-x-1 transition-transform duration-200 shrink-0" />
             </Link>
 
             <Link
               to="/collections/mens-watches"
-              className="group h-12 sm:h-14 px-7 sm:px-8 bg-white/95 hover:bg-[#191817] active:scale-[0.98] text-[#191817] hover:text-white border-2 border-[#191817] rounded-xl font-bold text-xs uppercase tracking-wider inline-flex items-center justify-center gap-2.5 transition-all duration-200 shadow-2xs hover:shadow-md select-none"
+              className="group h-12 px-7 bg-white hover:bg-stone-50 active:scale-[0.99] text-[#191817] border border-stone-300 hover:border-stone-400 rounded-lg font-medium text-xs uppercase tracking-[0.14em] inline-flex items-center justify-center gap-2 transition-all duration-200 select-none cursor-pointer"
             >
-              <span className="text-[#191817] group-hover:text-white transition-colors duration-200">Koleksi Jam Tangan</span>
+              <span>Koleksi Jam Tangan</span>
             </Link>
           </div>
 
@@ -116,59 +116,59 @@ export function GrandAtelierHero({}: GrandAtelierHeroProps) {
         </div>
 
         {/* 3. SUBTLE BOTTOM TRUST BAR */}
-        <div className="pt-6 border-t border-stone-200/60 grid grid-cols-2 md:grid-cols-4 gap-4 text-xs text-stone-700">
-          <div className="flex items-center justify-center gap-2.5 text-left">
+        <div className="pt-6 border-t border-stone-200/60 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 text-xs text-stone-700">
+          <div className="flex items-center justify-start sm:justify-center gap-2 sm:gap-2.5 text-left">
             <div className="w-8 h-8 rounded-lg bg-white border border-[#EBE6DF] flex items-center justify-center shrink-0 text-[#B48344] shadow-2xs">
               <Truck className="w-3.5 h-3.5" />
             </div>
-            <div>
-              <strong className="block text-[#191817] font-semibold text-xs leading-none">
+            <div className="min-w-0">
+              <strong className="block text-[#191817] font-semibold text-xs leading-none truncate">
                 Pos 1-3 Hari
               </strong>
-              <span className="text-[11px] text-stone-500">
-                Semenanjung (J&T / Pos Laju)
+              <span className="text-[10.5px] sm:text-[11px] text-stone-500 truncate block mt-0.5">
+                Semenanjung (J&T / Pos)
               </span>
             </div>
           </div>
 
-          <div className="flex items-center justify-center gap-2.5 text-left">
+          <div className="flex items-center justify-start sm:justify-center gap-2 sm:gap-2.5 text-left">
             <div className="w-8 h-8 rounded-lg bg-white border border-[#EBE6DF] flex items-center justify-center shrink-0 text-[#B48344] shadow-2xs">
               <RefreshCw className="w-3.5 h-3.5" />
             </div>
-            <div>
-              <strong className="block text-[#191817] font-semibold text-xs leading-none">
+            <div className="min-w-0">
+              <strong className="block text-[#191817] font-semibold text-xs leading-none truncate">
                 Tukar Saiz 7 Hari
               </strong>
-              <span className="text-[11px] text-stone-500">
-                Gantian percuma ke pintu
+              <span className="text-[10.5px] sm:text-[11px] text-stone-500 truncate block mt-0.5">
+                Gantian terus ke pintu
               </span>
             </div>
           </div>
 
-          <div className="flex items-center justify-center gap-2.5 text-left">
+          <div className="flex items-center justify-start sm:justify-center gap-2 sm:gap-2.5 text-left">
             <div className="w-8 h-8 rounded-lg bg-white border border-[#EBE6DF] flex items-center justify-center shrink-0 text-[#B48344] shadow-2xs">
               <ShieldCheck className="w-3.5 h-3.5" />
             </div>
-            <div>
-              <strong className="block text-[#191817] font-semibold text-xs leading-none">
+            <div className="min-w-0">
+              <strong className="block text-[#191817] font-semibold text-xs leading-none truncate">
                 1-Tahun Waranti
               </strong>
-              <span className="text-[11px] text-stone-500">
-                Kad jaminan enjin bertarikh
+              <span className="text-[10.5px] sm:text-[11px] text-stone-500 truncate block mt-0.5">
+                Kad jaminan rasmi
               </span>
             </div>
           </div>
 
-          <div className="flex items-center justify-center gap-2.5 text-left">
+          <div className="flex items-center justify-start sm:justify-center gap-2 sm:gap-2.5 text-left">
             <div className="w-8 h-8 rounded-lg bg-white border border-[#EBE6DF] flex items-center justify-center shrink-0 text-[#2B593F] shadow-2xs">
               <CheckCircle2 className="w-3.5 h-3.5" />
             </div>
-            <div>
-              <strong className="block text-[#191817] font-semibold text-xs leading-none">
+            <div className="min-w-0">
+              <strong className="block text-[#191817] font-semibold text-xs leading-none truncate">
                 Bayaran Selamat
               </strong>
-              <span className="text-[11px] text-stone-500">
-                FPX, TNG eWallet, Kad
+              <span className="text-[10.5px] sm:text-[11px] text-stone-500 truncate block mt-0.5">
+                FPX, TNG, GrabPay, Kad
               </span>
             </div>
           </div>

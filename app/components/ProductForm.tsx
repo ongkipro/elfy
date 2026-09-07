@@ -109,7 +109,8 @@ export function ProductForm({
         .map((option) => {
           const isSize =
             option.name.toLowerCase().includes('size') ||
-            option.name.toLowerCase().includes('saiz');
+            option.name.toLowerCase().includes('saiz') ||
+            option.name.toLowerCase().includes('ukuran');
 
           const activeValue = option.optionValues.find((v) => v.selected)?.name;
 
@@ -148,11 +149,11 @@ export function ProductForm({
                     isDifferentProduct,
                   } = value;
 
-                  const buttonClasses = `min-w-[54px] h-12 px-4 rounded-xl border text-xs font-bold inline-flex items-center justify-center transition-all duration-200 select-none ${
+                  const buttonClasses = `min-w-[50px] h-11 px-3.5 rounded-lg border text-xs font-medium inline-flex items-center justify-center transition-all duration-200 select-none ${
                     selected
-                      ? 'bg-[#191817] text-white border-[#191817] shadow-sm ring-2 ring-stone-900/10 scale-[1.02]'
-                      : 'bg-white text-[#191817] border-stone-200 hover:border-[#191817] hover:bg-stone-50 active:scale-95'
-                  } ${!available ? 'opacity-40 line-through cursor-not-allowed bg-stone-50' : 'cursor-pointer'}`;
+                      ? 'bg-[#191817] text-white border-[#191817] shadow-2xs'
+                      : 'bg-white text-[#191817] border-stone-200 hover:border-[#191817] hover:bg-stone-50/70'
+                  } ${!available ? 'opacity-35 line-through cursor-not-allowed bg-stone-50' : 'cursor-pointer'}`;
 
                   if (isDifferentProduct) {
                     return (
@@ -193,32 +194,34 @@ export function ProductForm({
           );
         })}
 
-      {/* 2. QUANTITY & SUB-TOTAL MODULE */}
-      <div className="space-y-2.5 pt-1">
-        <div className="flex items-center justify-between">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#191817]">
-            Kuantiti:
+      {/* 2. UNIFIED ACTION MODULE: [Quantity] [Tambah ke Beg] + [Beli Sekarang] */}
+      <div className="pt-2 border-t border-stone-200/80 space-y-2.5">
+        {/* Availability Micro-Status (Zero Price Clutter) */}
+        <div className="flex items-center justify-between text-xs">
+          <span className="font-medium uppercase tracking-[0.14em] text-stone-500">
+            Kuantiti &amp; Beg
           </span>
-          <span className="text-[11px] text-[#2B593F] font-semibold flex items-center gap-1.5 bg-[#2B593F]/10 px-2 py-0.5 rounded-full">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#2B593F] animate-pulse" />
+          <span className="text-[11px] text-[#2B593F] font-medium flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#2B593F]" />
             Stok Tersedia (KL Warehouse)
           </span>
         </div>
 
-        <div className="flex items-center justify-between gap-4 p-3 rounded-xl bg-stone-50/80 border border-[#EBE6DF]">
-          {/* Stepper Control */}
-          <div className="inline-flex items-center bg-white border border-[#EBE6DF] rounded-lg p-0.5 shadow-2xs">
+        {/* Row 1: [ Quantity Stepper ] + [ Tambah ke Beg ] */}
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          {/* Stepper Kuantiti (Compact & Precision Height h-12) */}
+          <div className="inline-flex items-center border border-stone-300/80 rounded-lg h-12 px-1 bg-white shrink-0">
             <button
               type="button"
               onClick={decreaseQuantity}
               disabled={quantity <= 1}
               aria-label="Kurangkan kuantiti"
-              className="w-9 h-9 rounded-md flex items-center justify-center text-stone-600 hover:text-[#191817] hover:bg-stone-100 disabled:opacity-30 active:scale-95 transition-all cursor-pointer disabled:cursor-not-allowed"
+              className="w-8 h-full flex items-center justify-center text-stone-500 hover:text-[#191817] hover:bg-stone-100/70 rounded-md disabled:opacity-20 disabled:hover:bg-transparent transition-all duration-150 cursor-pointer disabled:cursor-not-allowed active:scale-90"
             >
-              <Minus className="w-3.5 h-3.5" />
+              <Minus className="w-3.5 h-3.5 stroke-[1.5]" />
             </button>
 
-            <span className="w-10 text-center text-sm font-bold text-[#191817] select-none">
+            <span className="w-9 text-center text-xs font-semibold text-[#191817] select-none">
               {quantity}
             </span>
 
@@ -227,63 +230,56 @@ export function ProductForm({
               onClick={increaseQuantity}
               disabled={quantity >= 10}
               aria-label="Tambah kuantiti"
-              className="w-9 h-9 rounded-md flex items-center justify-center text-stone-600 hover:text-[#191817] hover:bg-stone-100 disabled:opacity-30 active:scale-95 transition-all cursor-pointer disabled:cursor-not-allowed"
+              className="w-8 h-full flex items-center justify-center text-stone-500 hover:text-[#191817] hover:bg-stone-100/70 rounded-md disabled:opacity-20 disabled:hover:bg-transparent transition-all duration-150 cursor-pointer disabled:cursor-not-allowed active:scale-90"
             >
-              <Plus className="w-3.5 h-3.5" />
+              <Plus className="w-3.5 h-3.5 stroke-[1.5]" />
             </button>
           </div>
 
-          <div className="text-right">
-            <span className="text-[10px] text-stone-500 uppercase tracking-wider block">
-              Jumlah Pesanan
-            </span>
-            <span className="text-base font-bold text-[#191817]">
-              {currencyCode} {totalPrice}
-            </span>
-          </div>
+          {/* Secondary CTA: Tambah ke Beg (Fills Remaining Space) */}
+          <AddToCartButton
+            disabled={!isAvailable}
+            onClick={handleAddToCartClick}
+            lines={lineItems}
+            attributes={attributes}
+            wrapperClassName="flex-1 min-w-0"
+            className="group w-full h-12 bg-white hover:bg-stone-50/80 hover:border-[#191817] active:scale-[0.985] text-[#191817] border border-stone-300 rounded-lg font-medium text-xs uppercase tracking-[0.12em] inline-flex items-center justify-center gap-2 transition-all duration-200 select-none cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            {(fetcher) => {
+              const isSubmitting = fetcher.state !== 'idle';
+              return (
+                <>
+                  <ShoppingBag className="w-4 h-4 stroke-[1.5] text-[#191817] group-hover:scale-105 transition-transform duration-200 shrink-0" />
+                  <span>{isSubmitting ? 'Menambah...' : 'Tambah ke Beg'}</span>
+                </>
+              );
+            }}
+          </AddToCartButton>
         </div>
-      </div>
 
-      {/* 3. DUAL ACTION BUTTONS (BELI SEKARANG & TAMBAH KE BEG) */}
-      <div className="space-y-3 pt-2">
-        {/* Primary CTA: Beli Sekarang (Direct Checkout) */}
+        {/* Row 2: Beli Sekarang (Direct Checkout - Solid Luxury Black) */}
         <BuyNowButton
           disabled={!isAvailable}
           onClick={handleBuyNowClick}
           lines={lineItems}
           attributes={attributes}
-          className="group w-full h-13 sm:h-14 bg-[#B48344] hover:bg-[#9a6e36] active:scale-[0.98] text-white rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider inline-flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all duration-200 select-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          className="group w-full h-12 bg-[#191817] hover:bg-stone-800 active:scale-[0.985] text-white rounded-lg font-medium text-xs uppercase tracking-[0.14em] inline-flex items-center justify-center gap-2 transition-all duration-200 select-none cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed shadow-xs"
         >
-          <Zap className="w-4 h-4 fill-white text-white shrink-0 group-hover:scale-110 transition-transform" />
-          <span>
-            {isAvailable
-              ? `Beli Sekarang • ${currencyCode} ${totalPrice}`
-              : 'Habis Stok'}
-          </span>
+          <Zap className="w-3.5 h-3.5 stroke-[1.5] fill-white text-white shrink-0 group-hover:scale-110 transition-transform duration-200" />
+          <span>{isAvailable ? 'Beli Sekarang' : 'Habis Stok'}</span>
         </BuyNowButton>
 
-        {/* Secondary CTA: Tambah ke Beg (Add to Cart Drawer) */}
-        <AddToCartButton
-          disabled={!isAvailable}
-          onClick={handleAddToCartClick}
-          lines={lineItems}
-          attributes={attributes}
-          className="group w-full h-12 bg-white hover:bg-stone-50 active:scale-[0.98] text-[#191817] border-2 border-[#191817] rounded-xl font-bold text-xs uppercase tracking-wider inline-flex items-center justify-center gap-2 transition-all duration-200 select-none cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
-        >
-          <ShoppingBag className="w-4 h-4 text-[#191817] shrink-0 group-hover:scale-110 transition-transform" />
-          <span>Tambah ke Beg Belanja</span>
-        </AddToCartButton>
-
-        {/* Reassurance Guarantees Cards */}
-        <div className="pt-2.5 grid grid-cols-2 gap-2 text-[11px] border-t border-[#EBE6DF]/80 mt-3">
-          <div className="flex items-center gap-2 p-2 rounded-lg bg-stone-50/80 border border-[#EBE6DF]/60 text-stone-700">
-            <RefreshCw className="w-3.5 h-3.5 text-[#B48344] shrink-0" />
-            <span className="font-medium">Tukar Saiz 7 Hari Percuma</span>
-          </div>
-          <div className="flex items-center gap-2 p-2 rounded-lg bg-stone-50/80 border border-[#EBE6DF]/60 text-stone-700">
-            <Truck className="w-3.5 h-3.5 text-[#2B593F] shrink-0" />
-            <span className="font-medium">Pos Percuma Semenanjung</span>
-          </div>
+        {/* Minimal Reassurance Micro-Row (No Boxes, Clean SVG) */}
+        <div className="pt-2 flex items-center justify-center gap-4 sm:gap-6 text-[11px] text-stone-500">
+          <span className="inline-flex items-center gap-1.5">
+            <RefreshCw className="w-3.5 h-3.5 stroke-[1.5] text-stone-400 shrink-0" />
+            <span>Tukar Saiz 7 Hari Percuma</span>
+          </span>
+          <span className="w-1 h-1 rounded-full bg-stone-300" />
+          <span className="inline-flex items-center gap-1.5">
+            <Truck className="w-3.5 h-3.5 stroke-[1.5] text-stone-400 shrink-0" />
+            <span>Pos Percuma Semenanjung</span>
+          </span>
         </div>
       </div>
     </div>

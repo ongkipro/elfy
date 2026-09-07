@@ -1,7 +1,19 @@
 import {Suspense} from 'react';
 import {Await, Link} from 'react-router';
 import type {FooterQuery, HeaderQuery} from 'storefrontapi.generated';
-import {Truck, ShieldCheck, RefreshCw, MessageSquare} from 'lucide-react';
+import {
+  Truck,
+  ShieldCheck,
+  RefreshCw,
+  MessageSquare,
+  Footprints,
+  Watch,
+  Sparkles,
+  TrendingUp,
+  Layers,
+  Ruler,
+  Mail,
+} from 'lucide-react';
 
 interface FooterProps {
   footer: Promise<FooterQuery | null>;
@@ -82,55 +94,91 @@ export function Footer({
             </div>
           </div>
 
-          {/* Nav Col 1 */}
+          {/* Nav Col 1: Koleksi Produk */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-white">Koleksi Produk</h4>
-            <ul className="space-y-2 text-xs text-stone-400">
+            <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-white">
+              Koleksi Produk
+            </h4>
+            <ul className="space-y-2.5 text-xs text-stone-400">
               <li>
-                <Link to="/collections/mens-sneakers" className="hover:text-white transition-colors">
-                  Kasut Kasual & Sneakers
+                <Link
+                  to="/collections/mens-sneakers"
+                  className="group flex items-center gap-2.5 hover:text-white transition-colors"
+                >
+                  <Footprints className="w-3.5 h-3.5 stroke-[1.5] text-stone-500 group-hover:text-[#B48344] transition-colors shrink-0" />
+                  <span>Kasut Kasual &amp; Sneakers</span>
                 </Link>
               </li>
               <li>
-                <Link to="/collections/mens-watches" className="hover:text-white transition-colors">
-                  Jam Tangan Lelaki (Watches)
+                <Link
+                  to="/collections/mens-watches"
+                  className="group flex items-center gap-2.5 hover:text-white transition-colors"
+                >
+                  <Watch className="w-3.5 h-3.5 stroke-[1.5] text-stone-500 group-hover:text-[#B48344] transition-colors shrink-0" />
+                  <span>Jam Tangan Lelaki (Watches)</span>
                 </Link>
               </li>
               <li>
-                <Link to="/collections/womens-watches" className="hover:text-white transition-colors">
-                  Jam Tangan Wanita
+                <Link
+                  to="/collections/womens-watches"
+                  className="group flex items-center gap-2.5 hover:text-white transition-colors"
+                >
+                  <Sparkles className="w-3.5 h-3.5 stroke-[1.5] text-stone-500 group-hover:text-[#B48344] transition-colors shrink-0" />
+                  <span>Jam Tangan Wanita</span>
                 </Link>
               </li>
               <li>
-                <Link to="/collections/best-sellers" className="hover:text-white transition-colors">
-                  Best Sellers & Trending
+                <Link
+                  to="/collections/best-sellers"
+                  className="group flex items-center gap-2.5 hover:text-white transition-colors"
+                >
+                  <TrendingUp className="w-3.5 h-3.5 stroke-[1.5] text-stone-500 group-hover:text-[#B48344] transition-colors shrink-0" />
+                  <span>Best Sellers &amp; Trending</span>
                 </Link>
               </li>
               <li>
-                <Link to="/collections/all" className="hover:text-white transition-colors">
-                  Semua Koleksi (All Products)
+                <Link
+                  to="/collections/all"
+                  className="group flex items-center gap-2.5 hover:text-white transition-colors"
+                >
+                  <Layers className="w-3.5 h-3.5 stroke-[1.5] text-stone-500 group-hover:text-[#B48344] transition-colors shrink-0" />
+                  <span>Semua Koleksi (All Products)</span>
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Nav Col 2 */}
+          {/* Nav Col 2: Bantuan & Jaminan */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-white">Bantuan & Jaminan</h4>
-            <ul className="space-y-2 text-xs text-stone-400">
+            <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-white">
+              Bantuan &amp; Jaminan
+            </h4>
+            <ul className="space-y-2.5 text-xs text-stone-400">
               <li>
-                <Link to="/pages/size-guide" className="hover:text-white transition-colors">
-                  Panduan Saiz Kaki Malaysia (CM)
+                <Link
+                  to="/pages/size-guide"
+                  className="group flex items-center gap-2.5 hover:text-white transition-colors"
+                >
+                  <Ruler className="w-3.5 h-3.5 stroke-[1.5] text-stone-500 group-hover:text-[#B48344] transition-colors shrink-0" />
+                  <span>Panduan Saiz Kaki Malaysia (CM)</span>
                 </Link>
               </li>
               <li>
-                <Link to="/pages/warranty-returns" className="hover:text-white transition-colors">
-                  Jaminan Tukar Saiz 7 Hari Percuma
+                <Link
+                  to="/pages/warranty-returns"
+                  className="group flex items-center gap-2.5 hover:text-white transition-colors"
+                >
+                  <RefreshCw className="w-3.5 h-3.5 stroke-[1.5] text-stone-500 group-hover:text-[#B48344] transition-colors shrink-0" />
+                  <span>Jaminan Tukar Saiz 7 Hari Percuma</span>
                 </Link>
               </li>
               <li>
-                <Link to="/pages/shipping-faq" className="hover:text-white transition-colors">
-                  Kadar & Masa Pos Semenanjung / Sabah
+                <Link
+                  to="/pages/shipping-faq"
+                  className="group flex items-center gap-2.5 hover:text-white transition-colors"
+                >
+                  <Truck className="w-3.5 h-3.5 stroke-[1.5] text-stone-500 group-hover:text-[#B48344] transition-colors shrink-0" />
+                  <span>Kadar &amp; Masa Pos Semenanjung / Sabah</span>
                 </Link>
               </li>
               <li>
@@ -138,9 +186,10 @@ export function Footer({
                   href="https://wa.me/601111111111?text=Hi%20ELFY,%20saya%20nak%20tanya%20tentang%20pesanan"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-[#25D366] transition-colors flex items-center gap-1.5"
+                  className="group flex items-center gap-2.5 hover:text-[#25D366] transition-colors"
                 >
-                  Hubungi Kami di WhatsApp
+                  <MessageSquare className="w-3.5 h-3.5 stroke-[1.5] text-[#25D366] shrink-0" />
+                  <span>Hubungi Kami di WhatsApp</span>
                 </a>
               </li>
             </ul>
@@ -148,19 +197,24 @@ export function Footer({
 
           {/* Newsletter / Reassurance Col */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-white">Kelebihan ELFY</h4>
+            <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-white">
+              Kelebihan ELFY
+            </h4>
             <p className="text-xs text-stone-400 leading-relaxed">
               Dapatkan diskaun RM 20 untuk pembelian pertama dan jemputan awal koleksi drop baharu.
             </p>
             <div className="flex gap-2">
-              <input
-                type="email"
-                placeholder="Emel anda..."
-                className="bg-stone-900 border border-stone-800 rounded-lg px-3 py-2 text-base sm:text-xs text-white placeholder-stone-600 flex-1 focus:outline-none focus:border-[#B48344]"
-              />
+              <div className="relative flex-1">
+                <input
+                  type="email"
+                  placeholder="Emel anda..."
+                  className="w-full bg-stone-900 border border-stone-800 rounded-lg pl-8 pr-3 py-2 text-base sm:text-xs text-white placeholder-stone-600 focus:outline-none focus:border-[#B48344]"
+                />
+                <Mail className="w-3.5 h-3.5 stroke-[1.5] text-stone-500 absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              </div>
               <button
                 type="button"
-                className="bg-[#B48344] hover:bg-white hover:text-[#191817] text-white text-xs font-bold px-4 py-2 rounded-lg transition-all duration-200 active:scale-95 inline-flex items-center justify-center select-none shadow-xs cursor-pointer"
+                className="bg-[#B48344] hover:bg-white hover:text-[#191817] text-white text-xs font-medium px-4 py-2 rounded-lg transition-all duration-200 active:scale-95 inline-flex items-center justify-center select-none cursor-pointer"
               >
                 Langgan
               </button>

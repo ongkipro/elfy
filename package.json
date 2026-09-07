@@ -10,7 +10,11 @@
     "preview": "shopify hydrogen preview --build",
     "typecheck": "react-router typegen && tsc --noEmit",
     "codegen": "shopify hydrogen codegen && react-router typegen",
-    "shopify:status": "node scripts/shopify-status.mjs"
+    "shopify:status": "node scripts/shopify-status.mjs",
+    "shopify:products": "node scripts/products-cli.mjs",
+    "products": "node scripts/products-cli.mjs",
+    "catalog:verify": "node scripts/catalog-optimizer.mjs verify",
+    "catalog:export": "node scripts/catalog-optimizer.mjs export-csv"
   },
   "dependencies": {
     "@shopify/hydrogen": "^2026.4.5",

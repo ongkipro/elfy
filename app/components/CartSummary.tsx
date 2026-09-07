@@ -4,6 +4,7 @@ import {Money, type OptimisticCart} from '@shopify/hydrogen';
 import {useId} from 'react';
 import {trackInitiateCheckout} from '~/lib/tracking';
 import {ArrowRight} from 'lucide-react';
+import {TrustPaymentBadges} from './TrustPaymentBadges';
 
 type CartSummaryProps = {
   cart: OptimisticCart<CartApiQueryFragment | null>;
@@ -74,16 +75,17 @@ function CartCheckoutActions({
   };
 
   return (
-    <div className="mt-4 pt-3 border-t border-stone-200">
+    <div className="mt-4 pt-3 border-t border-stone-200 space-y-3">
       <a
         href={resolvedCheckoutUrl}
         target="_self"
         onClick={handleClick}
-        className="group w-full h-12 bg-[#191817] hover:bg-[#B48344] active:scale-[0.98] text-white border-2 border-[#191817] hover:border-[#B48344] rounded-xl font-bold text-xs uppercase tracking-wider inline-flex items-center justify-center gap-2.5 shadow-md hover:shadow-lg transition-all duration-200 select-none"
+        className="group w-full h-12 bg-[#191817] hover:bg-stone-800 active:scale-[0.985] text-white rounded-lg font-medium text-xs uppercase tracking-[0.14em] inline-flex items-center justify-center gap-2.5 transition-all duration-200 select-none shadow-xs cursor-pointer"
       >
-        <span className="text-white">Teruskan ke Pembayaran (Checkout)</span>
-        <ArrowRight className="w-4 h-4 text-[#B48344] shrink-0 group-hover:text-white group-hover:translate-x-1.5 transition-all duration-200" />
+        <span>Teruskan ke Pembayaran</span>
+        <ArrowRight className="w-4 h-4 text-stone-400 group-hover:text-white group-hover:translate-x-1 transition-transform duration-200 shrink-0" />
       </a>
+      <TrustPaymentBadges variant="compact" />
     </div>
   );
 }

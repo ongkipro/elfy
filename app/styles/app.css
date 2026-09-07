@@ -679,3 +679,77 @@ button.reset:hover:not(:has(> *)) {
   }
 }
 
+/*
+* --------------------------------------------------
+* components/ProductAccordion & Description Styling
+* --------------------------------------------------
+*/
+.product-description-content {
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  color: #57534e;
+}
+
+.product-description-content > p {
+  margin-bottom: 0.75rem;
+  line-height: 1.65;
+  color: #57534e;
+}
+
+.product-description-content strong {
+  color: #191817;
+  font-weight: 600;
+}
+
+.product-description-content > h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #191817;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid rgba(235, 230, 223, 0.9);
+}
+
+.product-description-content > h3:first-of-type {
+  margin-top: 0.5rem;
+}
+
+.product-description-content > ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.5rem 0 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.product-description-content > ul > li {
+  position: relative;
+  padding-left: 1.125rem;
+  line-height: 1.55;
+  color: #57534e;
+}
+
+.product-description-content > ul > li::before {
+  content: '';
+  position: absolute;
+  left: 0.15rem;
+  top: 0.55rem;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background-color: #8c6527;
+}
+
+.product-description-content em {
+  font-style: italic;
+  font-size: 0.6875rem;
+  color: #78716c;
+  display: block;
+  margin-top: 0.35rem;
+}
+
+

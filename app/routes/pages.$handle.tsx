@@ -11,6 +11,7 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import {Breadcrumb} from '~/components/Breadcrumb';
+import {getPageSeo} from '~/lib/seo-catalog';
 
 export const meta: Route.MetaFunction = ({data}) => {
   const page = data?.page;
@@ -18,11 +19,14 @@ export const meta: Route.MetaFunction = ({data}) => {
     return [{title: 'Halaman Tidak Ditemui - ELFY'}];
   }
 
-  const rawTitle = page.seo?.title || `${page.title} - ELFY Official`;
-  const title = rawTitle.replace(/\s*\|\s*/g, ' - ');
-  const description =
-    page.seo?.description ||
-    'Maklumat rasmi panduan saiz, polisi jaminan tukar saiz, dan penghantaran ELFY Malaysia.';
+  const seo = getPageSeo(page.handle, {
+    title: page.title,
+    seoTitle: page.seo?.title,
+    description: page.seo?.description,
+  });
+
+  const title = seo.title;
+  const description = seo.description;
   const canonicalUrl = `https://elfy.my/pages/${page.handle}`;
 
   return [

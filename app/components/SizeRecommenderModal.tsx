@@ -35,9 +35,9 @@ export function SizeRecommenderModal({
       <div className="absolute inset-0" onClick={onClose} />
 
       {/* Modal Container / Bottom Sheet */}
-      <div className="relative w-full max-w-lg bg-[#FAF9F6] rounded-t-3xl sm:rounded-2xl p-6 shadow-2xl z-10 max-h-[90vh] overflow-y-auto border border-[#EBE6DF]">
+      <div className="relative w-full max-w-lg bg-[#FAF9F6] rounded-t-3xl sm:rounded-2xl px-5 sm:px-6 pt-3.5 sm:pt-6 pb-[max(24px,env(safe-area-inset-bottom))] shadow-2xl z-10 max-h-[90vh] overflow-y-auto border border-[#EBE6DF]">
         {/* Mobile Pull-Down Handle */}
-        <div className="w-12 h-1.5 bg-stone-300 rounded-full mx-auto mb-4 sm:hidden" />
+        <div className="w-12 h-1 bg-stone-300 rounded-full mx-auto mb-3.5 sm:hidden" />
 
         {/* Header */}
         <div className="flex items-center justify-between pb-4 border-b border-[#EBE6DF]">
@@ -103,7 +103,7 @@ export function SizeRecommenderModal({
               onSelectSize(currentMatch.eu);
               onClose();
             }}
-            className="bg-[#191817] hover:bg-[#B48344] text-white border border-[#191817] hover:border-[#B48344] text-xs font-semibold px-4 py-2.5 rounded-lg active:scale-95 transition-all shadow-xs hover:shadow-md cursor-pointer"
+            className="bg-[#191817] hover:bg-stone-800 active:scale-[0.985] text-white text-xs font-medium px-5 py-2.5 rounded-lg transition-all duration-200 shadow-xs cursor-pointer"
           >
             Pilih Saiz {currentMatch.eu}
           </button>

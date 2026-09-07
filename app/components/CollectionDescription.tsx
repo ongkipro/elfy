@@ -72,37 +72,39 @@ export function CollectionHighlightsBar({description}: CollectionDescriptionProp
   if (!highlights.length) return null;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-2">
-      <div className="bg-white border border-[#EBE6DF] rounded-2xl p-5 sm:p-6 shadow-2xs">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2">
+      <div className="border-t border-b border-stone-200/80 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-[#B48344]" />
-            <h3 className="text-xs font-bold uppercase tracking-wider text-[#191817]">
-              Ciri Khas & Piawaian Koleksi
-            </h3>
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.1em] text-[#191817]">
+            <Sparkles className="w-3.5 h-3.5 stroke-[1.5] text-[#8C6527]" />
+            <span>Piawaian &amp; Keistimewaan Koleksi</span>
           </div>
           <button
             type="button"
             onClick={() => setIsOpen(!isOpen)}
-            className="text-xs font-semibold text-[#B48344] hover:text-[#8f642e] flex items-center gap-1 transition-colors"
+            className="text-xs font-medium text-stone-600 hover:text-[#191817] flex items-center gap-1.5 transition-colors cursor-pointer select-none"
           >
             <span>{isOpen ? 'Tutup Rincian' : 'Ketahui Keistimewaan'}</span>
-            {isOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+            {isOpen ? (
+              <ChevronUp className="w-3.5 h-3.5 stroke-[1.5]" />
+            ) : (
+              <ChevronDown className="w-3.5 h-3.5 stroke-[1.5]" />
+            )}
           </button>
         </div>
 
         {/* Highlights Grid */}
         {isOpen && (
-          <div className="mt-5 pt-4 border-t border-stone-100 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 animate-in fade-in duration-200">
+          <div className="mt-4 pt-3 border-t border-stone-100 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 animate-in fade-in duration-200">
             {highlights.map((item, idx) => (
-              <div key={idx} className="bg-[#FAF9F6] p-3.5 rounded-xl border border-stone-200/80">
-                <div className="flex items-center gap-1.5 text-xs font-bold text-[#191817] mb-1">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#2B593F] shrink-0" />
-                  <span>{item.title}</span>
+              <div key={idx} className="py-2 flex items-start gap-2.5">
+                <CheckCircle2 className="w-3.5 h-3.5 stroke-[1.5] text-[#2B593F] shrink-0 mt-0.5" />
+                <div className="text-xs text-stone-600 leading-relaxed">
+                  <strong className="text-[#191817] font-semibold mr-1">
+                    {item.title}:
+                  </strong>
+                  <span>{item.text}</span>
                 </div>
-                <p className="text-[11px] text-stone-600 leading-relaxed">
-                  {item.text}
-                </p>
               </div>
             ))}
           </div>

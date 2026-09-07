@@ -6,12 +6,17 @@ import {ProductItem} from '~/components/ProductItem';
 import {TrustPaymentBadges} from '~/components/TrustPaymentBadges';
 import {CategoryPills} from '~/components/CategoryPills';
 import {Breadcrumb} from '~/components/Breadcrumb';
+import {getCollectionSeo} from '~/lib/seo-catalog';
 import type {CollectionItemFragment} from 'storefrontapi.generated';
 
 export const meta: Route.MetaFunction = () => {
-  const title = 'Semua Koleksi Kasut & Jam Tangan - ELFY Official';
-  const description =
-    'Koleksi lengkap kasut kasual, loafers kulit asli, dan jam tangan lelaki rekaan Malaysia. Penghantaran percuma Semenanjung & jaminan tukar saiz 7 hari.';
+  const seo = getCollectionSeo('all', {
+    title: 'Semua Koleksi & Produk',
+    description:
+      'Koleksi lengkap kasut sneakers kasual dan jam tangan lelaki & wanita ELFY Malaysia. Sedia pos dari KL & jaminan tukar saiz 7 hari.',
+  });
+  const title = seo.title;
+  const description = seo.description;
   const canonicalUrl = 'https://elfy.my/collections/all';
 
   return [
@@ -72,20 +77,20 @@ export default function CollectionAll() {
       </div>
 
       {/* Editorial Header (Bright & Luxurious) */}
-      <div className="bg-gradient-to-b from-[#F4F0E8] via-[#FAF9F6] to-[#FAF9F6] text-[#191817] py-14 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-[#EBE6DF]">
+      <div className="bg-gradient-to-b from-[#F4F0E8] via-[#FAF9F6] to-[#FAF9F6] text-[#191817] py-10 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-[#EBE6DF]">
         <div className="max-w-7xl mx-auto text-center">
-          <span className="text-xs uppercase tracking-[0.25em] font-semibold text-[#B48344] block mb-2.5">
+          <span className="text-xs uppercase tracking-[0.25em] font-semibold text-[#B48344] block mb-2 sm:mb-2.5">
             Katalog Lengkap ELFY • Kuala Lumpur
           </span>
-          <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-[#191817]">
+          <h1 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#191817]">
             Semua Koleksi Eksklusif
           </h1>
-          <p className="mt-4 text-xs sm:text-sm text-stone-600 max-w-2xl mx-auto leading-relaxed font-normal">
+          <p className="mt-3 sm:mt-4 text-xs sm:text-sm text-stone-600 max-w-2xl mx-auto leading-relaxed font-normal">
             Terokai rangkaian penuh kasut kasual kulit premium dan jam tangan horologi moden dengan jaminan tukar saiz 7 hari percuma.
           </p>
 
           {/* Quick Category Switcher */}
-          <div className="mt-8">
+          <div className="mt-5 sm:mt-8">
             <CategoryPills activeHandle="all" />
           </div>
         </div>
@@ -102,7 +107,7 @@ export default function CollectionAll() {
 
         <PaginatedResourceSection<CollectionItemFragment>
           connection={products}
-          resourcesClassName="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"
+          resourcesClassName="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8 sm:gap-x-6 sm:gap-y-12"
         >
           {({node: product, index}) => (
             <ProductItem

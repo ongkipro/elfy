@@ -55,7 +55,7 @@ export function Breadcrumb({
       aria-label="Breadcrumb"
       className={`w-full overflow-hidden ${className}`}
     >
-      <ol className="flex flex-nowrap items-center gap-1.5 text-xs text-stone-500 whitespace-nowrap overflow-x-auto no-scrollbar py-0.5 select-none">
+      <ol className="flex items-center gap-1.5 text-xs text-stone-500 w-full overflow-hidden whitespace-nowrap select-none py-0.5">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
           const isFirst = index === 0;
@@ -63,27 +63,33 @@ export function Breadcrumb({
           return (
             <li
               key={`${item.label}-${index}`}
-              className={`inline-flex items-center gap-1.5 ${
-                isLast ? 'shrink min-w-0' : 'shrink-0'
+              className={`flex items-center gap-1.5 ${
+                isLast ? 'min-w-0 flex-1' : 'shrink-0'
               }`}
               {...(isLast ? {'aria-current': 'page'} : {})}
             >
               {item.to && !isLast ? (
                 <Link
                   to={item.to}
-                  className="inline-flex items-center gap-1 text-stone-500 hover:text-[#191817] transition-colors focus-visible:outline-hidden focus-visible:underline"
+                  title={item.label}
+                  className="flex items-center gap-1 text-stone-500 hover:text-[#191817] transition-colors focus-visible:outline-hidden focus-visible:underline"
                 >
-                  {isFirst && showHomeIcon && (
-                    <Home
-                      className="w-3.5 h-3.5 text-stone-400 shrink-0 -mt-0.5"
-                      aria-hidden="true"
-                    />
+                  {isFirst && showHomeIcon ? (
+                    <span className="flex items-center justify-center p-0.5 hover:text-[#191817]" aria-label={item.label || 'Laman Utama'}>
+                      <Home
+                        className="w-3.5 h-3.5 stroke-[1.5] text-stone-500 hover:text-[#191817] shrink-0"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  ) : (
+                    <span className="max-w-[120px] xs:max-w-[160px] sm:max-w-none truncate">
+                      {item.label}
+                    </span>
                   )}
-                  <span>{item.label}</span>
                 </Link>
               ) : (
                 <span
-                  className="font-semibold text-[#191817] truncate min-w-0 max-w-[170px] xs:max-w-[220px] sm:max-w-md md:max-w-none"
+                  className="font-normal text-stone-800 truncate block w-full min-w-0"
                   title={item.label}
                 >
                   {item.label}
@@ -92,7 +98,7 @@ export function Breadcrumb({
 
               {!isLast && (
                 <ChevronRight
-                  className="w-3 h-3 text-stone-300 shrink-0 select-none"
+                  className="w-3 h-3 stroke-[1.5] text-stone-300 shrink-0 select-none"
                   aria-hidden="true"
                 />
               )}

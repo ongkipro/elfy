@@ -336,12 +336,12 @@ function CartBadge({count}: {count: number}) {
           url: window.location.href || '',
         } as CartViewPayload);
       }}
-      className="group h-10 px-3.5 sm:px-4 bg-[#191817] hover:bg-[#B48344] text-white rounded-full inline-flex items-center gap-2 sm:gap-2.5 active:scale-[0.98] transition-all duration-200 shadow-xs hover:shadow-md shrink-0 select-none"
+      className="group h-10 px-3.5 sm:px-4 bg-[#191817] hover:bg-stone-800 text-white rounded-full inline-flex items-center gap-2 sm:gap-2.5 active:scale-[0.985] transition-all duration-200 shadow-xs shrink-0 select-none cursor-pointer"
       aria-label={`Troli (${count})`}
     >
-      <ShoppingBag className="w-4 h-4 text-[#B48344] group-hover:text-white group-hover:scale-110 transition-all duration-200 shrink-0" />
-      <span className="text-white text-xs font-bold tracking-wider hidden sm:inline">Beg</span>
-      <span className="w-5 h-5 rounded-full bg-[#B48344] group-hover:bg-white group-hover:text-[#191817] text-white text-[10px] font-bold inline-flex items-center justify-center font-mono leading-none transition-colors">
+      <ShoppingBag className="w-4 h-4 text-[#D4AF37] group-hover:scale-105 transition-transform duration-200 shrink-0" />
+      <span className="text-white text-xs font-medium tracking-wider hidden sm:inline">Beg</span>
+      <span className="w-5 h-5 rounded-full bg-stone-800 group-hover:bg-[#D4AF37] text-stone-200 group-hover:text-[#191817] text-[10px] font-bold inline-flex items-center justify-center font-mono leading-none transition-colors duration-200">
         {count}
       </span>
     </button>

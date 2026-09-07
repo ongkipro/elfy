@@ -146,7 +146,7 @@ export default function Homepage() {
           {/* Card 1: Footwear */}
           <Link
             to="/collections/mens-sneakers"
-            className="group relative rounded-3xl overflow-hidden border border-[#EBE6DF] bg-stone-900 aspect-[4/3] sm:aspect-[16/10] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-end p-6 sm:p-8"
+            className="group relative rounded-2xl overflow-hidden border border-[#EBE6DF] hover:border-stone-400 bg-stone-900 aspect-[4/3] sm:aspect-[16/10] transition-all duration-300 flex flex-col justify-end p-6 sm:p-8"
           >
             <picture>
               <source srcSet="/banners/mens-sneakers-3x2.webp" type="image/webp" />
@@ -164,9 +164,8 @@ export default function Homepage() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/5 pointer-events-none" />
 
             <div className="relative z-10">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-[10px] font-bold uppercase tracking-wider mb-2.5">
-                <Sparkles className="w-3 h-3 text-[#B48344]" />
-                Koleksi Kasut Kulit (39-44)
+              <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#D4AF37] block mb-1.5">
+                Koleksi Kasut Kulit (39–44)
               </span>
               <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white leading-snug">
                 Kasut Kasual Kulit Lembut
@@ -175,7 +174,7 @@ export default function Homepage() {
                 Potongan wide-fit selesa khas kaki Malaysia, tapak anti-gelincir dan kusyen empuk tahan seharian.
               </p>
               <div className="mt-4">
-                <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white text-[#191817] group-hover:bg-[#B48344] group-hover:text-white font-bold text-xs uppercase tracking-wider transition-all duration-200 shadow-md">
+                <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white text-[#191817] group-hover:bg-[#191817] group-hover:text-white font-medium text-xs uppercase tracking-wider transition-all duration-200">
                   <span>Terokai Kasut</span>
                   <ArrowRight className="w-3.5 h-3.5 shrink-0 group-hover:translate-x-1 transition-transform duration-200" />
                 </span>
@@ -186,7 +185,7 @@ export default function Homepage() {
           {/* Card 2: Watches */}
           <Link
             to="/collections/mens-watches"
-            className="group relative rounded-3xl overflow-hidden border border-[#EBE6DF] bg-stone-900 aspect-[4/3] sm:aspect-[16/10] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-end p-6 sm:p-8"
+            className="group relative rounded-2xl overflow-hidden border border-[#EBE6DF] hover:border-stone-400 bg-stone-900 aspect-[4/3] sm:aspect-[16/10] transition-all duration-300 flex flex-col justify-end p-6 sm:p-8"
           >
             <picture>
               <source srcSet="/banners/mens-watches-3x2.webp" type="image/webp" />
@@ -204,18 +203,17 @@ export default function Homepage() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/5 pointer-events-none" />
 
             <div className="relative z-10">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-[10px] font-bold uppercase tracking-wider mb-2.5">
-                <Sparkles className="w-3 h-3 text-[#B48344]" />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#D4AF37] block mb-1.5">
                 Horologi Sartorial
               </span>
               <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white leading-snug">
-                Jam Tangan Chrono & Klasik
+                Jam Tangan Chrono &amp; Klasik
               </h3>
               <p className="text-xs text-stone-200 mt-2 max-w-md line-clamp-2">
                 Enjin kuarza jitu, cermin sapphire-coated tahan calar, serta waranti enjin 1-tahun rasmi bertarikh.
               </p>
               <div className="mt-4">
-                <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white text-[#191817] group-hover:bg-[#B48344] group-hover:text-white font-bold text-xs uppercase tracking-wider transition-all duration-200 shadow-md">
+                <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white text-[#191817] group-hover:bg-[#191817] group-hover:text-white font-medium text-xs uppercase tracking-wider transition-all duration-200">
                   <span>Terokai Jam Tangan</span>
                   <ArrowRight className="w-3.5 h-3.5 shrink-0 group-hover:translate-x-1 transition-transform duration-200" />
                 </span>
@@ -247,7 +245,7 @@ export default function Homepage() {
           </div>
 
           {/* Product Grid using unified ProductItem */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8 sm:gap-x-6 sm:gap-y-12">
             {data.bestSellers.map((product: any) => (
               <ProductItem key={product.id} product={product as any} />
             ))}
@@ -255,131 +253,131 @@ export default function Homepage() {
         </div>
       </section>
 
-      {/* 4. THE ELFY STANDARDS: 4-PILLAR REASSURANCE */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center max-w-2xl mx-auto mb-12">
+      {/* 4. THE ELFY STANDARDS: FRAMELESS ARCHITECTURAL REASSURANCE */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
           <span className="text-xs uppercase tracking-[0.2em] font-semibold text-[#B48344] block mb-2">
             The ELFY Standards
           </span>
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#191817]">
             Komitmen Kualiti Tanpa Kompromi
           </h2>
-          <p className="mt-2 text-xs text-stone-600">
-            Direka teliti untuk pasaran Malaysia dengan piawaian material terpilih.
+          <p className="mt-2 text-xs text-stone-500 max-w-md mx-auto">
+            Direka teliti untuk pasaran Malaysia dengan piawaian material terpilih dan ketelusan khidmat.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="bg-white border border-[#EBE6DF] rounded-2xl p-6 shadow-2xs">
-            <div className="w-12 h-12 rounded-xl bg-[#FAF9F6] border border-[#EBE6DF] flex items-center justify-center mb-4 text-[#B48344]">
-              <Truck className="w-6 h-6" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
+          <div className="flex flex-col items-start">
+            <div className="w-10 h-10 rounded-lg bg-white border border-[#EBE6DF] flex items-center justify-center mb-3.5 text-[#8C6527]">
+              <Truck className="w-5 h-5 stroke-[1.5]" />
             </div>
-            <h3 className="text-sm font-bold text-[#191817] mb-1">Pos Pantas 1-3 Hari</h3>
-            <p className="text-xs text-stone-600 leading-relaxed">
-              Pesanan diproses dalam 24 jam bekerja melalui J&T Express & Pos Laju. Percuma seluruh Semenanjung RM150+.
+            <h3 className="text-sm font-semibold text-[#191817] mb-1.5 tracking-tight">Pos 1–3 Hari Bekerja</h3>
+            <p className="text-xs text-stone-500 leading-relaxed">
+              Pesanan diproses dalam 24 jam bekerja melalui J&amp;T Express &amp; Pos Laju. Percuma seluruh Semenanjung untuk pesanan RM150+.
             </p>
           </div>
 
-          <div className="bg-white border border-[#EBE6DF] rounded-2xl p-6 shadow-2xs">
-            <div className="w-12 h-12 rounded-xl bg-[#FAF9F6] border border-[#EBE6DF] flex items-center justify-center mb-4 text-[#B48344]">
-              <RefreshCw className="w-6 h-6" />
+          <div className="flex flex-col items-start">
+            <div className="w-10 h-10 rounded-lg bg-white border border-[#EBE6DF] flex items-center justify-center mb-3.5 text-[#8C6527]">
+              <RefreshCw className="w-5 h-5 stroke-[1.5]" />
             </div>
-            <h3 className="text-sm font-bold text-[#191817] mb-1">7-Day Size Exchange</h3>
-            <p className="text-xs text-stone-600 leading-relaxed">
-              Kasut tak muat atau tersalah saiz? Kami gantikan saiz baru dengan pantas ke depan pintu rumah anda.
+            <h3 className="text-sm font-semibold text-[#191817] mb-1.5 tracking-tight">Tukar Saiz 7 Hari Percuma</h3>
+            <p className="text-xs text-stone-500 leading-relaxed">
+              Kasut tak muat atau tersalah saiz? Kami gantikan saiz baru terus ke pintu rumah tanpa sebarang kerumitan.
             </p>
           </div>
 
-          <div className="bg-white border border-[#EBE6DF] rounded-2xl p-6 shadow-2xs">
-            <div className="w-12 h-12 rounded-xl bg-[#FAF9F6] border border-[#EBE6DF] flex items-center justify-center mb-4 text-[#B48344]">
-              <ShieldCheck className="w-6 h-6" />
+          <div className="flex flex-col items-start">
+            <div className="w-10 h-10 rounded-lg bg-white border border-[#EBE6DF] flex items-center justify-center mb-3.5 text-[#8C6527]">
+              <ShieldCheck className="w-5 h-5 stroke-[1.5]" />
             </div>
-            <h3 className="text-sm font-bold text-[#191817] mb-1">1-Tahun Waranti Enjin</h3>
-            <p className="text-xs text-stone-600 leading-relaxed">
-              Semua jam tangan ELFY dilindungi waranti pergerakan enjin rasmi berserta kad jaminan bertarikh.
+            <h3 className="text-sm font-semibold text-[#191817] mb-1.5 tracking-tight">1-Tahun Waranti Enjin</h3>
+            <p className="text-xs text-stone-500 leading-relaxed">
+              Semua jam tangan ELFY dilindungi waranti pergerakan kuarza rasmi berserta kad jaminan bertarikh.
             </p>
           </div>
 
-          <div className="bg-white border border-[#EBE6DF] rounded-2xl p-6 shadow-2xs">
-            <div className="w-12 h-12 rounded-xl bg-[#FAF9F6] border border-[#EBE6DF] flex items-center justify-center mb-4 text-[#2B593F]">
-              <CheckCircle2 className="w-6 h-6" />
+          <div className="flex flex-col items-start">
+            <div className="w-10 h-10 rounded-lg bg-white border border-[#EBE6DF] flex items-center justify-center mb-3.5 text-[#2B593F]">
+              <CheckCircle2 className="w-5 h-5 stroke-[1.5]" />
             </div>
-            <h3 className="text-sm font-bold text-[#191817] mb-1">Pembayaran Tempatan Selamat</h3>
-            <p className="text-xs text-stone-600 leading-relaxed">
-              Sokongan penuh FPX (Maybank2u, CIMB Clicks, dll), Touch &apos;n Go eWallet, GrabPay, dan Kad Kredit berenkripsi.
+            <h3 className="text-sm font-semibold text-[#191817] mb-1.5 tracking-tight">Perniagaan Berdaftar SSM</h3>
+            <p className="text-xs text-stone-500 leading-relaxed">
+              Entiti sah Malaysia dengan sokongan FPX tempatan (Maybank2u, CIMB Clicks), TNG eWallet, GrabPay, dan Kad Kredit.
             </p>
           </div>
         </div>
       </section>
 
-      {/* 5. VERIFIED REVIEWS FROM MALAYSIAN CUSTOMERS */}
-      <section className="bg-[#F3EFEA] py-16 border-t border-[#EBE6DF]">
+      {/* 5. VERIFIED EDITORIAL CUSTOMER FEEDBACK */}
+      <section className="bg-white py-16 sm:py-20 border-t border-[#EBE6DF]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-xl mx-auto mb-10">
-            <div className="flex items-center justify-center gap-1 text-amber-500 mb-2">
-              <Star className="w-4 h-4 fill-amber-400" />
-              <Star className="w-4 h-4 fill-amber-400" />
-              <Star className="w-4 h-4 fill-amber-400" />
-              <Star className="w-4 h-4 fill-amber-400" />
-              <Star className="w-4 h-4 fill-amber-400" />
+          <div className="text-center max-w-xl mx-auto mb-12">
+            <div className="flex items-center justify-center gap-1 text-amber-500 mb-2.5">
+              <Star className="w-3.5 h-3.5 fill-amber-400 stroke-amber-400" />
+              <Star className="w-3.5 h-3.5 fill-amber-400 stroke-amber-400" />
+              <Star className="w-3.5 h-3.5 fill-amber-400 stroke-amber-400" />
+              <Star className="w-3.5 h-3.5 fill-amber-400 stroke-amber-400" />
+              <Star className="w-3.5 h-3.5 fill-amber-400 stroke-amber-400" />
             </div>
-            <h2 className="font-serif text-2xl font-bold text-[#191817]">
-              Apa Kata Pelanggan Kami di Malaysia
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#191817]">
+              Pengalaman Pelanggan di Malaysia
             </h2>
-            <p className="text-xs text-stone-600 mt-1">
-              Lebih 2,400+ pelanggan berpuas hati dari seluruh Semenanjung, Sabah & Sarawak.
+            <p className="text-xs text-stone-500 mt-1.5">
+              Maklum balas tulen daripada pembeli terverifikasi dari Semenanjung, Sabah &amp; Sarawak.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white p-6 rounded-2xl border border-stone-200 shadow-2xs space-y-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 divide-y md:divide-y-0 md:divide-x divide-stone-200/80">
+            <div className="pt-6 md:pt-0 md:px-6 first:pl-0 space-y-3">
               <div className="flex items-center gap-1 text-amber-500">
-                <Star className="w-3.5 h-3.5 fill-amber-400" />
-                <Star className="w-3.5 h-3.5 fill-amber-400" />
-                <Star className="w-3.5 h-3.5 fill-amber-400" />
-                <Star className="w-3.5 h-3.5 fill-amber-400" />
-                <Star className="w-3.5 h-3.5 fill-amber-400" />
+                <Star className="w-3 h-3 fill-amber-400 stroke-amber-400" />
+                <Star className="w-3 h-3 fill-amber-400 stroke-amber-400" />
+                <Star className="w-3 h-3 fill-amber-400 stroke-amber-400" />
+                <Star className="w-3 h-3 fill-amber-400 stroke-amber-400" />
+                <Star className="w-3 h-3 fill-amber-400 stroke-amber-400" />
               </div>
-              <p className="text-xs text-stone-700 leading-relaxed italic">
+              <p className="text-xs text-stone-600 leading-relaxed font-normal">
                 &ldquo;Kulit kasut sangat lembut, pakai dari pagi meeting sampai petang langsung tak melecet tumit. Potongan wide-fit dia memang ngam untuk kaki saya yang lebar.&rdquo;
               </p>
-              <div className="pt-2 border-t border-stone-100 flex items-center justify-between text-[11px]">
-                <strong className="text-[#191817]">Hafiz Zulkifli</strong>
-                <span className="text-stone-400">Bangsar, KL • Verified Buyer</span>
+              <div className="pt-2 flex items-center justify-between text-[11px]">
+                <strong className="text-[#191817] font-medium">Hafiz Zulkifli</strong>
+                <span className="text-stone-400">Bangsar, KL</span>
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-2xl border border-stone-200 shadow-2xs space-y-3">
+            <div className="pt-6 md:pt-0 md:px-6 space-y-3">
               <div className="flex items-center gap-1 text-amber-500">
-                <Star className="w-3.5 h-3.5 fill-amber-400" />
-                <Star className="w-3.5 h-3.5 fill-amber-400" />
-                <Star className="w-3.5 h-3.5 fill-amber-400" />
-                <Star className="w-3.5 h-3.5 fill-amber-400" />
-                <Star className="w-3.5 h-3.5 fill-amber-400" />
+                <Star className="w-3 h-3 fill-amber-400 stroke-amber-400" />
+                <Star className="w-3 h-3 fill-amber-400 stroke-amber-400" />
+                <Star className="w-3 h-3 fill-amber-400 stroke-amber-400" />
+                <Star className="w-3 h-3 fill-amber-400 stroke-amber-400" />
+                <Star className="w-3 h-3 fill-amber-400 stroke-amber-400" />
               </div>
-              <p className="text-xs text-stone-700 leading-relaxed italic">
-                &ldquo;Order hari Selasa, hari Rabu petang Pos Laju dah sampai depan rumah di Penang. Jam tangan berat sedap di pergelangan, nampak macam jam RM1k+. Berbaloi sangat!&rdquo;
+              <p className="text-xs text-stone-600 leading-relaxed font-normal">
+                &ldquo;Order hari Selasa, hari Rabu petang Pos Laju dah sampai depan rumah di Penang. Jam tangan berat sedap di pergelangan, kemasan keluli memang kemas.&rdquo;
               </p>
-              <div className="pt-2 border-t border-stone-100 flex items-center justify-between text-[11px]">
-                <strong className="text-[#191817]">Khairul Anuar</strong>
-                <span className="text-stone-400">Georgetown, Penang • Verified Buyer</span>
+              <div className="pt-2 flex items-center justify-between text-[11px]">
+                <strong className="text-[#191817] font-medium">Khairul Anuar</strong>
+                <span className="text-stone-400">Georgetown, Penang</span>
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-2xl border border-stone-200 shadow-2xs space-y-3">
+            <div className="pt-6 md:pt-0 md:px-6 space-y-3">
               <div className="flex items-center gap-1 text-amber-500">
-                <Star className="w-3.5 h-3.5 fill-amber-400" />
-                <Star className="w-3.5 h-3.5 fill-amber-400" />
-                <Star className="w-3.5 h-3.5 fill-amber-400" />
-                <Star className="w-3.5 h-3.5 fill-amber-400" />
-                <Star className="w-3.5 h-3.5 fill-amber-400" />
+                <Star className="w-3 h-3 fill-amber-400 stroke-amber-400" />
+                <Star className="w-3 h-3 fill-amber-400 stroke-amber-400" />
+                <Star className="w-3 h-3 fill-amber-400 stroke-amber-400" />
+                <Star className="w-3 h-3 fill-amber-400 stroke-amber-400" />
+                <Star className="w-3 h-3 fill-amber-400 stroke-amber-400" />
               </div>
-              <p className="text-xs text-stone-700 leading-relaxed italic">
+              <p className="text-xs text-stone-600 leading-relaxed font-normal">
                 &ldquo;Mula-mula tersalah pilih saiz 41, customer service WhatsApp sangat pantas tolong uruskan tukar ke saiz 42 tanpa sebarang kerenah. Servis terbaik!&rdquo;
               </p>
-              <div className="pt-2 border-t border-stone-100 flex items-center justify-between text-[11px]">
-                <strong className="text-[#191817]">Dr. Raymond Tan</strong>
-                <span className="text-stone-400">Johor Bahru • Verified Buyer</span>
+              <div className="pt-2 flex items-center justify-between text-[11px]">
+                <strong className="text-[#191817] font-medium">Raymond Tan</strong>
+                <span className="text-stone-400">Johor Bahru</span>
               </div>
             </div>
           </div>

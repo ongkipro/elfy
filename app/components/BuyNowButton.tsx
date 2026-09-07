@@ -10,6 +10,7 @@ export function BuyNowButton({
   attributes,
   onClick,
   className,
+  wrapperClassName = 'w-full',
 }: {
   analytics?: unknown;
   children: React.ReactNode;
@@ -18,51 +19,54 @@ export function BuyNowButton({
   attributes?: Array<{key: string; value: string}>;
   onClick?: () => void;
   className?: string;
+  wrapperClassName?: string;
 }) {
   return (
-    <CartForm
-      route="/cart"
-      inputs={{lines, attributes}}
-      action={CartForm.ACTIONS.LinesAdd}
-    >
-      {(fetcher: FetcherWithComponents<any>) => {
-        // Fallback client-side navigation if fetcher handles the response
-        useEffect(() => {
-          if (fetcher.data?.cart?.checkoutUrl) {
-            try {
-              const url = new URL(fetcher.data.cart.checkoutUrl);
-              if (url.hostname.includes('myshopify.com') || url.hostname === 'elfy.my') {
-                url.hostname = 'checkout.elfy.my';
+    <div className={`[&>form]:w-full ${wrapperClassName}`}>
+      <CartForm
+        route="/cart"
+        inputs={{lines, attributes}}
+        action={CartForm.ACTIONS.LinesAdd}
+      >
+        {(fetcher: FetcherWithComponents<any>) => {
+          // Fallback client-side navigation if fetcher handles the response
+          useEffect(() => {
+            if (fetcher.data?.cart?.checkoutUrl) {
+              try {
+                const url = new URL(fetcher.data.cart.checkoutUrl);
+                if (url.hostname.includes('myshopify.com') || url.hostname === 'elfy.my') {
+                  url.hostname = 'checkout.elfy.my';
+                }
+                window.location.href = url.toString();
+              } catch {
+                window.location.href = fetcher.data.cart.checkoutUrl;
               }
-              window.location.href = url.toString();
-            } catch {
-              window.location.href = fetcher.data.cart.checkoutUrl;
             }
-          }
-        }, [fetcher.data]);
+          }, [fetcher.data]);
 
-        const isLoading = fetcher.state !== 'idle';
+          const isLoading = fetcher.state !== 'idle';
 
-        return (
-          <>
-            <input
-              name="analytics"
-              type="hidden"
-              value={JSON.stringify(analytics)}
-            />
-            {/* Tells /cart action to 303 redirect immediately to Shopify Checkout */}
-            <input type="hidden" name="redirectTo" value="checkout" />
-            <button
-              type="submit"
-              onClick={onClick}
-              disabled={disabled || isLoading}
-              className={className}
-            >
-              {children}
-            </button>
-          </>
-        );
-      }}
-    </CartForm>
+          return (
+            <>
+              <input
+                name="analytics"
+                type="hidden"
+                value={JSON.stringify(analytics)}
+              />
+              {/* Tells /cart action to 303 redirect immediately to Shopify Checkout */}
+              <input type="hidden" name="redirectTo" value="checkout" />
+              <button
+                type="submit"
+                onClick={onClick}
+                disabled={disabled || isLoading}
+                className={className}
+              >
+                {children}
+              </button>
+            </>
+          );
+        }}
+      </CartForm>
+    </div>
   );
 }

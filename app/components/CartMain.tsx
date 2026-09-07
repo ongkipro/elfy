@@ -262,9 +262,10 @@ function CartEmpty({layout = 'aside'}: {layout?: CartLayout}) {
 
         <Link
           to="/collections/all"
-          className="inline-flex items-center justify-center h-12 px-8 bg-[#191817] hover:bg-[#B48344] text-white rounded-xl text-xs font-bold uppercase tracking-wider active:scale-95 transition-all shadow-sm hover:shadow-md"
+          className="inline-flex items-center justify-center h-12 px-8 bg-[#191817] hover:bg-stone-800 text-white rounded-lg text-xs font-medium uppercase tracking-[0.14em] active:scale-[0.985] transition-all duration-200 shadow-xs"
         >
-          Lihat Semua Koleksi ELFY &rarr;
+          <span>Lihat Semua Koleksi ELFY</span>
+          <ArrowRight className="w-3.5 h-3.5 ml-2 text-stone-400 group-hover:text-white" />
         </Link>
       </div>
     );
@@ -285,9 +286,10 @@ function CartEmpty({layout = 'aside'}: {layout?: CartLayout}) {
         to="/collections/best-sellers"
         onClick={close}
         prefetch="viewport"
-        className="inline-flex items-center justify-center h-11 px-6 bg-[#191817] hover:bg-[#B48344] text-white border border-[#191817] hover:border-[#B48344] text-xs font-semibold rounded-xl active:scale-95 transition-all shadow-xs hover:shadow-md"
+        className="inline-flex items-center justify-center h-11 px-6 bg-[#191817] hover:bg-stone-800 text-white text-xs font-medium uppercase tracking-[0.12em] rounded-lg active:scale-[0.985] transition-all duration-200 shadow-xs"
       >
-        Lihat Koleksi Best Sellers &rarr;
+        <span>Lihat Koleksi Best Sellers</span>
+        <ArrowRight className="w-3.5 h-3.5 ml-1.5 text-stone-400" />
       </Link>
     </div>
   );

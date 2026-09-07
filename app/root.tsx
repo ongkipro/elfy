@@ -172,6 +172,42 @@ function loadDeferredData({context}: Route.LoaderArgs) {
 export function Layout({children}: {children?: React.ReactNode}) {
   const nonce = useNonce();
 
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': 'https://elfy.my/#organization',
+        name: 'ELFY',
+        url: 'https://elfy.my',
+        logo: {
+          '@type': 'ImageObject',
+          url: 'https://elfy.my/favicon.svg',
+        },
+        description:
+          'Jenama kasut kasual & jam tangan sartorial berkualiti tinggi Malaysia.',
+        address: {
+          '@type': 'PostalAddress',
+          addressCountry: 'MY',
+        },
+      },
+      {
+        '@type': 'WebSite',
+        '@id': 'https://elfy.my/#website',
+        url: 'https://elfy.my',
+        name: 'ELFY Malaysia',
+        publisher: {
+          '@id': 'https://elfy.my/#organization',
+        },
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: 'https://elfy.my/search?q={search_term_string}',
+          'query-input': 'required name=search_term_string',
+        },
+      },
+    ],
+  };
+
   return (
     <html lang="en">
       <head>
@@ -181,6 +217,11 @@ export function Layout({children}: {children?: React.ReactNode}) {
         <link rel="stylesheet" href={appStyles}></link>
         <Meta />
         <Links />
+        <script
+          type="application/ld+json"
+          nonce={nonce}
+          dangerouslySetInnerHTML={{__html: JSON.stringify(organizationSchema)}}
+        />
       </head>
       <body>
         {children}
@@ -257,13 +298,13 @@ export function ErrorBoundary() {
       <div className="flex flex-wrap items-center justify-center gap-3 mt-8">
         <Link
           to="/"
-          className="h-12 px-6 bg-[#191817] hover:bg-[#B48344] text-white rounded-xl text-xs font-bold uppercase tracking-wider inline-flex items-center justify-center transition-all duration-200 shadow-md active:scale-95"
+          className="h-12 px-6 bg-[#191817] hover:bg-stone-800 active:scale-[0.985] text-white rounded-lg text-xs font-medium uppercase tracking-[0.14em] inline-flex items-center justify-center transition-all duration-200 shadow-xs"
         >
           Kembali ke Laman Utama
         </Link>
         <Link
           to="/collections/all"
-          className="h-12 px-6 bg-white hover:bg-[#191817] text-[#191817] hover:text-white border border-stone-200 hover:border-[#191817] rounded-xl text-xs font-bold uppercase tracking-wider inline-flex items-center justify-center transition-all duration-200 active:scale-95"
+          className="h-12 px-6 bg-white hover:bg-stone-50/80 hover:border-[#191817] active:scale-[0.985] text-[#191817] border border-stone-300 rounded-lg text-xs font-medium uppercase tracking-[0.12em] inline-flex items-center justify-center transition-all duration-200"
         >
           Lihat Semua Koleksi
         </Link>

@@ -1,6 +1,6 @@
 import {redirect, useLoaderData, useFetcher, Link} from 'react-router';
 import type {Route} from './+types/products.$handle';
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import {
   getSelectedProductOptions,
   Analytics,
@@ -20,9 +20,9 @@ import {useAside} from '~/components/Aside';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {trackViewContent, trackAddToCart, trackInitiateCheckout} from '~/lib/tracking';
 import {getAttributionPayload, toCartAttributes} from '~/lib/attribution';
+import {getProductSeo} from '~/lib/seo-catalog';
 import {
   Star,
-  Truck,
   ShieldCheck,
   RefreshCw,
   Sparkles,
@@ -35,14 +35,16 @@ export const meta: Route.MetaFunction = ({data}) => {
     return [{title: 'Produk Tidak Ditemui - ELFY'}];
   }
 
-  const rawTitle = product.seo?.title || `${product.title} - ELFY Official`;
-  const title = rawTitle.replace(/\s*\|\s*/g, ' - ');
-  const description =
-    product.seo?.description ||
-    product.description ||
-    'Kasut kasual sartorial & jam tangan berkualiti tinggi dari ELFY Malaysia.';
+  const seo = getProductSeo(product.handle, {
+    title: product.title,
+    seoTitle: product.seo?.title,
+    description: product.seo?.description || product.description,
+  });
+
+  const title = seo.seoTitle;
+  const description = seo.seoDescription;
   const canonicalUrl = `https://elfy.my/products/${product.handle}`;
-  const imageUrl = product.images?.nodes?.[0]?.url;
+  const imageUrl = product.featuredImage?.url || product.images?.nodes?.[0]?.url;
   const priceAmount = product.selectedOrFirstAvailableVariant?.price?.amount;
   const currencyCode =
     product.selectedOrFirstAvailableVariant?.price?.currencyCode || 'MYR';
@@ -155,6 +157,7 @@ export default function Product() {
               {
                 merchandiseId: selectedVariant.id,
                 quantity: 1,
+                selectedVariant,
               },
             ],
             attributes,
@@ -195,6 +198,7 @@ export default function Product() {
               {
                 merchandiseId: selectedVariant.id,
                 quantity: 1,
+                selectedVariant,
               },
             ],
             attributes,
@@ -219,7 +223,7 @@ export default function Product() {
     !selectedVariant ||
     selectedVariant.title === 'Default Title' ||
     selectedVariant.selectedOptions.every(
-      (opt) =>
+      (opt: any) =>
         opt.name.toLowerCase() === 'title' ||
         opt.value.toLowerCase() === 'default title',
     );
@@ -228,7 +232,7 @@ export default function Product() {
   const realSelectedOptions = isDefaultOrSingleVariant
     ? []
     : selectedVariant.selectedOptions.filter(
-        (opt) =>
+        (opt: any) =>
           opt.name.toLowerCase() !== 'title' &&
           opt.value.toLowerCase() !== 'default title',
       );
@@ -288,43 +292,83 @@ export default function Product() {
     ? [selectedVariant.image]
     : [];
 
-  const sizeOption = productOptions.find(
-    (opt) =>
-      opt.name.toLowerCase().includes('size') ||
-      opt.name.toLowerCase().includes('saiz'),
-  );
-  const selectedSizeValue = selectedVariant?.selectedOptions?.find(
-    (opt) =>
-      opt.name.toLowerCase().includes('size') ||
-      opt.name.toLowerCase().includes('saiz'),
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [showSticky, setShowSticky] = useState(false);
+  const mobileGalleryRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowSticky(window.scrollY > 380);
+    };
+
+    window.addEventListener('scroll', handleScroll, {passive: true});
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleMobileGalleryScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const el = e.currentTarget;
+    if (!el || !el.firstElementChild) return;
+    const scrollLeft = el.scrollLeft;
+    const itemWidth = el.firstElementChild.clientWidth + 12; // 12px gap-3
+    const index = Math.round(scrollLeft / itemWidth);
+    if (index >= 0 && index < images.length && index !== activeImageIndex) {
+      setActiveImageIndex(index);
+    }
+  };
+
+  const scrollToMobileImage = (idx: number) => {
+    if (!mobileGalleryRef.current) return;
+    const container = mobileGalleryRef.current;
+    const targetChild = container.children[idx] as HTMLElement | undefined;
+    if (targetChild) {
+      targetChild.scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest',
+      });
+      setActiveImageIndex(idx);
+    }
+  };
+
+  const isSizeName = (name: string) => {
+    const n = name.toLowerCase();
+    return n.includes('size') || n.includes('saiz') || n.includes('ukuran');
+  };
+
+  const sizeOption = productOptions.find((opt: any) => isSizeName(opt.name));
+  const selectedSizeValue = selectedVariant?.selectedOptions?.find((opt: any) =>
+    isSizeName(opt.name),
   )?.value;
+
+  const seo = getProductSeo(product.handle, {
+    title: product.title,
+    seoTitle: product.seo?.title,
+    description: product.seo?.description || product.description,
+  });
+  const displayTitle = seo.brandedTitle;
 
   // Signal: Track ViewContent with CAPI event_id deduplication
   useEffect(() => {
     trackViewContent({
       id: product.handle,
-      title: product.title,
+      title: displayTitle,
       price,
       currency: currencyCode,
       variantId: selectedVariant?.id,
       variantTitle: selectedVariant?.title,
       category: product.productType,
     });
-  }, [product.handle, selectedVariant?.id, price, currencyCode, product.title, product.productType]);
+  }, [product.handle, selectedVariant?.id, price, currencyCode, displayTitle, product.productType]);
 
   const handleSelectSizeFromModal = (size: string) => {
     // Locate the matching variant with this size value
-    const match = product.options
-      ?.find(
-        (o) =>
-          o.name.toLowerCase().includes('size') ||
-          o.name.toLowerCase().includes('saiz'),
-      )
-      ?.optionValues?.find((v) => v.name.includes(size));
+    const matchedOption = product.options?.find((o: any) => isSizeName(o.name));
+    const match = matchedOption?.optionValues?.find((v: any) => v.name.includes(size));
 
-    if (match?.firstSelectableVariant?.id) {
+    if (match?.firstSelectableVariant?.id && matchedOption) {
       const url = new URL(window.location.href);
-      url.searchParams.set('Size', size);
+      url.searchParams.set(matchedOption.name, size);
       window.history.replaceState({}, '', url.toString());
       window.location.reload();
     }
@@ -333,8 +377,8 @@ export default function Product() {
   const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: product.title,
-    description: product.description || product.title,
+    name: displayTitle,
+    description: seo.seoDescription,
     image: images.map((img: any) => img.url),
     brand: {
       '@type': 'Brand',
@@ -370,41 +414,67 @@ export default function Product() {
         dangerouslySetInnerHTML={{__html: JSON.stringify(productSchema)}}
       />
 
-      {/* Breadcrumb Navigation */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 sm:py-4">
-        <Breadcrumb
-          items={[
-            {label: 'Utama', to: '/'},
-            {
-              label:
-                (product as any)?.collections?.nodes?.[0] &&
-                (product as any)?.collections?.nodes?.[0].handle !== 'frontpage'
-                  ? (product as any).collections.nodes[0].title
-                  : 'Semua Koleksi',
-              to:
-                (product as any)?.collections?.nodes?.[0] &&
-                (product as any)?.collections?.nodes?.[0].handle !== 'frontpage'
-                  ? `/collections/${(product as any).collections.nodes[0].handle}`
-                  : '/collections/all',
-            },
-            {label: product.title},
-          ]}
-          currentUrl={`https://elfy.my/products/${product.handle}`}
-        />
+      {/* Breadcrumb Navigation: [Home Icon] > [Nama Koleksi] > [Judul Produk] */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-3.5">
+        {(() => {
+          const firstCollection = (product as any)?.collections?.nodes?.find(
+            (c: any) =>
+              c &&
+              c.handle !== 'frontpage' &&
+              c.handle !== 'best-sellers',
+          );
+          const isWatch =
+            (product.productType || '').toLowerCase().includes('watch') ||
+            product.handle.includes('jam-tangan');
+          const isWomenWatch = product.handle.includes('jam-tangan-wanita');
+
+          let collectionTitle = firstCollection?.title;
+          let collectionUrl = firstCollection
+            ? `/collections/${firstCollection.handle}`
+            : '/collections/all';
+
+          if (!collectionTitle) {
+            if (isWomenWatch) {
+              collectionTitle = 'Jam Tangan Wanita';
+              collectionUrl = '/collections/womens-watches';
+            } else if (isWatch) {
+              collectionTitle = 'Jam Tangan Lelaki';
+              collectionUrl = '/collections/mens-watches';
+            } else {
+              collectionTitle = 'Kasut Kasual';
+              collectionUrl = '/collections/mens-sneakers';
+            }
+          }
+
+          return (
+            <Breadcrumb
+              items={[
+                {label: 'Utama', to: '/'},
+                {label: collectionTitle, to: collectionUrl},
+                {label: displayTitle},
+              ]}
+              currentUrl={`https://elfy.my/products/${product.handle}`}
+            />
+          );
+        })()}
       </div>
 
       {/* Main PDP Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-28 sm:pb-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           {/* LEFT: 60fps Native CSS Scroll-Snap Gallery */}
           <div className="lg:col-span-7">
             {/* Mobile Horizontal Carousel */}
-            <div className="lg:hidden">
-              <div className="flex snap-x snap-mandatory overflow-x-auto gap-3 pb-4 no-scrollbar">
+            <div className="lg:hidden relative">
+              <div
+                ref={mobileGalleryRef}
+                onScroll={handleMobileGalleryScroll}
+                className="flex snap-x snap-mandatory overflow-x-auto gap-3 pb-2 no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0"
+              >
                 {images.map((img: any, idx: number) => (
                   <div
                     key={img.id || idx}
-                    className="snap-center shrink-0 w-[88vw] max-w-[400px] aspect-square rounded-2xl overflow-hidden bg-white border border-[#EBE6DF] shadow-xs relative"
+                    className="snap-center shrink-0 w-[88vw] max-w-[420px] aspect-square rounded-2xl overflow-hidden bg-white border border-[#EBE6DF] shadow-xs relative"
                   >
                     <Image
                       data={img}
@@ -416,45 +486,68 @@ export default function Product() {
                       decoding={idx === 0 ? 'sync' : 'async'}
                     />
                     {hasDiscount && idx === 0 && (
-                      <span className="absolute top-3 left-3 bg-[#A83232] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
-                        Diskaun {discountPercent}%
+                      <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-stone-700 text-[10px] font-semibold px-2 py-0.5 rounded-xs uppercase tracking-[0.16em] shadow-2xs pointer-events-none">
+                        Sale
+                      </span>
+                    )}
+                    {/* Floating Image Counter (e.g. 1 / 6) */}
+                    {images.length > 1 && (
+                      <span className="absolute bottom-3 right-3 bg-black/55 backdrop-blur-md text-white text-[10px] font-medium px-2.5 py-0.5 rounded-full select-none tracking-wider pointer-events-none">
+                        {idx + 1} / {images.length}
                       </span>
                     )}
                   </div>
                 ))}
               </div>
-              <div className="flex items-center justify-center gap-1.5 mt-1">
-                {images.map((_: any, idx: number) => (
-                  <span
-                    key={idx}
-                    className="w-2 h-2 rounded-full bg-stone-300 first:bg-[#191817]"
-                  />
-                ))}
-              </div>
+
+              {/* Dynamic Scroll-Tracking Indicator Dots with Accessible Hitbox */}
+              {images.length > 1 && (
+                <div className="flex items-center justify-center gap-1 mt-1">
+                  {images.map((_: any, idx: number) => {
+                    const isActive = idx === activeImageIndex;
+                    return (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => scrollToMobileImage(idx)}
+                        aria-label={`Lihat foto ${idx + 1} daripada ${images.length}`}
+                        className="h-7 px-1 flex items-center justify-center cursor-pointer"
+                      >
+                        <span
+                          className={`h-1.5 rounded-full transition-all duration-300 ${
+                            isActive
+                              ? 'w-6 bg-[#191817]'
+                              : 'w-1.5 bg-stone-300 hover:bg-stone-400'
+                          }`}
+                        />
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
-            {/* Desktop Multi-Image Grid */}
-            <div className="hidden lg:grid grid-cols-2 gap-4">
+            {/* Desktop 2-Column Multi-Image Grid (Balanced 2-Column Precision) */}
+            <div className="hidden lg:grid grid-cols-2 gap-3.5 sm:gap-4">
               {images.map((img: any, idx: number) => (
                 <div
                   key={img.id || idx}
-                  className={`aspect-square rounded-2xl overflow-hidden bg-white border border-[#EBE6DF] shadow-xs relative ${
-                    idx === 0 ? 'col-span-2' : 'col-span-1'
+                  className={`aspect-square rounded-xl overflow-hidden bg-[#F5F4F0] border border-[#EBE6DF]/70 relative ${
+                    images.length === 1 ? 'col-span-2' : 'col-span-1'
                   }`}
                 >
                   <Image
                     data={img}
                     aspectRatio="1/1"
-                    className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-500 brightness-[1.03] contrast-[1.02]"
-                    sizes={idx === 0 ? '50vw' : '25vw'}
-                    loading={idx === 0 ? 'eager' : 'lazy'}
-                    fetchPriority={idx === 0 ? 'high' : 'auto'}
-                    decoding={idx === 0 ? 'sync' : 'async'}
+                    className="w-full h-full object-cover object-center hover:scale-[1.025] transition-transform duration-700 ease-out brightness-[1.01] contrast-[1.01]"
+                    sizes="(min-width: 1024px) 28vw, 50vw"
+                    loading={idx <= 1 ? 'eager' : 'lazy'}
+                    fetchPriority={idx <= 1 ? 'high' : 'auto'}
+                    decoding={idx <= 1 ? 'sync' : 'async'}
                   />
                   {hasDiscount && idx === 0 && (
-                    <span className="absolute top-4 left-4 bg-[#A83232] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
-                      Diskaun {discountPercent}% • Jimat {currencyCode}{' '}
-                      {discountAmount.toFixed(2)}
+                    <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-stone-700 text-[10px] font-semibold px-2.5 py-1 rounded-xs uppercase tracking-[0.16em] shadow-2xs pointer-events-none">
+                      Sale
                     </span>
                   )}
                 </div>
@@ -472,13 +565,13 @@ export default function Product() {
                     ELFY Kuala Lumpur
                   </span>
                   <div className="flex items-center gap-1 text-amber-500 text-xs font-semibold shrink-0">
-                    <Star className="w-3.5 h-3.5 fill-amber-400" />
+                    <Star className="w-3.5 h-3.5 fill-amber-400 stroke-amber-400" />
                     <span>4.9 <span className="hidden sm:inline">(128 Ulasan Malaysia)</span><span className="sm:hidden">(128)</span></span>
                   </div>
                 </div>
 
                 <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#191817] leading-tight">
-                  {product.title}
+                  {displayTitle}
                 </h1>
 
                 {/* Price Display */}
@@ -492,40 +585,20 @@ export default function Product() {
                     </span>
                   )}
                   {hasDiscount && (
-                    <span className="bg-[#2B593F]/10 text-[#2B593F] text-xs font-bold px-2.5 py-0.5 rounded-full">
-                      Jimat {discountPercent}%
+                    <span className="text-xs font-medium text-[#2B593F] tracking-tight">
+                      (Jimat {discountPercent}%)
                     </span>
                   )}
                 </div>
               </div>
 
-              {/* Delivery Reassurance Badge */}
-              <div className="bg-[#FAF9F6] border border-[#EBE6DF] rounded-xl p-3.5 flex items-center gap-3 text-xs text-stone-700 shadow-2xs">
-                <div className="w-9 h-9 rounded-lg bg-white border border-[#EBE6DF] flex items-center justify-center shrink-0 shadow-2xs">
-                  <Truck className="w-4.5 h-4.5 text-[#B48344]" />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <strong className="font-bold text-[#191817]">
-                      Pos Pantas 1-3 Hari Semenanjung
-                    </strong>
-                    <span className="text-[10px] font-semibold text-[#2B593F] bg-[#2B593F]/10 px-1.5 py-0.5 rounded">
-                      Percuma RM150+
-                    </span>
-                  </div>
-                  <p className="text-[11px] text-stone-500 mt-0.5">
-                    Kurier rasmi J&T Express & Pos Laju terus dari gudang Kuala Lumpur.
-                  </p>
-                </div>
-              </div>
-
-              {/* Buying Form */}
-              <div className="bg-white border border-[#EBE6DF] rounded-2xl p-6 shadow-xs">
+              {/* Buying Form (Frameless Luxury Layout) */}
+              <div className="pt-1">
                 <ProductForm
                   productOptions={productOptions}
                   selectedVariant={selectedVariant}
                   onOpenSizeGuide={() => setIsSizeModalOpen(true)}
-                  productTitle={product.title}
+                  productTitle={displayTitle}
                   productPrice={price}
                   currencyCode={currencyCode}
                 />
@@ -541,9 +614,9 @@ export default function Product() {
         </div>
       </div>
 
-      {/* Sticky Add to Cart for Mobile */}
+      {/* Sticky Add to Cart for Mobile (Smooth Slide-Up on Scroll) */}
       <StickyAddToCart
-        title={product.title}
+        title={displayTitle}
         price={price.toFixed(2)}
         currencyCode={currencyCode}
         imageUrl={selectedVariant?.image?.url || images[0]?.url}
@@ -554,6 +627,7 @@ export default function Product() {
         onAddToCart={handleStickyAddToCart}
         onBuyNow={handleStickyBuyNow}
         onOpenSizePicker={() => setIsSizeModalOpen(true)}
+        visible={showSticky}
       />
 
       {/* Size Recommender Modal */}
@@ -570,7 +644,7 @@ export default function Product() {
           products: [
             {
               id: product.id,
-              title: product.title,
+              title: displayTitle,
               price: selectedVariant?.price.amount || '0',
               vendor: product.vendor,
               variantId: selectedVariant?.id || '',
@@ -630,6 +704,13 @@ const PRODUCT_FRAGMENT = `#graphql
     productType
     descriptionHtml
     description
+    featuredImage {
+      id
+      url
+      altText
+      width
+      height
+    }
     images(first: 8) {
       nodes {
         id

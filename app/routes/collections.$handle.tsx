@@ -13,6 +13,7 @@ import {
 import type {ProductItemFragment} from 'storefrontapi.generated';
 import {Truck, RefreshCw, ShieldCheck} from 'lucide-react';
 import {Breadcrumb} from '~/components/Breadcrumb';
+import {getCollectionSeo} from '~/lib/seo-catalog';
 
 export const meta: Route.MetaFunction = ({data}) => {
   const collection = data?.collection;
@@ -20,13 +21,14 @@ export const meta: Route.MetaFunction = ({data}) => {
     return [{title: 'Koleksi Tidak Ditemui - ELFY'}];
   }
 
-  const rawTitle =
-    collection.seo?.title || `${collection.title} - ELFY Official`;
-  const title = rawTitle.replace(/\s*\|\s*/g, ' - ');
-  const description =
-    collection.seo?.description ||
-    collection.description ||
-    'Terokai koleksi kasut kasual kulit asli & jam tangan sartorial dari ELFY Malaysia.';
+  const seo = getCollectionSeo(collection.handle, {
+    title: collection.title,
+    seoTitle: collection.seo?.title,
+    description: collection.seo?.description || collection.description,
+  });
+
+  const title = seo.title;
+  const description = seo.description;
   const canonicalUrl = `https://elfy.my/collections/${collection.handle}`;
   const imageUrl = collection.image?.url;
 
@@ -111,12 +113,12 @@ export default function Collection() {
       </div>
 
       {/* Editorial Category Header (Bright & Luxurious) */}
-      <div className="bg-gradient-to-b from-[#F4F0E8] via-[#FAF9F6] to-[#FAF9F6] text-[#191817] py-14 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-[#EBE6DF]">
+      <div className="bg-gradient-to-b from-[#F4F0E8] via-[#FAF9F6] to-[#FAF9F6] text-[#191817] py-10 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-[#EBE6DF]">
         <div className="max-w-7xl mx-auto text-center">
-          <span className="text-xs uppercase tracking-[0.25em] font-semibold text-[#B48344] block mb-2.5">
+          <span className="text-xs uppercase tracking-[0.25em] font-semibold text-[#B48344] block mb-2 sm:mb-2.5">
             Koleksi Rasmi ELFY • Kuala Lumpur
           </span>
-          <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-[#191817]">
+          <h1 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#191817]">
             {collection.title}
           </h1>
           {collection.description && (
@@ -124,7 +126,7 @@ export default function Collection() {
           )}
 
           {/* Quick Category Switcher Pills */}
-          <div className="mt-8">
+          <div className="mt-5 sm:mt-8">
             <CategoryPills activeHandle={collection.handle} />
           </div>
         </div>
@@ -146,7 +148,7 @@ export default function Collection() {
 
         <PaginatedResourceSection<ProductItemFragment>
           connection={collection.products}
-          resourcesClassName="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"
+          resourcesClassName="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8 sm:gap-x-6 sm:gap-y-12"
         >
           {({node: product, index}) => (
             <ProductItem
@@ -234,6 +236,7 @@ const COLLECTION_QUERY = `#graphql
       handle
       title
       description
+      descriptionHtml
       seo {
         description
         title

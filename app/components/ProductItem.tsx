@@ -1,11 +1,49 @@
 import {Link} from 'react-router';
-import {Image, Money} from '@shopify/hydrogen';
+import {Image} from '@shopify/hydrogen';
 import type {
   ProductItemFragment,
   CollectionItemFragment,
 } from 'storefrontapi.generated';
 import {useVariantUrl} from '~/lib/variants';
-import {Star, ArrowRight} from 'lucide-react';
+
+/**
+ * Editorial category & micro-spec classifier for luxury hierarchy
+ */
+function getEditorialMeta(handle: string, productType?: string | null): {
+  category: string;
+  specHint: string;
+} {
+  const h = handle.toLowerCase();
+  const pt = (productType || '').toLowerCase();
+
+  if (h.includes('jam-tangan-wanita') || pt.includes('women')) {
+    return {
+      category: "Women's Horology",
+      specHint: 'Waranti 1 Tahun • Sedia Pos KL',
+    };
+  }
+  if (h.includes('jam-tangan') || pt.includes('watch')) {
+    return {
+      category: "Men's Horology",
+      specHint: 'Enjin Kuarza Jitu • Waranti 1 Thn',
+    };
+  }
+  if (
+    h.includes('sneaker') ||
+    h.includes('sepatu') ||
+    pt.includes('shoe') ||
+    pt.includes('sneaker')
+  ) {
+    return {
+      category: "Men's Footwear",
+      specHint: 'Wide Fit (39–44) • Pos 1-3 Hari',
+    };
+  }
+  return {
+    category: productType || 'ELFY Sartorial',
+    specHint: 'Ready Stock KL • Pos Pantas',
+  };
+}
 
 export function ProductItem({
   product,
@@ -17,6 +55,7 @@ export function ProductItem({
   loading?: 'eager' | 'lazy';
 }) {
   const variantUrl = useVariantUrl(product.handle);
+  const displayTitle = product.title || 'Produk ELFY';
   const primaryImage = product.featuredImage;
 
   // Extract distinct second image for smooth luxury hover reveal
@@ -38,108 +77,93 @@ export function ProductItem({
     (product as any).compareAtPriceRange?.maxVariantPrice?.amount;
   const compareAtPrice = compareAtAmount ? parseFloat(compareAtAmount) : 0;
   const hasDiscount = compareAtPrice > minPrice;
-  const discountPercent = hasDiscount
-    ? Math.round(((compareAtPrice - minPrice) / compareAtPrice) * 100)
-    : 0;
+
+  const {category, specHint} = getEditorialMeta(
+    product.handle,
+    (product as any).productType,
+  );
 
   return (
     <Link
       to={variantUrl}
       key={product.id}
       prefetch="intent"
-      className="group flex flex-col bg-white rounded-2xl border border-[#EBE6DF] overflow-hidden hover:shadow-lg active:scale-[0.99] transition-all duration-300"
+      className="group flex flex-col w-full text-left"
     >
-      {/* 1:1 Aspect Ratio Product Image (with Second Image Hover Reveal) */}
-      <div className="relative aspect-square overflow-hidden bg-stone-100">
+      {/* 1:1 Aspect Ratio Canvas (Frameless, Unobstructed Photography) */}
+      <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-[#F5F4F0]">
         {primaryImage ? (
           <>
             {/* Primary Image */}
             <Image
-              alt={primaryImage.altText || product.title}
+              alt={primaryImage.altText || displayTitle}
               aspectRatio="1/1"
               data={primaryImage}
               loading={loading}
-              sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-              className={`w-full h-full object-cover object-center brightness-[1.02] contrast-[1.02] transition-all duration-500 ease-out ${
+              sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 50vw"
+              className={`w-full h-full object-cover object-center brightness-[1.01] contrast-[1.01] transition-all duration-700 ease-out ${
                 secondaryImage
-                  ? 'group-hover:opacity-0 group-hover:scale-105'
-                  : 'group-hover:scale-105'
+                  ? 'group-hover:opacity-0 group-hover:scale-[1.03]'
+                  : 'group-hover:scale-[1.03]'
               }`}
             />
 
-            {/* Secondary Image (Appears smoothly on card hover) */}
+            {/* Secondary Image (Smooth opacity crossfade on card hover) */}
             {secondaryImage && (
               <Image
-                alt={secondaryImage.altText || `${product.title} - angle 2`}
+                alt={secondaryImage.altText || `${displayTitle} - Alternate Angle`}
                 aspectRatio="1/1"
                 data={secondaryImage}
                 loading="lazy"
-                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-                className="absolute inset-0 w-full h-full object-cover object-center brightness-[1.02] contrast-[1.02] opacity-0 group-hover:opacity-100 scale-100 group-hover:scale-105 transition-all duration-500 ease-out pointer-events-none"
+                sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 50vw"
+                className="absolute inset-0 w-full h-full object-cover object-center brightness-[1.01] contrast-[1.01] opacity-0 group-hover:opacity-100 scale-100 group-hover:scale-[1.03] transition-all duration-700 ease-out pointer-events-none"
               />
             )}
           </>
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-stone-400 text-xs bg-[#FAF9F6]">
+          <div className="w-full h-full flex items-center justify-center text-stone-300 text-xs font-serif tracking-widest bg-[#F5F4F0]">
             ELFY
           </div>
         )}
 
-        {/* Dynamic Discount or Curated Tag */}
-        {hasDiscount && discountPercent > 0 ? (
-          <div className="absolute top-2.5 left-2.5 z-10 bg-[#A83232] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-xs pointer-events-none">
-            Jimat {discountPercent}%
-          </div>
-        ) : (
-          <div className="absolute top-2.5 left-2.5 z-10 bg-[#191817] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-xs pointer-events-none">
-            Koleksi Terpilih
-          </div>
+        {/* Discreet Luxury Sale Tag (Zero neon stickers / Zero AI slop) */}
+        {hasDiscount && (
+          <span className="absolute top-2.5 left-2.5 z-10 text-[9px] tracking-[0.16em] uppercase font-semibold text-stone-700 bg-white/90 backdrop-blur-xs px-2 py-0.5 rounded-xs pointer-events-none shadow-2xs">
+            Sale
+          </span>
         )}
-
-        {/* Crisp Clean Shipping Guarantee Tag (Bright Frosted) */}
-        <div className="absolute bottom-2.5 left-2.5 z-10 bg-white/95 backdrop-blur-xs text-[#191817] border border-stone-200/80 text-[10px] font-semibold px-2.5 py-0.5 rounded-lg shadow-xs flex items-center gap-1.5 pointer-events-none">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#2B593F]" />
-          <span>Pos 1-3 Hari</span>
-        </div>
       </div>
 
-      {/* Info Content */}
-      <div className="p-3 sm:p-4 flex flex-col flex-1 justify-between">
-        <div>
-          {/* Category / Rating */}
-          <div className="flex items-center justify-between text-[11px] text-stone-500 mb-1">
-            <span className="uppercase tracking-wider font-semibold text-[#B48344]">
-              {(product as any).productType || 'Sartorial'}
-            </span>
-            <span className="flex items-center gap-0.5 text-amber-500 font-medium">
-              <Star className="w-3 h-3 fill-amber-400" /> 4.9
-            </span>
-          </div>
+      {/* Editorial Typography Block (Precision Spacing & Alignment) */}
+      <div className="mt-3 sm:mt-3.5 flex flex-col gap-0.5">
+        {/* Micro-Category Line */}
+        <span className="text-[10px] tracking-[0.15em] uppercase font-medium text-stone-600 truncate">
+          {category}
+        </span>
 
-          <h3 className="text-xs font-semibold text-[#191817] group-hover:text-[#B48344] transition-colors line-clamp-2 leading-snug">
-            {product.title}
-          </h3>
-        </div>
+        {/* Branded Product Title */}
+        <h3 className="text-xs sm:text-[13px] font-medium text-[#191817] group-hover:text-[#8C6527] transition-colors duration-200 leading-snug line-clamp-1">
+          {displayTitle}
+        </h3>
 
-        {/* Price & Action */}
-        <div className="mt-3 pt-2.5 border-t border-stone-100 flex items-center justify-between gap-2">
-          <div className="min-w-0">
-            <div className="text-xs sm:text-sm font-bold text-[#191817] truncate">
-              {currencyCode === 'MYR' ? 'RM' : currencyCode} {minPrice.toFixed(2)}
-            </div>
-            {hasDiscount && (
-              <div className="text-[10px] sm:text-[11px] text-stone-400 line-through truncate">
-                {currencyCode === 'MYR' ? 'RM' : currencyCode} {compareAtPrice.toFixed(2)}
-              </div>
-            )}
-          </div>
-
-          <span className="text-[11px] font-semibold text-stone-700 group-hover:text-[#B48344] transition-colors duration-200 inline-flex items-center gap-1 shrink-0">
-            <span>Lihat Saiz</span>
-            <ArrowRight className="w-3 h-3 text-[#B48344] shrink-0 group-hover:translate-x-0.5 transition-transform duration-200" />
+        {/* Pricing Line */}
+        <div className="flex items-baseline gap-1.5 pt-0.5">
+          <span className="text-xs sm:text-sm font-semibold text-[#191817] tracking-tight">
+            {currencyCode === 'MYR' ? 'RM' : currencyCode} {minPrice.toFixed(2)}
           </span>
+          {hasDiscount && (
+            <span className="text-[11px] sm:text-xs text-stone-600 line-through font-normal">
+              {currencyCode === 'MYR' ? 'RM' : currencyCode} {compareAtPrice.toFixed(2)}
+            </span>
+          )}
         </div>
+
+        {/* Sub-line Trust & Specification Hint */}
+        <span className="text-[10px] text-stone-600 tracking-wide font-normal pt-0.5 line-clamp-1">
+          {specHint}
+        </span>
       </div>
     </Link>
   );
 }
+

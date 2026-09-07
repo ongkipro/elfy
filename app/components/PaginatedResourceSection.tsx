@@ -82,7 +82,7 @@ export function PaginatedResourceSection<NodesType>({
 
                   {/* Primary Luxury Load More Action */}
                   <NextLink
-                    className="group inline-flex items-center justify-center gap-2.5 px-8 sm:px-10 py-3.5 sm:py-4 bg-[#191817] hover:bg-[#B48344] active:scale-[0.98] text-white rounded-full font-bold text-xs sm:text-sm uppercase tracking-wider shadow-md hover:shadow-xl transition-all duration-300 select-none cursor-pointer w-full sm:w-auto"
+                    className="group inline-flex items-center justify-center gap-2.5 px-8 py-3.5 bg-[#191817] hover:bg-stone-800 active:scale-[0.985] text-white rounded-lg font-medium text-xs uppercase tracking-[0.14em] shadow-xs transition-all duration-200 select-none cursor-pointer w-full sm:w-auto"
                   >
                     {isLoading ? (
                       <>
@@ -91,9 +91,9 @@ export function PaginatedResourceSection<NodesType>({
                       </>
                     ) : (
                       <>
-                        <Sparkles className="w-4 h-4 text-[#B48344] group-hover:text-white transition-colors shrink-0" />
+                        <Sparkles className="w-3.5 h-3.5 text-[#D4AF37] group-hover:scale-105 transition-transform shrink-0" />
                         <span>Muat Lagi Produk</span>
-                        <ChevronDown className="w-4 h-4 text-stone-300 group-hover:text-white group-hover:translate-y-0.5 transition-all shrink-0" />
+                        <ChevronDown className="w-3.5 h-3.5 text-stone-400 group-hover:text-white group-hover:translate-y-0.5 transition-all shrink-0" />
                       </>
                     )}
                   </NextLink>

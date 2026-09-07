@@ -1,4 +1,9 @@
 import {ShieldCheck, Lock, RefreshCw, Truck, CheckCircle2} from 'lucide-react';
+import fpxLogo from '~/assets/payments/fpx.png';
+import tngLogo from '~/assets/payments/tng.png';
+import grabpayLogo from '~/assets/payments/grabpay.png';
+import visaLogo from '~/assets/payments/visa.png';
+import mastercardLogo from '~/assets/payments/mastercard.png';
 
 interface TrustPaymentBadgesProps {
   variant?: 'compact' | 'full';
@@ -21,7 +26,7 @@ export function TrustPaymentBadges({variant = 'compact'}: TrustPaymentBadgesProp
         {/* Badges Row - Frameless Official PNG Logos (FPX, TNG, GrabPay, Visa, Mastercard) */}
         <div className="grid grid-cols-5 items-center justify-items-center gap-2 select-none py-1.5">
           <img
-            src="/payments/fpx.png"
+            src={fpxLogo}
             alt="FPX Online Banking"
             width={48}
             height={24}
@@ -30,7 +35,7 @@ export function TrustPaymentBadges({variant = 'compact'}: TrustPaymentBadgesProp
             decoding="async"
           />
           <img
-            src="/payments/tng.png"
+            src={tngLogo}
             alt="Touch 'n Go eWallet"
             width={32}
             height={32}
@@ -39,7 +44,7 @@ export function TrustPaymentBadges({variant = 'compact'}: TrustPaymentBadgesProp
             decoding="async"
           />
           <img
-            src="/payments/grabpay.png"
+            src={grabpayLogo}
             alt="GrabPay"
             width={40}
             height={24}
@@ -48,7 +53,7 @@ export function TrustPaymentBadges({variant = 'compact'}: TrustPaymentBadgesProp
             decoding="async"
           />
           <img
-            src="/payments/visa.png"
+            src={visaLogo}
             alt="Visa"
             width={38}
             height={14}
@@ -57,7 +62,7 @@ export function TrustPaymentBadges({variant = 'compact'}: TrustPaymentBadgesProp
             decoding="async"
           />
           <img
-            src="/payments/mastercard.png"
+            src={mastercardLogo}
             alt="Mastercard"
             width={32}
             height={22}

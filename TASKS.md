@@ -154,3 +154,27 @@
   - **Primary Requirement**: `ARCHITECTURE.md` Section 2.
   - **File Target**: `dist/client/`, `dist/server/`
   - **Status**: Completed & Verified (`npm run typecheck` and `npm run build` pass with 0 errors).
+
+---
+
+## Phase 6: Catalog Merchandising & Malaysian CRO Copywriting
+
+- [x] **Task 6.1: Collection Banners Aspect Ratio 3:2 Redesign**
+  - **Primary Requirement**: Clean, luxury studio aesthetic with zero overlay text, 3:2 ratio (1264x848) across all 5 live collections (`mens-sneakers`, `mens-watches`, `womens-watches`, `best-sellers`, `new-arrivals`).
+  - **File Target**: `public/banners/`, Shopify Staged Uploads & Collection API.
+  - **Status**: Completed & Verified.
+
+- [x] **Task 6.2: Collection SEO Meta & Description Audit**
+  - **Primary Requirement**: Under 250 characters concise lifestyle descriptions, standardized `- ELFY Official` branding (zero pipes `|`), no spammy CTAs.
+  - **File Target**: Shopify Collection API.
+  - **Status**: Completed & Verified.
+
+- [x] **Task 6.3: Product Description Refinement (Malaysian Middle-Up Market Standard)**
+  - **Primary Requirement**: Eliminate duplicate shipping/warranty boilerplate from `descriptionHtml` (already handled in Accordion tabs). Structure into pure Product Essence, Material/Craftsmanship Knowledge, and Insole/Dimension Sizing with Asian wide-fit advisory.
+  - **File Target**: `scripts/catalog-optimizer.mjs`, `scripts/catalog-optimized.json`, `scripts/shopify-products-optimized.csv`.
+  - **Status**: Completed & Verified across all 51 products in Shopify.
+
+- [x] **Task 6.4: Product Page Collection Banner & Related Posts (ELFY Journal)**
+  - **Primary Requirement**: Embed dynamic parent collection spotlight banner with WebP imagery and interactive category-aware styling & care guides (Related Posts) on all product detail pages.
+  - **File Target**: `app/routes/products.$handle.tsx`, `app/components/ProductCollectionBanner.tsx`, `app/components/ProductRelatedPosts.tsx`.
+  - **Status**: Completed & Verified.

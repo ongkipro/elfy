@@ -15,6 +15,8 @@ import {ProductForm} from '~/components/ProductForm';
 import {SizeRecommenderModal} from '~/components/SizeRecommenderModal';
 import {StickyAddToCart} from '~/components/StickyAddToCart';
 import {ProductAccordion} from '~/components/ProductAccordion';
+import {ProductCollectionBanner} from '~/components/ProductCollectionBanner';
+import {ProductRelatedPosts} from '~/components/ProductRelatedPosts';
 import {Breadcrumb} from '~/components/Breadcrumb';
 import {useAside} from '~/components/Aside';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
@@ -348,6 +350,50 @@ export default function Product() {
   });
   const displayTitle = seo.brandedTitle;
 
+  const isWatch =
+    (product.productType || '').toLowerCase().includes('watch') ||
+    product.handle.includes('jam-tangan') ||
+    product.handle.includes('c27');
+  const isWomenWatch = product.handle.includes('jam-tangan-wanita');
+
+  const primaryCollection = (product as any)?.collections?.nodes?.find(
+    (c: any) =>
+      c &&
+      c.handle !== 'frontpage' &&
+      c.handle !== 'best-sellers' &&
+      c.handle !== 'new-arrivals',
+  ) || (product as any)?.collections?.nodes?.find(
+    (c: any) => c && c.handle !== 'frontpage',
+  );
+
+  const fallbackCollection = {
+    title: isWomenWatch
+      ? "Women's Elegant Quartz Watches"
+      : isWatch
+      ? "Men's Luxury Analog & Quartz Watches"
+      : "Men's Performance & Casual Sneakers",
+    handle: isWomenWatch
+      ? 'womens-watches'
+      : isWatch
+      ? 'mens-watches'
+      : 'mens-sneakers',
+    description: isWomenWatch
+      ? 'Koleksi jam tangan wanita ELFY dengan siluet anggun dan rekaan kontemporari. Sedia pos dari Kuala Lumpur dengan jaminan rasmi 1 tahun.'
+      : isWatch
+      ? 'Jam tangan analog quartz dan chronograph eksekutif ELFY. Kemasan keluli tahan karat tahan calar, enjin jitu, dan kotak hadiah percuma. Dilengkapi waranti 1 tahun & penghantaran pantas 1-3 hari.'
+      : 'Koleksi sneakers kasual lelaki ELFY menggabungkan kusyen tapak berdaya tahan tinggi dan fabrik bernafas untuk keselesaan harian. Sedia pos seluruh Malaysia dengan jaminan tukar saiz 7 hari & pilihan COD.',
+    image: {
+      url: isWomenWatch
+        ? '/banners/womens-watches-3x2.webp'
+        : isWatch
+        ? '/banners/mens-watches-3x2.webp'
+        : '/banners/mens-sneakers-3x2.webp',
+      altText: 'Koleksi Rasmi ELFY',
+    },
+  };
+
+  const activeCollection = primaryCollection || fallbackCollection;
+
   // Signal: Track ViewContent with CAPI event_id deduplication
   useEffect(() => {
     trackViewContent({
@@ -416,47 +462,14 @@ export default function Product() {
 
       {/* Breadcrumb Navigation: [Home Icon] > [Nama Koleksi] > [Judul Produk] */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-3.5">
-        {(() => {
-          const firstCollection = (product as any)?.collections?.nodes?.find(
-            (c: any) =>
-              c &&
-              c.handle !== 'frontpage' &&
-              c.handle !== 'best-sellers',
-          );
-          const isWatch =
-            (product.productType || '').toLowerCase().includes('watch') ||
-            product.handle.includes('jam-tangan');
-          const isWomenWatch = product.handle.includes('jam-tangan-wanita');
-
-          let collectionTitle = firstCollection?.title;
-          let collectionUrl = firstCollection
-            ? `/collections/${firstCollection.handle}`
-            : '/collections/all';
-
-          if (!collectionTitle) {
-            if (isWomenWatch) {
-              collectionTitle = 'Jam Tangan Wanita';
-              collectionUrl = '/collections/womens-watches';
-            } else if (isWatch) {
-              collectionTitle = 'Jam Tangan Lelaki';
-              collectionUrl = '/collections/mens-watches';
-            } else {
-              collectionTitle = 'Kasut Kasual';
-              collectionUrl = '/collections/mens-sneakers';
-            }
-          }
-
-          return (
-            <Breadcrumb
-              items={[
-                {label: 'Utama', to: '/'},
-                {label: collectionTitle, to: collectionUrl},
-                {label: displayTitle},
-              ]}
-              currentUrl={`https://elfy.my/products/${product.handle}`}
-            />
-          );
-        })()}
+        <Breadcrumb
+          items={[
+            {label: 'Utama', to: '/'},
+            {label: activeCollection.title, to: `/collections/${activeCollection.handle}`},
+            {label: displayTitle},
+          ]}
+          currentUrl={`https://elfy.my/products/${product.handle}`}
+        />
       </div>
 
       {/* Main PDP Grid */}
@@ -614,6 +627,18 @@ export default function Product() {
         </div>
       </div>
 
+      {/* 2. Primary Collection Spotlight Banner */}
+      <ProductCollectionBanner
+        collection={activeCollection}
+        productType={isWatch ? 'watch' : 'footwear'}
+      />
+
+      {/* 3. Related Posts / ELFY Journal & Styling Guides */}
+      <ProductRelatedPosts
+        productType={isWatch ? 'watch' : 'footwear'}
+        productTitle={displayTitle}
+      />
+
       {/* Sticky Add to Cart for Mobile (Smooth Slide-Up on Scroll) */}
       <StickyAddToCart
         title={displayTitle}
@@ -725,6 +750,14 @@ const PRODUCT_FRAGMENT = `#graphql
         id
         title
         handle
+        description
+        image {
+          id
+          url
+          altText
+          width
+          height
+        }
       }
     }
     options {

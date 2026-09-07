@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Production & Build outputs
+dist/
+build/
+.cache/
+.miniflare/
+.mf/
+
+# Hydrogen / MiniOxygen temporary outputs
+mini-oxygen/
+.react-router/
+*.tsbuildinfo
+
+# Environment files
+.env
+.env.local
+.env.*.local
+secrets.env
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/

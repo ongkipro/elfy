@@ -116,8 +116,8 @@ export function GrandAtelierHero({}: GrandAtelierHeroProps) {
         </div>
 
         {/* 3. SUBTLE BOTTOM TRUST BAR */}
-        <div className="pt-6 border-t border-stone-200/60 grid grid-cols-2 md:grid-cols-4 gap-3 text-xs text-stone-700">
-          <div className="flex items-center gap-2.5">
+        <div className="pt-6 border-t border-stone-200/60 grid grid-cols-2 md:grid-cols-4 gap-4 text-xs text-stone-700">
+          <div className="flex items-center justify-center gap-2.5 text-left">
             <div className="w-8 h-8 rounded-lg bg-white border border-[#EBE6DF] flex items-center justify-center shrink-0 text-[#B48344] shadow-2xs">
               <Truck className="w-3.5 h-3.5" />
             </div>
@@ -131,7 +131,7 @@ export function GrandAtelierHero({}: GrandAtelierHeroProps) {
             </div>
           </div>
 
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center justify-center gap-2.5 text-left">
             <div className="w-8 h-8 rounded-lg bg-white border border-[#EBE6DF] flex items-center justify-center shrink-0 text-[#B48344] shadow-2xs">
               <RefreshCw className="w-3.5 h-3.5" />
             </div>
@@ -145,7 +145,7 @@ export function GrandAtelierHero({}: GrandAtelierHeroProps) {
             </div>
           </div>
 
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center justify-center gap-2.5 text-left">
             <div className="w-8 h-8 rounded-lg bg-white border border-[#EBE6DF] flex items-center justify-center shrink-0 text-[#B48344] shadow-2xs">
               <ShieldCheck className="w-3.5 h-3.5" />
             </div>
@@ -159,7 +159,7 @@ export function GrandAtelierHero({}: GrandAtelierHeroProps) {
             </div>
           </div>
 
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center justify-center gap-2.5 text-left">
             <div className="w-8 h-8 rounded-lg bg-white border border-[#EBE6DF] flex items-center justify-center shrink-0 text-[#2B593F] shadow-2xs">
               <CheckCircle2 className="w-3.5 h-3.5" />
             </div>

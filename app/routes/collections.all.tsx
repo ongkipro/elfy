@@ -24,6 +24,11 @@ export const meta: Route.MetaFunction = () => {
   return [
     {title},
     {name: 'description', content: description},
+    {
+      name: 'robots',
+      content:
+        'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    },
     {tagName: 'link', rel: 'canonical', href: canonicalUrl},
     {property: 'og:site_name', content: 'ELFY'},
     {property: 'og:locale', content: 'ms_MY'},
@@ -31,9 +36,14 @@ export const meta: Route.MetaFunction = () => {
     {property: 'og:title', content: title},
     {property: 'og:description', content: description},
     {property: 'og:url', content: canonicalUrl},
+    {property: 'og:image', content: 'https://elfy.my/hero-desktop.webp'},
+    {property: 'og:image:width', content: '1200'},
+    {property: 'og:image:height', content: '630'},
+    {property: 'og:image:alt', content: title},
     {name: 'twitter:card', content: 'summary_large_image'},
     {name: 'twitter:title', content: title},
     {name: 'twitter:description', content: description},
+    {name: 'twitter:image', content: 'https://elfy.my/hero-desktop.webp'},
   ];
 };
 
@@ -68,8 +78,34 @@ export default function CollectionAll() {
     (products?.nodes as any[])?.[0]?.featuredImage?.url ||
     '/banners/mens-sneakers-3x2.webp';
 
+  const catalogSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Semua Koleksi & Produk ELFY',
+    description:
+      'Koleksi lengkap kasut sneakers kasual dan jam tangan lelaki & wanita ELFY Malaysia.',
+    url: 'https://elfy.my/collections/all',
+    ...(products?.nodes?.length
+      ? {
+          mainEntity: {
+            '@type': 'ItemList',
+            itemListElement: products.nodes.map((product: any, index: number) => ({
+              '@type': 'ListItem',
+              position: index + 1,
+              url: `https://elfy.my/products/${product.handle}`,
+              name: product.title,
+            })),
+          },
+        }
+      : {}),
+  };
+
   return (
     <div className="bg-[#FAF9F6] min-h-screen text-[#191817] pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{__html: JSON.stringify(catalogSchema)}}
+      />
       {/* Full-Bleed Cinematic Collection Hero: Background = Catalog Featured Image */}
       <section className="relative w-full overflow-hidden bg-stone-950 text-white min-h-[360px] sm:min-h-[460px] lg:min-h-[500px] flex flex-col justify-between border-b border-[#2A2724]">
         {/* Background Featured Image */}

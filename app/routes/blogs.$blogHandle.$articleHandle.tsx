@@ -21,6 +21,11 @@ export const meta: Route.MetaFunction = ({data, params}) => {
   return [
     {title},
     {name: 'description', content: description},
+    {
+      name: 'robots',
+      content:
+        'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    },
     {tagName: 'link', rel: 'canonical', href: canonicalUrl},
     {property: 'og:site_name', content: 'ELFY Journal'},
     {property: 'og:locale', content: 'ms_MY'},
@@ -31,9 +36,16 @@ export const meta: Route.MetaFunction = ({data, params}) => {
     ...(imageUrl
       ? [
           {property: 'og:image', content: imageUrl},
+          {property: 'og:image:alt', content: title},
           {name: 'twitter:image', content: imageUrl},
         ]
-      : []),
+      : [
+          {property: 'og:image', content: 'https://elfy.my/hero-desktop.webp'},
+          {property: 'og:image:width', content: '1200'},
+          {property: 'og:image:height', content: '630'},
+          {property: 'og:image:alt', content: title},
+          {name: 'twitter:image', content: 'https://elfy.my/hero-desktop.webp'},
+        ]),
     {name: 'twitter:card', content: 'summary_large_image'},
     {name: 'twitter:title', content: title},
     {name: 'twitter:description', content: description},
@@ -109,8 +121,38 @@ export default function Article() {
     day: 'numeric',
   }).format(new Date(article.publishedAt));
 
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    image: image?.url || 'https://elfy.my/hero-desktop.webp',
+    datePublished: article.publishedAt,
+    dateModified: article.publishedAt,
+    author: {
+      '@type': 'Person',
+      name: author?.name || 'ELFY Editorial',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'ELFY',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://elfy.my/favicon.svg',
+      },
+    },
+    description: article.seo?.description || undefined,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://elfy.my/blogs/${blogHandle || 'journal'}/${article.handle}`,
+    },
+  };
+
   return (
     <div className="article max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{__html: JSON.stringify(articleSchema)}}
+      />
       <div className="mb-6">
         <Breadcrumb
           items={[

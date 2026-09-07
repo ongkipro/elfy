@@ -41,10 +41,12 @@ export const meta: Route.MetaFunction = () => {
   const description =
     'Jenama kasut kasual kulit asli & jam tangan sartorial rekaan moden Malaysia. Nikmati penghantaran percuma Semenanjung dan jaminan tukar saiz 7 hari percuma.';
   const canonicalUrl = 'https://elfy.my';
+  const ogImageUrl = 'https://elfy.my/hero-desktop.webp';
 
   return [
     {title},
     {name: 'description', content: description},
+    {name: 'robots', content: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'},
     {tagName: 'link', rel: 'canonical', href: canonicalUrl},
     {property: 'og:site_name', content: 'ELFY'},
     {property: 'og:locale', content: 'ms_MY'},
@@ -52,9 +54,14 @@ export const meta: Route.MetaFunction = () => {
     {property: 'og:title', content: title},
     {property: 'og:description', content: description},
     {property: 'og:url', content: canonicalUrl},
+    {property: 'og:image', content: ogImageUrl},
+    {property: 'og:image:width', content: '1200'},
+    {property: 'og:image:height', content: '630'},
+    {property: 'og:image:alt', content: 'ELFY Malaysia - Kasut Kasual & Jam Tangan Lelaki'},
     {name: 'twitter:card', content: 'summary_large_image'},
     {name: 'twitter:title', content: title},
     {name: 'twitter:description', content: description},
+    {name: 'twitter:image', content: ogImageUrl},
   ];
 };
 

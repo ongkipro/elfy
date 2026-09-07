@@ -36,6 +36,11 @@ export const meta: Route.MetaFunction = ({data}) => {
   return [
     {title},
     {name: 'description', content: description},
+    {
+      name: 'robots',
+      content:
+        'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    },
     {tagName: 'link', rel: 'canonical', href: canonicalUrl},
     {property: 'og:site_name', content: 'ELFY'},
     {property: 'og:locale', content: 'ms_MY'},
@@ -43,9 +48,14 @@ export const meta: Route.MetaFunction = ({data}) => {
     {property: 'og:title', content: title},
     {property: 'og:description', content: description},
     {property: 'og:url', content: canonicalUrl},
+    {property: 'og:image', content: 'https://elfy.my/hero-desktop.webp'},
+    {property: 'og:image:width', content: '1200'},
+    {property: 'og:image:height', content: '630'},
+    {property: 'og:image:alt', content: title},
     {name: 'twitter:card', content: 'summary_large_image'},
     {name: 'twitter:title', content: title},
     {name: 'twitter:description', content: description},
+    {name: 'twitter:image', content: 'https://elfy.my/hero-desktop.webp'},
   ];
 };
 
@@ -113,8 +123,62 @@ export async function loader(args: Route.LoaderArgs) {
 export default function Page() {
   const {page} = useLoaderData<typeof loader>();
 
+  const pageSchema: any = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: page.title,
+    url: `https://elfy.my/pages/${page.handle}`,
+    description: page.seo?.description || undefined,
+  };
+
+  if (page.handle === 'shipping-faq') {
+    pageSchema['@type'] = ['WebPage', 'FAQPage'];
+    pageSchema.mainEntity = [
+      {
+        '@type': 'Question',
+        name: 'Berapa lama tempoh penghantaran pesanan ELFY?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Penghantaran mengambil masa 1-3 hari bekerja untuk Semenanjung Malaysia, dan 3-5 hari bekerja untuk Sabah & Sarawak melalui kurier rasmi.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Berapakah kos penghantaran pesanan?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'ELFY menyediakan pilihan Penghantaran Percuma (Free Shipping) bagi pesanan yang memenuhi syarat kempen atau promosi semasa.',
+        },
+      },
+    ];
+  } else if (page.handle === 'warranty-returns') {
+    pageSchema['@type'] = ['WebPage', 'FAQPage'];
+    pageSchema.mainEntity = [
+      {
+        '@type': 'Question',
+        name: 'Apakah syarat pertukaran saiz kasut ELFY?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'ELFY menyediakan jaminan tukar saiz dalam tempoh 7 hari selepas barang diterima. Kasut mestilah belum dipakai di luar dan kotak asal dalam keadaan baik.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Berapa lama tempoh jaminan jam tangan ELFY?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Jam tangan ELFY didatangkan dengan jaminan movement mekanikal selama 12 bulan dari tarikh pembelian.',
+        },
+      },
+    ];
+  }
+
   return (
     <div className="bg-[#FAF9F6] min-h-screen text-[#191817] py-12 px-4 sm:px-6 lg:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{__html: JSON.stringify(pageSchema)}}
+      />
       <div className="max-w-4xl mx-auto">
         {/* Breadcrumb */}
         <div className="mb-6">

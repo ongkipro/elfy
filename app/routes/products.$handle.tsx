@@ -51,9 +51,12 @@ export const meta: Route.MetaFunction = ({data}) => {
   const currencyCode =
     product.selectedOrFirstAvailableVariant?.price?.currencyCode || 'MYR';
 
+  const effectiveImageUrl = imageUrl || 'https://elfy.my/hero-desktop.webp';
+
   return [
     {title},
     {name: 'description', content: description},
+    {name: 'robots', content: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'},
     {tagName: 'link', rel: 'canonical', href: canonicalUrl},
     {property: 'og:site_name', content: 'ELFY'},
     {property: 'og:locale', content: 'ms_MY'},
@@ -61,21 +64,18 @@ export const meta: Route.MetaFunction = ({data}) => {
     {property: 'og:title', content: title},
     {property: 'og:description', content: description},
     {property: 'og:url', content: canonicalUrl},
-    ...(imageUrl
-      ? [
-          {property: 'og:image', content: imageUrl},
-          {name: 'twitter:image', content: imageUrl},
-        ]
-      : []),
+    {property: 'og:image', content: effectiveImageUrl},
+    {property: 'og:image:alt', content: title},
+    {name: 'twitter:card', content: 'summary_large_image'},
+    {name: 'twitter:title', content: title},
+    {name: 'twitter:description', content: description},
+    {name: 'twitter:image', content: effectiveImageUrl},
     ...(priceAmount
       ? [
           {property: 'product:price:amount', content: priceAmount},
           {property: 'product:price:currency', content: currencyCode},
         ]
       : []),
-    {name: 'twitter:card', content: 'summary_large_image'},
-    {name: 'twitter:title', content: title},
-    {name: 'twitter:description', content: description},
   ];
 };
 

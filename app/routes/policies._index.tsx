@@ -10,6 +10,11 @@ export const meta: Route.MetaFunction = () => {
       content:
         'Ketahui maklumat lengkap mengenai polisi privasi, polisi penghantaran, dan polisi pulangan jenama ELFY Malaysia.',
     },
+    {
+      name: 'robots',
+      content:
+        'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    },
     {tagName: 'link', rel: 'canonical', href: 'https://elfy.my/policies'},
     {property: 'og:site_name', content: 'ELFY'},
     {property: 'og:locale', content: 'ms_MY'},
@@ -21,8 +26,18 @@ export const meta: Route.MetaFunction = () => {
         'Ketahui maklumat lengkap mengenai polisi privasi, polisi penghantaran, dan polisi pulangan jenama ELFY Malaysia.',
     },
     {property: 'og:url', content: 'https://elfy.my/policies'},
-    {name: 'twitter:card', content: 'summary'},
+    {property: 'og:image', content: 'https://elfy.my/hero-desktop.webp'},
+    {property: 'og:image:width', content: '1200'},
+    {property: 'og:image:height', content: '630'},
+    {property: 'og:image:alt', content: 'Polisi Rasmi - ELFY Official'},
+    {name: 'twitter:card', content: 'summary_large_image'},
     {name: 'twitter:title', content: 'Polisi Rasmi - ELFY Official'},
+    {
+      name: 'twitter:description',
+      content:
+        'Ketahui maklumat lengkap mengenai polisi privasi, polisi penghantaran, dan polisi pulangan jenama ELFY Malaysia.',
+    },
+    {name: 'twitter:image', content: 'https://elfy.my/hero-desktop.webp'},
   ];
 };
 

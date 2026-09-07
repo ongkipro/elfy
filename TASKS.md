@@ -185,4 +185,10 @@
   - **File Target**: `app/components/TrustPaymentBadges.tsx`.
   - **Status**: Completed & Verified.
 
+- [x] **Task 6.6: Comprehensive Technical SEO, Robots, Sitemap, OpenGraph & Schema.org Audit**
+  - **Primary Requirement**: Full audit across all storefront routes. Dynamic `robots.txt` allowing policy crawl for GMC compliance while protecting cart/account/search; cleaned sub-sitemap removing boilerplate non-existent foreign hreflang tags; explicit index/noindex directives (`search.tsx` and `cart.tsx` noindex, follow; `account.tsx` noindex, nofollow; all public routes index, follow); 1200x630 OpenGraph & Twitter cards with high-fidelity fallbacks; complete Google Schema.org rich results across `Organization`, `WebSite`, `Product` (Offer + AggregateRating), `CollectionPage`, `ItemList`, `FAQPage`, `BlogPosting`, and `BreadcrumbList`.
+  - **File Target**: `app/routes/[robots.txt].tsx`, `app/routes/sitemap.$type.$page[.xml].tsx`, `app/routes/_index.tsx`, `app/routes/products.$handle.tsx`, `app/routes/collections.$handle.tsx`, `app/routes/collections.all.tsx`, `app/routes/collections._index.tsx`, `app/routes/pages.$handle.tsx`, `app/routes/policies._index.tsx`, `app/routes/policies.$handle.tsx`, `app/routes/blogs._index.tsx`, `app/routes/blogs.$blogHandle._index.tsx`, `app/routes/blogs.$blogHandle.$articleHandle.tsx`, `app/routes/account.tsx`, `app/root.tsx`.
+  - **Status**: Completed & Verified.
+
+
 

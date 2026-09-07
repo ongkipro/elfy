@@ -16,6 +16,11 @@ export const meta: Route.MetaFunction = () => {
   return [
     {title},
     {name: 'description', content: description},
+    {
+      name: 'robots',
+      content:
+        'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    },
     {tagName: 'link', rel: 'canonical', href: canonicalUrl},
     {property: 'og:site_name', content: 'ELFY'},
     {property: 'og:locale', content: 'ms_MY'},
@@ -23,9 +28,14 @@ export const meta: Route.MetaFunction = () => {
     {property: 'og:title', content: title},
     {property: 'og:description', content: description},
     {property: 'og:url', content: canonicalUrl},
+    {property: 'og:image', content: 'https://elfy.my/hero-desktop.webp'},
+    {property: 'og:image:width', content: '1200'},
+    {property: 'og:image:height', content: '630'},
+    {property: 'og:image:alt', content: title},
     {name: 'twitter:card', content: 'summary_large_image'},
     {name: 'twitter:title', content: title},
     {name: 'twitter:description', content: description},
+    {name: 'twitter:image', content: 'https://elfy.my/hero-desktop.webp'},
   ];
 };
 
@@ -47,8 +57,30 @@ export async function loader(args: Route.LoaderArgs) {
 export default function Collections() {
   const {collections} = useLoaderData<typeof loader>();
 
+  const directorySchema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Direktori Koleksi Eksklusif - ELFY Official',
+    description:
+      'Terokai direktori koleksi kasut kasual kulit lembut dan jam tangan sartorial ELFY Malaysia.',
+    url: 'https://elfy.my/collections',
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: collections.map((col: any, index: number) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        url: `https://elfy.my/collections/${col.handle}`,
+        name: col.title,
+      })),
+    },
+  };
+
   return (
     <div className="bg-[#FAF9F6] min-h-screen text-[#191817] pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{__html: JSON.stringify(directorySchema)}}
+      />
       {/* Breadcrumb Navigation */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3.5 pb-2">
         <Breadcrumb

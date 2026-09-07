@@ -111,12 +111,18 @@ export default function Homepage() {
             to="/collections/mens-sneakers"
             className="group relative rounded-3xl overflow-hidden border border-[#EBE6DF] bg-stone-900 aspect-[4/3] sm:aspect-[16/10] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-end p-6 sm:p-8"
           >
-            <img
-              src="/banners/mens-sneakers-3x2.jpg"
-              alt="Koleksi Kasut Kulit ELFY"
-              className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-[0.9] group-hover:brightness-[0.95]"
-              loading="lazy"
-            />
+            <picture>
+              <source srcSet="/banners/mens-sneakers-3x2.webp" type="image/webp" />
+              <img
+                src="/banners/mens-sneakers-3x2.jpg"
+                alt="Koleksi Kasut Kulit ELFY"
+                className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-[0.9] group-hover:brightness-[0.95]"
+                loading="lazy"
+                decoding="async"
+                width={1264}
+                height={848}
+              />
+            </picture>
             {/* Subtle Gradient Overlay for High Contrast Text */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/5 pointer-events-none" />
 
@@ -145,12 +151,18 @@ export default function Homepage() {
             to="/collections/mens-watches"
             className="group relative rounded-3xl overflow-hidden border border-[#EBE6DF] bg-stone-900 aspect-[4/3] sm:aspect-[16/10] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-end p-6 sm:p-8"
           >
-            <img
-              src="/banners/mens-watches-3x2.jpg"
-              alt="Koleksi Jam Tangan ELFY"
-              className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-[0.9] group-hover:brightness-[0.95]"
-              loading="lazy"
-            />
+            <picture>
+              <source srcSet="/banners/mens-watches-3x2.webp" type="image/webp" />
+              <img
+                src="/banners/mens-watches-3x2.jpg"
+                alt="Koleksi Jam Tangan ELFY"
+                className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-[0.9] group-hover:brightness-[0.95]"
+                loading="lazy"
+                decoding="async"
+                width={1264}
+                height={848}
+              />
+            </picture>
             {/* Subtle Gradient Overlay for High Contrast Text */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/5 pointer-events-none" />
 

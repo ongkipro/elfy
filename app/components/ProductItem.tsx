@@ -17,7 +17,17 @@ export function ProductItem({
   loading?: 'eager' | 'lazy';
 }) {
   const variantUrl = useVariantUrl(product.handle);
-  const image = product.featuredImage;
+  const primaryImage = product.featuredImage;
+
+  // Extract distinct second image for smooth luxury hover reveal
+  const imageNodes = (product as any).images?.nodes || [];
+  const secondaryImage =
+    imageNodes.find(
+      (img: any) =>
+        img &&
+        img.id !== primaryImage?.id &&
+        img.url !== primaryImage?.url,
+    ) || (imageNodes.length > 1 ? imageNodes[1] : null);
 
   const minPrice = parseFloat(product.priceRange?.minVariantPrice?.amount || '0');
   const currencyCode = product.priceRange?.minVariantPrice?.currencyCode || 'MYR';
@@ -39,17 +49,36 @@ export function ProductItem({
       prefetch="intent"
       className="group flex flex-col bg-white rounded-2xl border border-[#EBE6DF] overflow-hidden hover:shadow-lg active:scale-[0.99] transition-all duration-300"
     >
-      {/* 1:1 Aspect Ratio Product Image (Bright & Clean) */}
-      <div className="relative aspect-square overflow-hidden bg-white">
-        {image ? (
-          <Image
-            alt={image.altText || product.title}
-            aspectRatio="1/1"
-            data={image}
-            loading={loading}
-            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 brightness-[1.03] contrast-[1.02]"
-          />
+      {/* 1:1 Aspect Ratio Product Image (with Second Image Hover Reveal) */}
+      <div className="relative aspect-square overflow-hidden bg-stone-100">
+        {primaryImage ? (
+          <>
+            {/* Primary Image */}
+            <Image
+              alt={primaryImage.altText || product.title}
+              aspectRatio="1/1"
+              data={primaryImage}
+              loading={loading}
+              sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+              className={`w-full h-full object-cover object-center brightness-[1.02] contrast-[1.02] transition-all duration-500 ease-out ${
+                secondaryImage
+                  ? 'group-hover:opacity-0 group-hover:scale-105'
+                  : 'group-hover:scale-105'
+              }`}
+            />
+
+            {/* Secondary Image (Appears smoothly on card hover) */}
+            {secondaryImage && (
+              <Image
+                alt={secondaryImage.altText || `${product.title} - angle 2`}
+                aspectRatio="1/1"
+                data={secondaryImage}
+                loading="lazy"
+                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+                className="absolute inset-0 w-full h-full object-cover object-center brightness-[1.02] contrast-[1.02] opacity-0 group-hover:opacity-100 scale-100 group-hover:scale-105 transition-all duration-500 ease-out pointer-events-none"
+              />
+            )}
+          </>
         ) : (
           <div className="w-full h-full flex items-center justify-center text-stone-400 text-xs bg-[#FAF9F6]">
             ELFY
@@ -58,17 +87,17 @@ export function ProductItem({
 
         {/* Dynamic Discount or Curated Tag */}
         {hasDiscount && discountPercent > 0 ? (
-          <div className="absolute top-2.5 left-2.5 bg-[#A83232] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-xs">
+          <div className="absolute top-2.5 left-2.5 z-10 bg-[#A83232] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-xs pointer-events-none">
             Jimat {discountPercent}%
           </div>
         ) : (
-          <div className="absolute top-2.5 left-2.5 bg-[#191817] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-xs">
+          <div className="absolute top-2.5 left-2.5 z-10 bg-[#191817] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-xs pointer-events-none">
             Koleksi Terpilih
           </div>
         )}
 
         {/* Crisp Clean Shipping Guarantee Tag (Bright Frosted) */}
-        <div className="absolute bottom-2.5 left-2.5 bg-white/95 backdrop-blur-xs text-[#191817] border border-stone-200/80 text-[10px] font-semibold px-2.5 py-0.5 rounded-lg shadow-xs flex items-center gap-1.5">
+        <div className="absolute bottom-2.5 left-2.5 z-10 bg-white/95 backdrop-blur-xs text-[#191817] border border-stone-200/80 text-[10px] font-semibold px-2.5 py-0.5 rounded-lg shadow-xs flex items-center gap-1.5 pointer-events-none">
           <span className="w-1.5 h-1.5 rounded-full bg-[#2B593F]" />
           <span>Pos 1-3 Hari</span>
         </div>

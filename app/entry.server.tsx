@@ -78,6 +78,8 @@ export default async function handleRequest(
 
   responseHeaders.set('Content-Type', 'text/html');
   responseHeaders.set('Content-Security-Policy', header);
+  responseHeaders.set('X-Content-Type-Options', 'nosniff');
+  responseHeaders.set('Referrer-Policy', 'strict-origin-when-cross-origin');
 
   if (responseStatusCode === 404) {
     responseHeaders.set('X-Robots-Tag', 'noindex, nofollow');

@@ -309,6 +309,8 @@ export default function Product() {
                       className="w-full h-full object-cover object-center brightness-[1.03] contrast-[1.02]"
                       sizes="88vw"
                       loading={idx === 0 ? 'eager' : 'lazy'}
+                      fetchPriority={idx === 0 ? 'high' : 'auto'}
+                      decoding={idx === 0 ? 'sync' : 'async'}
                     />
                     {hasDiscount && idx === 0 && (
                       <span className="absolute top-3 left-3 bg-[#A83232] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
@@ -342,7 +344,9 @@ export default function Product() {
                     aspectRatio="1/1"
                     className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-500 brightness-[1.03] contrast-[1.02]"
                     sizes={idx === 0 ? '50vw' : '25vw'}
-                    loading={idx < 2 ? 'eager' : 'lazy'}
+                    loading={idx === 0 ? 'eager' : 'lazy'}
+                    fetchPriority={idx === 0 ? 'high' : 'auto'}
+                    decoding={idx === 0 ? 'sync' : 'async'}
                   />
                   {hasDiscount && idx === 0 && (
                     <span className="absolute top-4 left-4 bg-[#A83232] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">

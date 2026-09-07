@@ -13,13 +13,22 @@ export function GrandAtelierHero({}: GrandAtelierHeroProps) {
       {/* 1. CINEMATIC AUTHENTIC LIFESTYLE BACKGROUND */}
       <div className="absolute inset-0 w-full h-full pointer-events-none select-none overflow-hidden">
         <picture>
+          <source
+            media="(max-width: 767px)"
+            srcSet="/hero-mobile.webp"
+            type="image/webp"
+          />
           <source media="(max-width: 767px)" srcSet="/hero-mobile.jpg" />
+          <source srcSet="/hero-desktop.webp" type="image/webp" />
           <img
             src="/hero-desktop.jpg"
             alt="ELFY Malaysia - Kasut Kasual & Jam Tangan Minimalist"
             className="w-full h-full object-cover object-[75%_center] md:object-right-center opacity-95 transition-all duration-700"
             loading="eager"
             fetchPriority="high"
+            decoding="async"
+            width={1376}
+            height={768}
           />
         </picture>
 

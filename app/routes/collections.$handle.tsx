@@ -61,7 +61,7 @@ async function loadCriticalData({context, params, request}: Route.LoaderArgs) {
   const {handle} = params;
   const {storefront} = context;
   const paginationVariables = getPaginationVariables(request, {
-    pageBy: 16,
+    pageBy: 8,
   });
 
   if (!handle) {

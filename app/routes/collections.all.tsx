@@ -39,7 +39,7 @@ export async function loader(args: Route.LoaderArgs) {
 async function loadCriticalData({context, request}: Route.LoaderArgs) {
   const {storefront} = context;
   const paginationVariables = getPaginationVariables(request, {
-    pageBy: 16,
+    pageBy: 8,
   });
 
   const [{products}] = await Promise.all([

@@ -393,12 +393,21 @@ export default function Product() {
               </div>
 
               {/* Delivery Reassurance Badge */}
-              <div className="bg-[#F3EFEA] border border-[#EBE6DF] rounded-xl p-3 flex items-center gap-3 text-xs text-stone-700">
-                <Truck className="w-5 h-5 text-[#B48344] shrink-0" />
-                <div>
-                  <strong>Pos Pantas 1-3 Hari Semenanjung</strong>
+              <div className="bg-[#FAF9F6] border border-[#EBE6DF] rounded-xl p-3.5 flex items-center gap-3 text-xs text-stone-700 shadow-2xs">
+                <div className="w-9 h-9 rounded-lg bg-white border border-[#EBE6DF] flex items-center justify-center shrink-0 shadow-2xs">
+                  <Truck className="w-4.5 h-4.5 text-[#B48344]" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <strong className="font-bold text-[#191817]">
+                      Pos Pantas 1-3 Hari Semenanjung
+                    </strong>
+                    <span className="text-[10px] font-semibold text-[#2B593F] bg-[#2B593F]/10 px-1.5 py-0.5 rounded">
+                      Percuma RM150+
+                    </span>
+                  </div>
                   <p className="text-[11px] text-stone-500 mt-0.5">
-                    Penghantaran percuma melalui J&T Express / Pos Laju
+                    Kurier rasmi J&T Express & Pos Laju terus dari gudang Kuala Lumpur.
                   </p>
                 </div>
               </div>

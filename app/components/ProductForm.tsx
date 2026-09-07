@@ -195,32 +195,32 @@ export function ProductForm({
           );
         })}
 
-      {/* 2. QUANTITY SELECTOR */}
+      {/* 2. QUANTITY & SUB-TOTAL MODULE */}
       <div className="space-y-2.5 pt-1">
         <div className="flex items-center justify-between">
           <span className="text-xs font-bold uppercase tracking-wider text-[#191817]">
             Kuantiti:
           </span>
-          <span className="text-[11px] text-[#2B593F] font-semibold flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#2B593F]" />
+          <span className="text-[11px] text-[#2B593F] font-semibold flex items-center gap-1.5 bg-[#2B593F]/10 px-2 py-0.5 rounded-full">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#2B593F] animate-pulse" />
             Stok Tersedia (KL Warehouse)
           </span>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between gap-4 p-3 rounded-xl bg-stone-50/80 border border-[#EBE6DF]">
           {/* Stepper Control */}
-          <div className="inline-flex items-center bg-stone-100/90 border border-[#EBE6DF] rounded-xl p-1 shadow-2xs">
+          <div className="inline-flex items-center bg-white border border-[#EBE6DF] rounded-lg p-0.5 shadow-2xs">
             <button
               type="button"
               onClick={decreaseQuantity}
               disabled={quantity <= 1}
               aria-label="Kurangkan kuantiti"
-              className="w-10 h-10 rounded-lg flex items-center justify-center text-stone-700 hover:text-[#191817] hover:bg-white disabled:opacity-30 disabled:hover:bg-transparent active:scale-95 transition-all cursor-pointer disabled:cursor-not-allowed"
+              className="w-9 h-9 rounded-md flex items-center justify-center text-stone-600 hover:text-[#191817] hover:bg-stone-100 disabled:opacity-30 active:scale-95 transition-all cursor-pointer disabled:cursor-not-allowed"
             >
-              <Minus className="w-4 h-4" />
+              <Minus className="w-3.5 h-3.5" />
             </button>
 
-            <span className="w-12 text-center text-sm font-bold text-[#191817] select-none">
+            <span className="w-10 text-center text-sm font-bold text-[#191817] select-none">
               {quantity}
             </span>
 
@@ -229,14 +229,19 @@ export function ProductForm({
               onClick={increaseQuantity}
               disabled={quantity >= 10}
               aria-label="Tambah kuantiti"
-              className="w-10 h-10 rounded-lg flex items-center justify-center text-stone-700 hover:text-[#191817] hover:bg-white disabled:opacity-30 disabled:hover:bg-transparent active:scale-95 transition-all cursor-pointer disabled:cursor-not-allowed"
+              className="w-9 h-9 rounded-md flex items-center justify-center text-stone-600 hover:text-[#191817] hover:bg-stone-100 disabled:opacity-30 active:scale-95 transition-all cursor-pointer disabled:cursor-not-allowed"
             >
-              <Plus className="w-4 h-4" />
+              <Plus className="w-3.5 h-3.5" />
             </button>
           </div>
 
-          <div className="text-xs text-stone-500 font-medium">
-            Jumlah: <strong className="text-[#191817] font-bold">{currencyCode} {totalPrice}</strong>
+          <div className="text-right">
+            <span className="text-[10px] text-stone-500 uppercase tracking-wider block">
+              Jumlah Pesanan
+            </span>
+            <span className="text-base font-bold text-[#191817]">
+              {currencyCode} {totalPrice}
+            </span>
           </div>
         </div>
       </div>
@@ -271,15 +276,15 @@ export function ProductForm({
           <span>Tambah ke Beg Belanja</span>
         </AddToCartButton>
 
-        {/* Reassurance Guarantees */}
-        <div className="pt-2 grid grid-cols-2 gap-2 text-[11px] text-stone-600 border-t border-[#EBE6DF]/80 mt-3">
-          <div className="flex items-center gap-1.5">
+        {/* Reassurance Guarantees Cards */}
+        <div className="pt-2.5 grid grid-cols-2 gap-2 text-[11px] border-t border-[#EBE6DF]/80 mt-3">
+          <div className="flex items-center gap-2 p-2 rounded-lg bg-stone-50/80 border border-[#EBE6DF]/60 text-stone-700">
             <RefreshCw className="w-3.5 h-3.5 text-[#B48344] shrink-0" />
-            <span>Tukar Saiz 7 Hari Percuma</span>
+            <span className="font-medium">Tukar Saiz 7 Hari Percuma</span>
           </div>
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2 p-2 rounded-lg bg-stone-50/80 border border-[#EBE6DF]/60 text-stone-700">
             <Truck className="w-3.5 h-3.5 text-[#2B593F] shrink-0" />
-            <span>Pos Percuma Semenanjung</span>
+            <span className="font-medium">Pos Percuma Semenanjung</span>
           </div>
         </div>
       </div>

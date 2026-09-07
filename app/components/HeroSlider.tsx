@@ -77,7 +77,7 @@ export function HeroSlider({featuredShoe, featuredWatch}: HeroSliderProps) {
       currency: shoeCurrency,
       floatingTagTop: 'Ready Stock • Kuala Lumpur',
       floatingTagBottom: 'Asian Wide-Fit (EU 39–44) Sedia Pos',
-      ratingText: '4.9 ★ (128 Ulasan Pembeli Malaysia)',
+      ratingText: '4.9 (128 Ulasan Pembeli Malaysia)',
     },
     {
       id: 'watches',
@@ -111,7 +111,7 @@ export function HeroSlider({featuredShoe, featuredWatch}: HeroSliderProps) {
       currency: watchCurrency,
       floatingTagTop: '1-Tahun Waranti Enjin Rasmi',
       floatingTagBottom: 'Kaca Kristal Mineral & Keluli Tahan Karat',
-      ratingText: '4.9 ★ (86 Ulasan Pembeli Malaysia)',
+      ratingText: '4.9 (86 Ulasan Pembeli Malaysia)',
     },
     {
       id: 'guarantee',

@@ -174,7 +174,13 @@
   - **File Target**: `scripts/catalog-optimizer.mjs`, `scripts/catalog-optimized.json`, `scripts/shopify-products-optimized.csv`.
   - **Status**: Completed & Verified across all 51 products in Shopify.
 
-- [x] **Task 6.4: Product Page Collection Banner & Related Posts (ELFY Journal)**
-  - **Primary Requirement**: Embed dynamic parent collection spotlight banner with WebP imagery and interactive category-aware styling & care guides (Related Posts) on all product detail pages.
-  - **File Target**: `app/routes/products.$handle.tsx`, `app/components/ProductCollectionBanner.tsx`, `app/components/ProductRelatedPosts.tsx`.
+- [x] **Task 6.4: Product Page Randomized 4 Related Products Grid**
+  - **Primary Requirement**: Clean, mobile-ergonomic 4 related products grid (`Produk Berkaitan`, randomized from the same collection using `<ProductItem />`) with direct collection link, eliminating redundant banners and placeholder editorial content for maximum mobile CRO and speed.
+  - **File Target**: `app/routes/products.$handle.tsx`.
   - **Status**: Completed & Verified.
+
+- [x] **Task 6.5: Frameless Official PNG Malaysian Payment Rail Badges**
+  - **Primary Requirement**: Remove card borders and background frame containers around FPX, TNG eWallet, GrabPay, Visa, and Mastercard icons in `TrustPaymentBadges.tsx`. Focus purely on authentic, retina-ready PNG logos in a balanced frameless grid layout.
+  - **File Target**: `app/components/TrustPaymentBadges.tsx`, `public/payments/`.
+  - **Status**: Completed & Verified.
+

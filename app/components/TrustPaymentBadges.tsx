@@ -18,41 +18,53 @@ export function TrustPaymentBadges({variant = 'compact'}: TrustPaymentBadgesProp
           </span>
         </div>
 
-        {/* Badges Row - Clean, Luxury Modern Micro-Pills */}
-        <div className="grid grid-cols-5 gap-1.5 select-none">
-          <div className="bg-white border border-[#EBE6DF] hover:border-stone-400 py-1.5 px-1 rounded-lg text-center shadow-2xs transition-colors flex items-center justify-center">
-            <span className="text-[10px] font-black text-[#003B70] tracking-wider">
-              FPX
-            </span>
-          </div>
-
-          <div className="bg-[#005ABF]/5 border border-[#005ABF]/20 py-1.5 px-1 rounded-lg text-center flex items-center justify-center">
-            <span className="text-[9.5px] font-bold text-[#005ABF] tracking-tight">
-              TNG eWallet
-            </span>
-          </div>
-
-          <div className="bg-[#00B14F]/5 border border-[#00B14F]/20 py-1.5 px-1 rounded-lg text-center flex items-center justify-center">
-            <span className="text-[9.5px] font-bold text-[#00B14F] tracking-tight">
-              GrabPay
-            </span>
-          </div>
-
-          <div className="bg-white border border-[#EBE6DF] py-1.5 px-1 rounded-lg text-center flex items-center justify-center">
-            <span className="text-[10px] font-black italic text-[#1A1F71] tracking-wider font-sans">
-              VISA
-            </span>
-          </div>
-
-          <div className="bg-white border border-[#EBE6DF] py-1.5 px-1 rounded-lg text-center flex items-center justify-center">
-            <div className="flex items-center gap-0.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#EB001B] inline-block" />
-              <span className="w-2.5 h-2.5 rounded-full bg-[#F79E1B] inline-block -ml-1.5 mix-blend-multiply" />
-              <span className="text-[9px] font-bold text-stone-700 tracking-tight hidden sm:inline ml-0.5">
-                Mastercard
-              </span>
-            </div>
-          </div>
+        {/* Badges Row - Frameless Official PNG Logos (FPX, TNG, GrabPay, Visa, Mastercard) */}
+        <div className="grid grid-cols-5 items-center justify-items-center gap-2 select-none py-1.5">
+          <img
+            src="/payments/fpx.png"
+            alt="FPX Online Banking"
+            width={48}
+            height={24}
+            className="h-4 sm:h-5 w-auto object-contain brightness-95 hover:brightness-105 transition-all"
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            src="/payments/tng.png"
+            alt="Touch 'n Go eWallet"
+            width={32}
+            height={32}
+            className="h-5 sm:h-6 w-auto object-contain brightness-95 hover:brightness-105 transition-all rounded-xs"
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            src="/payments/grabpay.png"
+            alt="GrabPay"
+            width={40}
+            height={24}
+            className="h-4 sm:h-5 w-auto object-contain brightness-95 hover:brightness-105 transition-all"
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            src="/payments/visa.png"
+            alt="Visa"
+            width={38}
+            height={14}
+            className="h-3 sm:h-3.5 w-auto object-contain brightness-95 hover:brightness-105 transition-all"
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            src="/payments/mastercard.png"
+            alt="Mastercard"
+            width={32}
+            height={22}
+            className="h-4 sm:h-4.5 w-auto object-contain brightness-95 hover:brightness-105 transition-all"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
 
         <div className="mt-2.5 flex items-center justify-center gap-4 text-[10px] text-stone-400">

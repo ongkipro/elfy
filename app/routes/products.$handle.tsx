@@ -12,11 +12,10 @@ import {
   CartForm,
 } from '@shopify/hydrogen';
 import {ProductForm} from '~/components/ProductForm';
+import {ProductItem} from '~/components/ProductItem';
 import {SizeRecommenderModal} from '~/components/SizeRecommenderModal';
 import {StickyAddToCart} from '~/components/StickyAddToCart';
 import {ProductAccordion} from '~/components/ProductAccordion';
-import {ProductCollectionBanner} from '~/components/ProductCollectionBanner';
-import {ProductRelatedPosts} from '~/components/ProductRelatedPosts';
 import {Breadcrumb} from '~/components/Breadcrumb';
 import {useAside} from '~/components/Aside';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
@@ -29,6 +28,7 @@ import {
   RefreshCw,
   Sparkles,
   ChevronLeft,
+  ArrowRight,
 } from 'lucide-react';
 
 export const meta: Route.MetaFunction = ({data}) => {
@@ -106,8 +106,32 @@ async function loadCriticalData({context, params, request}: Route.LoaderArgs) {
 
   redirectIfHandleIsLocalized(request, {handle, data: product});
 
+  // Resolve primary collection for related products (random 4 products from same collection)
+  const primaryCol = (product as any)?.collections?.nodes?.find(
+    (c: any) =>
+      c &&
+      c.handle !== 'frontpage' &&
+      c.handle !== 'best-sellers' &&
+      c.handle !== 'new-arrivals' &&
+      c.handle !== 'all',
+  ) || (product as any)?.collections?.nodes?.find(
+    (c: any) => c && c.handle !== 'frontpage',
+  );
+
+  const rawCandidates = ((primaryCol as any)?.products?.nodes || [])
+    .filter((p: any) => p && p.id !== product.id && p.handle !== product.handle);
+
+  // Fisher-Yates shuffle to randomize products from this collection
+  const shuffledCandidates = [...rawCandidates];
+  for (let i = shuffledCandidates.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledCandidates[i], shuffledCandidates[j]] = [shuffledCandidates[j], shuffledCandidates[i]];
+  }
+  const relatedProducts = shuffledCandidates.slice(0, 4);
+
   return {
     product,
+    relatedProducts,
   };
 }
 
@@ -211,7 +235,7 @@ export default function Product() {
       {method: 'POST', action: '/cart'},
     );
   };
-  const {product} = useLoaderData<typeof loader>();
+  const {product, relatedProducts: loaderRelated = []} = useLoaderData<typeof loader>();
   const [isSizeModalOpen, setIsSizeModalOpen] = useState(false);
   const {open} = useAside();
 
@@ -394,6 +418,14 @@ export default function Product() {
 
   const activeCollection = primaryCollection || fallbackCollection;
 
+  // 4 random products from this collection (from loader or safe fallback)
+  const relatedProducts =
+    loaderRelated && loaderRelated.length > 0
+      ? loaderRelated
+      : ((activeCollection as any)?.products?.nodes || [])
+          .filter((p: any) => p && p.id !== product.id && p.handle !== product.handle)
+          .slice(0, 4);
+
   // Signal: Track ViewContent with CAPI event_id deduplication
   useEffect(() => {
     trackViewContent({
@@ -473,8 +505,8 @@ export default function Product() {
       </div>
 
       {/* Main PDP Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-28 sm:pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-4 sm:pb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12">
           {/* LEFT: 60fps Native CSS Scroll-Snap Gallery */}
           <div className="lg:col-span-7">
             {/* Mobile Horizontal Carousel */}
@@ -627,17 +659,32 @@ export default function Product() {
         </div>
       </div>
 
-      {/* 2. Primary Collection Spotlight Banner */}
-      <ProductCollectionBanner
-        collection={activeCollection}
-        productType={isWatch ? 'watch' : 'footwear'}
-      />
+      {/* 2. Related Products (4 Produk Aja — Random Sesuai Koleksi) */}
+      {relatedProducts.length > 0 && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 sm:mt-10 pb-20 sm:pb-16">
+          <div className="flex items-end justify-between gap-3 pb-3.5 sm:pb-4 border-b border-[#EBE6DF]">
+            <div>
+              <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl font-bold text-[#191817]">
+                Produk Berkaitan
+              </h2>
+            </div>
 
-      {/* 3. Related Posts / ELFY Journal & Styling Guides */}
-      <ProductRelatedPosts
-        productType={isWatch ? 'watch' : 'footwear'}
-        productTitle={displayTitle}
-      />
+            <Link
+              to={`/collections/${activeCollection.handle}`}
+              className="group inline-flex items-center gap-1 text-[11px] sm:text-xs font-semibold text-stone-700 hover:text-[#B48344] transition-colors shrink-0 pb-0.5"
+            >
+              <span>Lihat Semua</span>
+              <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0 group-hover:translate-x-1 transition-transform duration-200" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 pt-5 sm:pt-6">
+            {relatedProducts.map((relProduct: any) => (
+              <ProductItem key={relProduct.id} product={relProduct as any} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Sticky Add to Cart for Mobile (Smooth Slide-Up on Scroll) */}
       <StickyAddToCart
@@ -757,6 +804,46 @@ const PRODUCT_FRAGMENT = `#graphql
           altText
           width
           height
+        }
+        products(first: 20) {
+          nodes {
+            id
+            handle
+            title
+            productType
+            featuredImage {
+              id
+              altText
+              url
+              width
+              height
+            }
+            images(first: 2) {
+              nodes {
+                id
+                altText
+                url
+                width
+                height
+              }
+            }
+            priceRange {
+              minVariantPrice {
+                amount
+                currencyCode
+              }
+              maxVariantPrice {
+                amount
+                currencyCode
+              }
+            }
+            compareAtPriceRange {
+              minVariantPrice {
+                amount
+                currencyCode
+              }
+            }
+          }
         }
       }
     }

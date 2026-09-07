@@ -14,7 +14,6 @@ import {
   Sparkles,
   ChevronRight,
   CheckCircle2,
-  PhoneCall,
 } from 'lucide-react';
 
 export const meta: Route.MetaFunction = () => {
@@ -349,31 +348,6 @@ export default function Homepage() {
         </div>
       </section>
 
-      {/* 6. WHATSAPP VIP CONCIERGE BANNER */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="bg-[#191817] text-white rounded-3xl p-8 sm:p-10 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
-          <div className="space-y-2 text-center sm:text-left">
-            <span className="text-xs uppercase tracking-widest text-[#B48344] font-semibold">
-              Perlukan Bantuan Memilih Saiz?
-            </span>
-            <h3 className="font-serif text-2xl font-bold">
-              Khidmat Konsultasi VIP WhatsApp
-            </h3>
-            <p className="text-xs text-stone-300 max-w-lg leading-relaxed">
-              Hantar gambar atau ukuran kaki anda, staf peribadi ELFY sedia mencadangkan saiz dan model paling sesuai untuk anda dalam masa kurang 5 minit.
-            </p>
-          </div>
-          <a
-            href="https://wa.me/601111111111?text=Hi%20ELFY,%20saya%20nak%20minta%20cadangan%20saiz%20kasut"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group h-12 px-6 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-xl font-bold text-xs inline-flex items-center justify-center gap-2.5 shrink-0 active:scale-[0.98] transition-all duration-200 shadow-md hover:shadow-lg select-none"
-          >
-            <PhoneCall className="w-4 h-4 shrink-0 group-hover:scale-110 transition-transform duration-200" />
-            <span>Chat WhatsApp Sekarang</span>
-          </a>
-        </div>
-      </section>
     </div>
   );
 }

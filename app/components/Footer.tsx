@@ -1,7 +1,6 @@
 import {Suspense} from 'react';
 import {Await, Link} from 'react-router';
 import type {FooterQuery, HeaderQuery} from 'storefrontapi.generated';
-import {TrustPaymentBadges} from '~/components/TrustPaymentBadges';
 import {Truck, ShieldCheck, RefreshCw, MessageSquare} from 'lucide-react';
 
 interface FooterProps {
@@ -157,7 +156,7 @@ export function Footer({
               <input
                 type="email"
                 placeholder="Emel anda..."
-                className="bg-stone-900 border border-stone-800 rounded-lg px-3 py-2 text-xs text-white placeholder-stone-600 flex-1 focus:outline-none focus:border-[#B48344]"
+                className="bg-stone-900 border border-stone-800 rounded-lg px-3 py-2 text-base sm:text-xs text-white placeholder-stone-600 flex-1 focus:outline-none focus:border-[#B48344]"
               />
               <button
                 type="button"

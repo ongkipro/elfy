@@ -664,3 +664,18 @@ button.reset:hover:not(:has(> *)) {
   gap: 0.75rem;
   flex-wrap: wrap;
 }
+
+/*
+* --------------------------------------------------
+* Mobile Ergonomics: Prevent unwanted zoom-in on focus
+* iOS Safari auto-zooms if input/textarea font-size < 16px
+* --------------------------------------------------
+*/
+@media screen and (max-width: 768px) {
+  input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']),
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+

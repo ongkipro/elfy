@@ -177,7 +177,7 @@ export function SearchModal() {
             value={query}
             onChange={handleInputChange}
             placeholder="Cari kasut kasual, jam tangan..."
-            className="flex-1 h-full bg-transparent text-sm sm:text-base font-medium text-[#191817] placeholder:text-stone-400 outline-none pr-2"
+            className="flex-1 h-full bg-transparent text-base font-medium text-[#191817] placeholder:text-stone-400 outline-none pr-2"
             autoComplete="off"
             spellCheck={false}
           />

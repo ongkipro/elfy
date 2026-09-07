@@ -114,7 +114,8 @@
 - [x] **Task 4.1: Meta Pixel Injection with Nonce & CSP Compliance**
   - **Primary Requirement**: `ARCHITECTURE.md` Section 4.2 & `TRACKING-SIGNAL-ENGINE.md` Section 2.
   - **File Target**: `app/components/analytics/MetaPixel.tsx`, `app/root.tsx`
-  - **Status**: Completed & Verified.
+  - **Status**: Completed & Verified (Synced with Shopify Meta App Pixel ID: `1251216460002426`).
+
 
 - [x] **Task 4.2: Deterministic `event_id` Generator Utility**
   - **Primary Requirement**: `TRACKING-SIGNAL-ENGINE.md` Section 2.1.

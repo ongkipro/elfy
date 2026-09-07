@@ -104,7 +104,7 @@ export async function loader(args: Route.LoaderArgs) {
     ...deferredData,
     ...criticalData,
     publicStoreDomain: env.PUBLIC_STORE_DOMAIN,
-    publicMetaPixelId: env.PUBLIC_META_PIXEL_ID || '123456789012345',
+    publicMetaPixelId: env.PUBLIC_META_PIXEL_ID || '1251216460002426',
     publicGtmId: env.PUBLIC_GTM_ID || 'GTM-ELFYMY',
     shop: getShopAnalytics({
       storefront,

@@ -36,7 +36,7 @@ export async function action({request, context}: Route.ActionArgs) {
   try {
     const payload = (await request.json()) as CapiEventPayload;
     const token = context.env.META_CAPI_ACCESS_TOKEN;
-    const pixelId = context.env.PUBLIC_META_PIXEL_ID || '123456789012345';
+    const pixelId = context.env.PUBLIC_META_PIXEL_ID || '1251216460002426';
     const testEventCode =
       context.env.META_TEST_EVENT_CODE || payload.test_event_code;
     // If no private token is configured, return mock success response for local dev

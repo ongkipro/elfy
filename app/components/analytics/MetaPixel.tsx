@@ -8,7 +8,7 @@ interface MetaPixelProps {
   nonce?: string;
 }
 
-export function MetaPixel({pixelId = '123456789012345', nonce}: MetaPixelProps) {
+export function MetaPixel({pixelId = '1251216460002426', nonce}: MetaPixelProps) {
   const location = useLocation();
 
   useEffect(() => {
@@ -49,5 +49,15 @@ export function MetaPixel({pixelId = '123456789012345', nonce}: MetaPixelProps) 
     trackPageView(window.location.href);
   }, [location.pathname, location.search, pixelId, nonce]);
 
-  return null;
+  return (
+    <noscript>
+      <img
+        height="1"
+        width="1"
+        style={{display: 'none'}}
+        src={`https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1`}
+        alt=""
+      />
+    </noscript>
+  );
 }

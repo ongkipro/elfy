@@ -31,7 +31,7 @@ type OrdersLoaderData = {
 
 export const meta: Route.MetaFunction = () => {
   return [
-    {title: 'Sejarah Pesanan | Akaun ELFY'},
+    {title: 'Sejarah Pesanan - Akaun ELFY'},
     {name: 'robots', content: 'noindex, nofollow'},
   ];
 };

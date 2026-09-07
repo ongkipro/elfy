@@ -15,7 +15,7 @@ import type {
 
 export const meta: Route.MetaFunction = () => {
   return [
-    {title: 'Cari Kasut & Jam Tangan | ELFY Official'},
+    {title: 'Cari Kasut & Jam Tangan - ELFY Official'},
     {
       name: 'description',
       content:

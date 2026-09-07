@@ -11,10 +11,10 @@ type SelectedPolicies = keyof Pick<
 export const meta: Route.MetaFunction = ({data}) => {
   const policy = data?.policy;
   if (!policy) {
-    return [{title: 'Polisi Tidak Ditemui | ELFY'}];
+    return [{title: 'Polisi Tidak Ditemui - ELFY'}];
   }
 
-  const title = `${policy.title} | ELFY Official`;
+  const title = `${policy.title} - ELFY Official`;
   const description = `Maklumat terperinci mengenai ${policy.title.toLowerCase()} rasmi jenama ELFY Malaysia.`;
   const canonicalUrl = `https://elfy.my/policies/${policy.handle}`;
 

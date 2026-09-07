@@ -4,6 +4,30 @@ import {getPaginationVariables, Image} from '@shopify/hydrogen';
 import type {CollectionFragment} from 'storefrontapi.generated';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 
+export const meta: Route.MetaFunction = () => {
+  return [
+    {title: 'Koleksi Eksklusif - ELFY Official'},
+    {
+      name: 'description',
+      content:
+        'Koleksi lengkap kasut kasual kulit asli & jam tangan sartorial berkualiti tinggi jenama ELFY Malaysia.',
+    },
+    {tagName: 'link', rel: 'canonical', href: 'https://elfy.my/collections'},
+    {property: 'og:site_name', content: 'ELFY'},
+    {property: 'og:locale', content: 'ms_MY'},
+    {property: 'og:type', content: 'website'},
+    {property: 'og:title', content: 'Koleksi Eksklusif - ELFY Official'},
+    {
+      property: 'og:description',
+      content:
+        'Koleksi lengkap kasut kasual kulit asli & jam tangan sartorial berkualiti tinggi jenama ELFY Malaysia.',
+    },
+    {property: 'og:url', content: 'https://elfy.my/collections'},
+    {name: 'twitter:card', content: 'summary_large_image'},
+    {name: 'twitter:title', content: 'Koleksi Eksklusif - ELFY Official'},
+  ];
+};
+
 export async function loader(args: Route.LoaderArgs) {
   // Start fetching non-critical data without blocking time to first byte
   const deferredData = loadDeferredData(args);

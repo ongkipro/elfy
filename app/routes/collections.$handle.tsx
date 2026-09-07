@@ -17,11 +17,12 @@ import {Breadcrumb} from '~/components/Breadcrumb';
 export const meta: Route.MetaFunction = ({data}) => {
   const collection = data?.collection;
   if (!collection) {
-    return [{title: 'Koleksi Tidak Ditemui | ELFY'}];
+    return [{title: 'Koleksi Tidak Ditemui - ELFY'}];
   }
 
-  const title =
-    collection.seo?.title || `${collection.title} | ELFY Official`;
+  const rawTitle =
+    collection.seo?.title || `${collection.title} - ELFY Official`;
+  const title = rawTitle.replace(/\s*\|\s*/g, ' - ');
   const description =
     collection.seo?.description ||
     collection.description ||

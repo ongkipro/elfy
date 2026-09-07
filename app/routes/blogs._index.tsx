@@ -7,7 +7,7 @@ import type {BlogsQuery} from 'storefrontapi.generated';
 type BlogNode = BlogsQuery['blogs']['nodes'][0];
 
 export const meta: Route.MetaFunction = () => {
-  const title = 'Jurnal & Gaya Hidup | ELFY Official';
+  const title = 'Jurnal & Gaya Hidup - ELFY Official';
   const description =
     'Panduan gaya sartorial, tips penjagaan kasut kulit asli, dan cerapan dunia jam tangan dari ELFY Malaysia.';
   const canonicalUrl = 'https://elfy.my/blogs';

@@ -9,7 +9,7 @@ import {Breadcrumb} from '~/components/Breadcrumb';
 import type {CollectionItemFragment} from 'storefrontapi.generated';
 
 export const meta: Route.MetaFunction = () => {
-  const title = 'Semua Koleksi Kasut & Jam Tangan | ELFY Official';
+  const title = 'Semua Koleksi Kasut & Jam Tangan - ELFY Official';
   const description =
     'Koleksi lengkap kasut kasual, loafers kulit asli, dan jam tangan lelaki rekaan Malaysia. Penghantaran percuma Semenanjung & jaminan tukar saiz 7 hari.';
   const canonicalUrl = 'https://elfy.my/collections/all';

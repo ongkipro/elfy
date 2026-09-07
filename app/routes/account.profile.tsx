@@ -17,7 +17,7 @@ export type ActionResponse = {
 
 export const meta: Route.MetaFunction = () => {
   return [
-    {title: 'Profil Pelanggan | Akaun ELFY'},
+    {title: 'Profil Pelanggan - Akaun ELFY'},
     {name: 'robots', content: 'noindex, nofollow'},
   ];
 };

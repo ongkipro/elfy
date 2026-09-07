@@ -29,7 +29,7 @@ export type ActionResponse = {
 
 export const meta: Route.MetaFunction = () => {
   return [
-    {title: 'Alamat Penghantaran | Akaun ELFY'},
+    {title: 'Alamat Penghantaran - Akaun ELFY'},
     {name: 'robots', content: 'noindex, nofollow'},
   ];
 };

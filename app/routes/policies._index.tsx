@@ -2,6 +2,30 @@ import {useLoaderData, Link} from 'react-router';
 import type {Route} from './+types/policies._index';
 import type {PoliciesQuery, PolicyItemFragment} from 'storefrontapi.generated';
 
+export const meta: Route.MetaFunction = () => {
+  return [
+    {title: 'Polisi Rasmi - ELFY Official'},
+    {
+      name: 'description',
+      content:
+        'Ketahui maklumat lengkap mengenai polisi privasi, polisi penghantaran, dan polisi pulangan jenama ELFY Malaysia.',
+    },
+    {tagName: 'link', rel: 'canonical', href: 'https://elfy.my/policies'},
+    {property: 'og:site_name', content: 'ELFY'},
+    {property: 'og:locale', content: 'ms_MY'},
+    {property: 'og:type', content: 'website'},
+    {property: 'og:title', content: 'Polisi Rasmi - ELFY Official'},
+    {
+      property: 'og:description',
+      content:
+        'Ketahui maklumat lengkap mengenai polisi privasi, polisi penghantaran, dan polisi pulangan jenama ELFY Malaysia.',
+    },
+    {property: 'og:url', content: 'https://elfy.my/policies'},
+    {name: 'twitter:card', content: 'summary'},
+    {name: 'twitter:title', content: 'Polisi Rasmi - ELFY Official'},
+  ];
+};
+
 export async function loader({context}: Route.LoaderArgs) {
   const data: PoliciesQuery = await context.storefront.query(POLICIES_QUERY);
 

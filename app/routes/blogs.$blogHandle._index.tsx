@@ -8,10 +8,11 @@ import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 export const meta: Route.MetaFunction = ({data}) => {
   const blog = data?.blog;
   if (!blog) {
-    return [{title: 'Blog Tidak Ditemui | ELFY'}];
+    return [{title: 'Blog Tidak Ditemui - ELFY'}];
   }
 
-  const title = blog.seo?.title || `${blog.title} | ELFY Journal`;
+  const rawTitle = blog.seo?.title || `${blog.title} - ELFY Journal`;
+  const title = rawTitle.replace(/\s*\|\s*/g, ' - ');
   const description =
     blog.seo?.description ||
     'Koleksi artikel sartorial, penjagaan kasut kulit asli, dan panduan gaya jam tangan moden dari ELFY Malaysia.';

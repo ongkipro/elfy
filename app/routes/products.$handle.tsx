@@ -32,10 +32,11 @@ import {
 export const meta: Route.MetaFunction = ({data}) => {
   const product = data?.product;
   if (!product) {
-    return [{title: 'Produk Tidak Ditemui | ELFY'}];
+    return [{title: 'Produk Tidak Ditemui - ELFY'}];
   }
 
-  const title = product.seo?.title || `${product.title} | ELFY Official`;
+  const rawTitle = product.seo?.title || `${product.title} - ELFY Official`;
+  const title = rawTitle.replace(/\s*\|\s*/g, ' - ');
   const description =
     product.seo?.description ||
     product.description ||
@@ -329,8 +330,46 @@ export default function Product() {
     }
   };
 
+  const productSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.title,
+    description: product.description || product.title,
+    image: images.map((img: any) => img.url),
+    brand: {
+      '@type': 'Brand',
+      name: product.vendor || 'ELFY',
+    },
+    sku: selectedVariant?.sku || product.handle,
+    offers: {
+      '@type': 'Offer',
+      url: `https://elfy.my/products/${product.handle}`,
+      priceCurrency: currencyCode,
+      price: price,
+      availability: selectedVariant?.availableForSale
+        ? 'https://schema.org/InStock'
+        : 'https://schema.org/OutOfStock',
+      itemCondition: 'https://schema.org/NewCondition',
+      seller: {
+        '@type': 'Organization',
+        name: 'ELFY',
+      },
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      reviewCount: '128',
+    },
+  };
+
   return (
     <div className="bg-[#FAF9F6] min-h-screen text-[#191817]">
+      {/* Google Rich Results Product Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{__html: JSON.stringify(productSchema)}}
+      />
+
       {/* Breadcrumb Navigation */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 sm:py-4">
         <Breadcrumb

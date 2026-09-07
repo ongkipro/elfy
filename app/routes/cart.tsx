@@ -9,7 +9,7 @@ import {ChevronLeft} from 'lucide-react';
 
 export const meta: Route.MetaFunction = () => {
   return [
-    {title: 'Beg Belanja | ELFY Kuala Lumpur'},
+    {title: 'Beg Belanja - ELFY Kuala Lumpur'},
     {
       name: 'description',
       content:

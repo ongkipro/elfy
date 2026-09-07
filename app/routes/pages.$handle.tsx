@@ -15,10 +15,11 @@ import {Breadcrumb} from '~/components/Breadcrumb';
 export const meta: Route.MetaFunction = ({data}) => {
   const page = data?.page;
   if (!page) {
-    return [{title: 'Halaman Tidak Ditemui | ELFY'}];
+    return [{title: 'Halaman Tidak Ditemui - ELFY'}];
   }
 
-  const title = page.seo?.title || `${page.title} | ELFY Official`;
+  const rawTitle = page.seo?.title || `${page.title} - ELFY Official`;
+  const title = rawTitle.replace(/\s*\|\s*/g, ' - ');
   const description =
     page.seo?.description ||
     'Maklumat rasmi panduan saiz, polisi jaminan tukar saiz, dan penghantaran ELFY Malaysia.';

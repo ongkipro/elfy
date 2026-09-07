@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 
 export const meta: Route.MetaFunction = () => {
-  const title = 'ELFY | Kasut Kasual & Jam Tangan Lelaki Malaysia (Official)';
+  const title = 'ELFY - Kasut Kasual & Jam Tangan Lelaki Malaysia (Official)';
   const description =
     'Jenama kasut kasual kulit asli & jam tangan sartorial rekaan moden Malaysia. Nikmati penghantaran percuma Semenanjung dan jaminan tukar saiz 7 hari percuma.';
   const canonicalUrl = 'https://elfy.my';
@@ -85,8 +85,46 @@ export default function Homepage() {
       p.handle.includes('c27'),
   );
 
+  const homeSchema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': 'https://elfy.my/#organization',
+        name: 'ELFY',
+        url: 'https://elfy.my',
+        logo: 'https://elfy.my/favicon.svg',
+        description:
+          'Jenama kasut kasual kulit asli & jam tangan sartorial rekaan moden Malaysia.',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Kuala Lumpur',
+          addressCountry: 'MY',
+        },
+      },
+      {
+        '@type': 'WebSite',
+        '@id': 'https://elfy.my/#website',
+        url: 'https://elfy.my',
+        name: 'ELFY Malaysia',
+        publisher: {'@id': 'https://elfy.my/#organization'},
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: 'https://elfy.my/search?q={search_term_string}',
+          'query-input': 'required name=search_term_string',
+        },
+      },
+    ],
+  };
+
   return (
     <div className="bg-[#FAF9F6] text-[#191817] min-h-screen">
+      {/* Search & Organization Structured Data for Google Sitelinks */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{__html: JSON.stringify(homeSchema)}}
+      />
+
       {/* 1. GRAND ATELIER HERO (Cinematic Showcase with Interactive Engineering Hotspots) */}
       <GrandAtelierHero
         featuredShoe={featuredShoe}

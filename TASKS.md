@@ -179,8 +179,9 @@
   - **File Target**: `app/routes/products.$handle.tsx`.
   - **Status**: Completed & Verified.
 
-- [x] **Task 6.5: Frameless Official PNG Malaysian Payment Rail Badges**
-  - **Primary Requirement**: Remove card borders and background frame containers around FPX, TNG eWallet, GrabPay, Visa, and Mastercard icons in `TrustPaymentBadges.tsx`. Focus purely on authentic, retina-ready PNG logos in a balanced frameless grid layout.
-  - **File Target**: `app/components/TrustPaymentBadges.tsx`, `public/payments/`.
+- [x] **Task 6.5: Minimalist Modern Precision Text Badges for Payment Rails**
+  - **Primary Requirement**: Remove third-party logo images and replace with unified, minimalist modern typography badges (FPX, TNG, GrabPay, VISA, Mastercard) with precision micro-pill styling (`#FAF9F6` background, `#EBE6DF` border, `#191817` typography, balanced letter-spacing) in `TrustPaymentBadges.tsx`.
+  - **File Target**: `app/components/TrustPaymentBadges.tsx`.
   - **Status**: Completed & Verified.
+
 

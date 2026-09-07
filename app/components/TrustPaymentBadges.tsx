@@ -1,9 +1,4 @@
 import {ShieldCheck, Lock, RefreshCw, Truck, CheckCircle2} from 'lucide-react';
-import fpxLogo from '~/assets/payments/fpx.png';
-import tngLogo from '~/assets/payments/tng.png';
-import grabpayLogo from '~/assets/payments/grabpay.png';
-import visaLogo from '~/assets/payments/visa.png';
-import mastercardLogo from '~/assets/payments/mastercard.png';
 
 interface TrustPaymentBadgesProps {
   variant?: 'compact' | 'full';
@@ -13,63 +8,47 @@ export function TrustPaymentBadges({variant = 'compact'}: TrustPaymentBadgesProp
   if (variant === 'compact') {
     return (
       <div className="pt-3 border-t border-[#EBE6DF]">
-        <div className="flex items-center justify-between text-[11px] text-stone-500 mb-2.5">
+        <div className="flex items-center justify-between text-[11px] text-stone-500 mb-2">
           <span className="flex items-center gap-1.5 font-semibold text-stone-700">
             <Lock className="w-3.5 h-3.5 text-[#2B593F]" />
             <span>Pembayaran Selamat Dijamin</span>
           </span>
           <span className="text-[10px] text-stone-400 font-medium">
-            FPX • TNG • GrabPay • Kad
+            FPX • eWallet • Kad
           </span>
         </div>
 
-        {/* Badges Row - Frameless Official PNG Logos (FPX, TNG, GrabPay, Visa, Mastercard) */}
-        <div className="grid grid-cols-5 items-center justify-items-center gap-2 select-none py-1.5">
-          <img
-            src={fpxLogo}
-            alt="FPX Online Banking"
-            width={48}
-            height={24}
-            className="h-4 sm:h-5 w-auto object-contain brightness-95 hover:brightness-105 transition-all"
-            loading="lazy"
-            decoding="async"
-          />
-          <img
-            src={tngLogo}
-            alt="Touch 'n Go eWallet"
-            width={32}
-            height={32}
-            className="h-5 sm:h-6 w-auto object-contain brightness-95 hover:brightness-105 transition-all rounded-xs"
-            loading="lazy"
-            decoding="async"
-          />
-          <img
-            src={grabpayLogo}
-            alt="GrabPay"
-            width={40}
-            height={24}
-            className="h-4 sm:h-5 w-auto object-contain brightness-95 hover:brightness-105 transition-all"
-            loading="lazy"
-            decoding="async"
-          />
-          <img
-            src={visaLogo}
-            alt="Visa"
-            width={38}
-            height={14}
-            className="h-3 sm:h-3.5 w-auto object-contain brightness-95 hover:brightness-105 transition-all"
-            loading="lazy"
-            decoding="async"
-          />
-          <img
-            src={mastercardLogo}
-            alt="Mastercard"
-            width={32}
-            height={22}
-            className="h-4 sm:h-4.5 w-auto object-contain brightness-95 hover:brightness-105 transition-all"
-            loading="lazy"
-            decoding="async"
-          />
+        {/* Badges Row - Precision Minimalist Modern Typography */}
+        <div className="grid grid-cols-5 gap-1.5 select-none">
+          <div className="h-7.5 rounded-lg bg-[#FAF9F6] border border-[#EBE6DF] hover:border-stone-400 hover:bg-white flex items-center justify-center transition-all duration-150 shadow-2xs">
+            <span className="text-[10.5px] font-bold text-[#191817] tracking-wider">
+              FPX
+            </span>
+          </div>
+
+          <div className="h-7.5 rounded-lg bg-[#FAF9F6] border border-[#EBE6DF] hover:border-stone-400 hover:bg-white flex items-center justify-center transition-all duration-150 shadow-2xs">
+            <span className="text-[10px] font-bold text-[#191817] tracking-tight">
+              TNG
+            </span>
+          </div>
+
+          <div className="h-7.5 rounded-lg bg-[#FAF9F6] border border-[#EBE6DF] hover:border-stone-400 hover:bg-white flex items-center justify-center transition-all duration-150 shadow-2xs">
+            <span className="text-[9.5px] font-bold text-[#191817] tracking-tight">
+              GrabPay
+            </span>
+          </div>
+
+          <div className="h-7.5 rounded-lg bg-[#FAF9F6] border border-[#EBE6DF] hover:border-stone-400 hover:bg-white flex items-center justify-center transition-all duration-150 shadow-2xs">
+            <span className="text-[10.5px] font-black italic text-[#191817] tracking-wider font-sans">
+              VISA
+            </span>
+          </div>
+
+          <div className="h-7.5 rounded-lg bg-[#FAF9F6] border border-[#EBE6DF] hover:border-stone-400 hover:bg-white flex items-center justify-center transition-all duration-150 shadow-2xs">
+            <span className="text-[9px] sm:text-[9.5px] font-bold text-[#191817] tracking-tight">
+              Mastercard
+            </span>
+          </div>
         </div>
 
         <div className="mt-2.5 flex items-center justify-center gap-4 text-[10px] text-stone-400">

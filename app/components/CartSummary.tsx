@@ -3,7 +3,6 @@ import type {CartLayout} from '~/components/CartMain';
 import {CartForm, Money, type OptimisticCart} from '@shopify/hydrogen';
 import {useEffect, useId, useRef, useState} from 'react';
 import {useFetcher} from 'react-router';
-import {TrustPaymentBadges} from '~/components/TrustPaymentBadges';
 import {trackInitiateCheckout} from '~/lib/tracking';
 import {ArrowRight, Lock} from 'lucide-react';
 
@@ -99,9 +98,6 @@ function CartCheckoutActions({
         <span className="text-white">Teruskan ke Pembayaran (Checkout)</span>
         <ArrowRight className="w-4 h-4 text-[#B48344] shrink-0 group-hover:text-white group-hover:translate-x-1.5 transition-all duration-200" />
       </a>
-      <div className="mt-3">
-        <TrustPaymentBadges variant="compact" />
-      </div>
     </div>
   );
 }

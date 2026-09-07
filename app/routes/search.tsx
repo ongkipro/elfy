@@ -388,7 +388,8 @@ async function predictiveSearch({
   const {storefront} = context;
   const url = new URL(request.url);
   const term = String(url.searchParams.get('q') || '').trim();
-  const limit = Number(url.searchParams.get('limit') || 10);
+  const rawLimit = Number(url.searchParams.get('limit') || 10);
+  const limit = Math.min(10, Math.max(1, isNaN(rawLimit) ? 10 : rawLimit));
   const type = 'predictive';
 
   if (!term) return {type, term, result: getEmptyPredictiveSearchResult()};

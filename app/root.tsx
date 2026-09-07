@@ -9,6 +9,7 @@ import {
   Scripts,
   ScrollRestoration,
   useRouteLoaderData,
+  Link,
 } from 'react-router';
 import type {Route} from './+types/root';
 import favicon from '~/assets/favicon.svg';
@@ -203,15 +204,47 @@ export function ErrorBoundary() {
     errorMessage = error.message;
   }
 
+  const is404 = errorStatus === 404;
+
   return (
-    <div className="route-error">
-      <h1>Oops</h1>
-      <h2>{errorStatus}</h2>
-      {errorMessage && (
-        <fieldset>
-          <pre>{errorMessage}</pre>
-        </fieldset>
-      )}
+    <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 py-16 bg-[#FAF9F6] text-[#191817]">
+      <div className="relative">
+        <span className="text-8xl sm:text-9xl font-serif font-bold text-stone-200/70 select-none block tracking-tighter">
+          {errorStatus}
+        </span>
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <span className="text-xs uppercase tracking-[0.25em] font-bold text-[#B48344]">
+            {is404 ? 'Halaman Tidak Dijumpai' : 'Ralat Sistem'}
+          </span>
+        </div>
+      </div>
+
+      <h1 className="font-serif text-2xl sm:text-3xl font-bold mt-4 max-w-md">
+        {is404
+          ? 'Halaman yang anda cari tidak wujud atau telah dipindahkan.'
+          : 'Maaf, terdapat gangguan teknikal sementara.'}
+      </h1>
+
+      <p className="text-xs text-stone-500 max-w-sm mt-2 leading-relaxed">
+        {is404
+          ? 'Sila semak semula alamat URL atau terokai koleksi kasut dan jam tangan sartorial kami.'
+          : errorMessage}
+      </p>
+
+      <div className="flex flex-wrap items-center justify-center gap-3 mt-8">
+        <Link
+          to="/"
+          className="h-12 px-6 bg-[#191817] hover:bg-[#B48344] text-white rounded-xl text-xs font-bold uppercase tracking-wider inline-flex items-center justify-center transition-all duration-200 shadow-md active:scale-95"
+        >
+          Kembali ke Laman Utama
+        </Link>
+        <Link
+          to="/collections/all"
+          className="h-12 px-6 bg-white hover:bg-[#191817] text-[#191817] hover:text-white border border-stone-200 hover:border-[#191817] rounded-xl text-xs font-bold uppercase tracking-wider inline-flex items-center justify-center transition-all duration-200 active:scale-95"
+        >
+          Lihat Semua Koleksi
+        </Link>
+      </div>
     </div>
   );
 }

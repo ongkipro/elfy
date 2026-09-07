@@ -45,13 +45,22 @@ export function ProductForm({
 
   return (
     <div className="product-form space-y-6">
-      {productOptions.map((option) => {
-        const isSize =
-          option.name.toLowerCase().includes('size') ||
-          option.name.toLowerCase().includes('saiz');
+      {productOptions
+        .filter(
+          (option) =>
+            !(
+              option.optionValues.length === 1 &&
+              (option.optionValues[0].name === 'Default Title' ||
+                option.name.toLowerCase() === 'title')
+            ),
+        )
+        .map((option) => {
+          const isSize =
+            option.name.toLowerCase().includes('size') ||
+            option.name.toLowerCase().includes('saiz');
 
-        return (
-          <div className="space-y-2.5" key={option.name}>
+          return (
+            <div className="space-y-2.5" key={option.name}>
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-[#191817]">
                 Pilih {option.name}:

@@ -79,6 +79,10 @@ export default async function handleRequest(
   responseHeaders.set('Content-Type', 'text/html');
   responseHeaders.set('Content-Security-Policy', header);
 
+  if (responseStatusCode === 404) {
+    responseHeaders.set('X-Robots-Tag', 'noindex, nofollow');
+  }
+
   return new Response(body, {
     headers: responseHeaders,
     status: responseStatusCode,

@@ -15,7 +15,6 @@ import {ProductForm} from '~/components/ProductForm';
 import {SizeRecommenderModal} from '~/components/SizeRecommenderModal';
 import {StickyAddToCart} from '~/components/StickyAddToCart';
 import {ProductAccordion} from '~/components/ProductAccordion';
-import {TrustPaymentBadges} from '~/components/TrustPaymentBadges';
 import {useAside} from '~/components/Aside';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {trackViewContent, trackAddToCart, trackInitiateCheckout} from '~/lib/tracking';
@@ -427,9 +426,6 @@ export default function Product() {
                   currencyCode={currencyCode}
                 />
               </div>
-
-              {/* Trust Badges */}
-              <TrustPaymentBadges variant="compact" />
 
               {/* Product Accordion (Shipping, Specs, Warranty) */}
               <ProductAccordion

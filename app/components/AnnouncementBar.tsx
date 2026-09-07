@@ -1,5 +1,4 @@
-import React from 'react';
-import {Truck, RefreshCw, ShieldCheck, MessageCircle} from 'lucide-react';
+import {Truck, RefreshCw, ShieldCheck} from 'lucide-react';
 
 export function AnnouncementBar() {
   return (
@@ -26,18 +25,8 @@ export function AnnouncementBar() {
           </div>
         </div>
 
-        {/* Right: Currency & Support */}
+        {/* Right: Currency */}
         <div className="hidden sm:flex items-center gap-4 text-stone-300">
-          <a
-            href="https://wa.me/601111111111?text=Hi%20ELFY,%20saya%20perlukan%20bantuan"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-white flex items-center gap-1.5 transition-colors"
-          >
-            <MessageCircle className="w-3 h-3 text-[#25D366]" />
-            <span>Bantuan WhatsApp</span>
-          </a>
-          <span className="text-stone-700">|</span>
           <span className="text-white font-semibold tracking-wider">MYR (RM)</span>
         </div>
       </div>

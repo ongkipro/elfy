@@ -6,7 +6,31 @@ import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 
 export const meta: Route.MetaFunction = ({data}) => {
-  return [{title: `Hydrogen | ${data?.blog.title ?? ''} blog`}];
+  const blog = data?.blog;
+  if (!blog) {
+    return [{title: 'Blog Tidak Ditemui | ELFY'}];
+  }
+
+  const title = blog.seo?.title || `${blog.title} | ELFY Journal`;
+  const description =
+    blog.seo?.description ||
+    'Koleksi artikel sartorial, penjagaan kasut kulit asli, dan panduan gaya jam tangan moden dari ELFY Malaysia.';
+  const canonicalUrl = `https://elfy.my/blogs/${blog.handle}`;
+
+  return [
+    {title},
+    {name: 'description', content: description},
+    {tagName: 'link', rel: 'canonical', href: canonicalUrl},
+    {property: 'og:site_name', content: 'ELFY Journal'},
+    {property: 'og:locale', content: 'ms_MY'},
+    {property: 'og:type', content: 'website'},
+    {property: 'og:title', content: title},
+    {property: 'og:description', content: description},
+    {property: 'og:url', content: canonicalUrl},
+    {name: 'twitter:card', content: 'summary_large_image'},
+    {name: 'twitter:title', content: title},
+    {name: 'twitter:description', content: description},
+  ];
 };
 
 export async function loader(args: Route.LoaderArgs) {

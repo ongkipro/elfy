@@ -30,18 +30,47 @@ import {
 } from 'lucide-react';
 
 export const meta: Route.MetaFunction = ({data}) => {
+  const product = data?.product;
+  if (!product) {
+    return [{title: 'Produk Tidak Ditemui | ELFY'}];
+  }
+
+  const title = product.seo?.title || `${product.title} | ELFY Official`;
+  const description =
+    product.seo?.description ||
+    product.description ||
+    'Kasut kasual sartorial & jam tangan berkualiti tinggi dari ELFY Malaysia.';
+  const canonicalUrl = `https://elfy.my/products/${product.handle}`;
+  const imageUrl = product.images?.nodes?.[0]?.url;
+  const priceAmount = product.selectedOrFirstAvailableVariant?.price?.amount;
+  const currencyCode =
+    product.selectedOrFirstAvailableVariant?.price?.currencyCode || 'MYR';
+
   return [
-    {title: `${data?.product.title ?? 'Product'} | ELFY Official`},
-    {
-      name: 'description',
-      content:
-        data?.product.description ||
-        'Kasut kasual sartorial & jam tangan berkualiti tinggi dari ELFY Malaysia.',
-    },
-    {
-      rel: 'canonical',
-      href: `/products/${data?.product.handle}`,
-    },
+    {title},
+    {name: 'description', content: description},
+    {tagName: 'link', rel: 'canonical', href: canonicalUrl},
+    {property: 'og:site_name', content: 'ELFY'},
+    {property: 'og:locale', content: 'ms_MY'},
+    {property: 'og:type', content: 'product'},
+    {property: 'og:title', content: title},
+    {property: 'og:description', content: description},
+    {property: 'og:url', content: canonicalUrl},
+    ...(imageUrl
+      ? [
+          {property: 'og:image', content: imageUrl},
+          {name: 'twitter:image', content: imageUrl},
+        ]
+      : []),
+    ...(priceAmount
+      ? [
+          {property: 'product:price:amount', content: priceAmount},
+          {property: 'product:price:currency', content: currencyCode},
+        ]
+      : []),
+    {name: 'twitter:card', content: 'summary_large_image'},
+    {name: 'twitter:title', content: title},
+    {name: 'twitter:description', content: description},
   ];
 };
 

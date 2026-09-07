@@ -12,14 +12,30 @@ import {
 } from 'lucide-react';
 
 export const meta: Route.MetaFunction = ({data}) => {
+  const page = data?.page;
+  if (!page) {
+    return [{title: 'Halaman Tidak Ditemui | ELFY'}];
+  }
+
+  const title = page.seo?.title || `${page.title} | ELFY Official`;
+  const description =
+    page.seo?.description ||
+    'Maklumat rasmi panduan saiz, polisi jaminan tukar saiz, dan penghantaran ELFY Malaysia.';
+  const canonicalUrl = `https://elfy.my/pages/${page.handle}`;
+
   return [
-    {title: `${data?.page.title ?? 'Maklumat'} | ELFY Official`},
-    {
-      name: 'description',
-      content:
-        data?.page.seo?.description ||
-        'Maklumat rasmi panduan saiz, polisi jaminan tukar saiz, dan penghantaran ELFY Malaysia.',
-    },
+    {title},
+    {name: 'description', content: description},
+    {tagName: 'link', rel: 'canonical', href: canonicalUrl},
+    {property: 'og:site_name', content: 'ELFY'},
+    {property: 'og:locale', content: 'ms_MY'},
+    {property: 'og:type', content: 'website'},
+    {property: 'og:title', content: title},
+    {property: 'og:description', content: description},
+    {property: 'og:url', content: canonicalUrl},
+    {name: 'twitter:card', content: 'summary_large_image'},
+    {name: 'twitter:title', content: title},
+    {name: 'twitter:description', content: description},
   ];
 };
 
@@ -38,14 +54,25 @@ export async function loader(args: Route.LoaderArgs) {
     throw new Error('Missing page handle');
   }
 
-  // Check Shopify storefront first
-  let page: any = null;
+  type PageData = {
+    handle: string;
+    id: string;
+    title: string;
+    body: string;
+    isCustomStatic?: boolean;
+    staticType?: string;
+    seo?: {title?: string | null; description?: string | null} | null;
+  };
+
+  let page: PageData | null = null;
   try {
     const res = await context.storefront.query(PAGE_QUERY, {
       variables: {handle},
     });
-    page = res.page;
-  } catch (e) {
+    if (res.page) {
+      page = res.page;
+    }
+  } catch {
     // Page query might fail or page may not exist yet in admin
   }
 
@@ -57,6 +84,7 @@ export async function loader(args: Route.LoaderArgs) {
       body: '',
       isCustomStatic: true,
       staticType: STATIC_PAGES[handle].type,
+      seo: {title: STATIC_PAGES[handle].title, description: null},
     };
   }
 
@@ -65,7 +93,7 @@ export async function loader(args: Route.LoaderArgs) {
   }
 
   if (!page.isCustomStatic) {
-    redirectIfHandleIsLocalized(request, {handle, data: page});
+    redirectIfHandleIsLocalized(request, {handle: page.handle, data: page});
   }
 
   return {page};
@@ -99,7 +127,7 @@ export default function Page() {
         {/* Content Body */}
         <main className="pt-8">
           {page.isCustomStatic ? (
-            <RenderStaticPageContent type={page.staticType} />
+            <RenderStaticPageContent type={page.staticType || ''} />
           ) : (
             <div
               className="prose prose-stone max-w-none text-sm leading-relaxed"

@@ -34,7 +34,7 @@ const QUICK_CATEGORIES = [
   {
     title: 'Kasut Kasual Lelaki',
     handle: 'mens-sneakers',
-    description: 'Saiz 39 - 44 (Wide Fit)',
+    description: 'Saiz 39 - 44 (Asian Wide Fit)',
   },
   {
     title: 'Jam Tangan Lelaki',
@@ -145,27 +145,27 @@ export function SearchModal() {
       role="dialog"
       aria-modal="true"
       aria-labelledby={searchId}
-      className="fixed inset-0 z-50 flex items-start justify-center p-0 md:p-6 lg:p-10"
+      className="fixed inset-0 z-50 flex items-start justify-center p-0 md:p-6 lg:p-12"
     >
-      {/* Dimmed Backdrop */}
+      {/* Dimmed Backdrop Overlay with Soft Blur */}
       <div
-        className="fixed inset-0 bg-stone-950/70 backdrop-blur-xs transition-opacity animate-in fade-in duration-200 cursor-pointer"
+        className="fixed inset-0 bg-stone-950/60 backdrop-blur-xs transition-opacity animate-in fade-in duration-200 cursor-pointer"
         onClick={close}
       />
 
       {/* Modal Dialog Box */}
-      <div className="relative w-full h-full md:h-auto md:max-h-[85vh] md:max-w-2xl lg:max-w-3xl bg-[#FAF9F6] md:rounded-2xl shadow-2xl border-0 md:border md:border-[#EBE6DF] flex flex-col z-10 overflow-hidden animate-in zoom-in-95 duration-200">
+      <div className="relative w-full h-full md:h-auto md:max-h-[85vh] md:max-w-2xl bg-[#FAF9F6] md:rounded-2xl shadow-2xl border-0 md:border md:border-[#EBE6DF] flex flex-col z-10 overflow-hidden animate-in zoom-in-95 duration-200">
         {/* Search Header Bar */}
         <form
           onSubmit={handleFormSubmit}
-          className="relative flex items-center px-4 sm:px-6 h-16 sm:h-20 bg-white border-b border-[#EBE6DF] shrink-0 gap-3"
+          className="relative flex items-center px-4 sm:px-6 h-16 sm:h-18 bg-white border-b border-[#EBE6DF] shrink-0 gap-3"
         >
-          {/* Search Icon or Loading Spinner */}
-          <div className="w-9 h-9 rounded-full bg-stone-100 flex items-center justify-center shrink-0 text-[#B48344]">
+          {/* Search Icon / Animated Spinner */}
+          <div className="w-9 h-9 rounded-full bg-stone-100/80 flex items-center justify-center shrink-0 text-[#B48344]">
             {isLoading ? (
               <Loader2 className="w-4 h-4 animate-spin text-[#B48344]" />
             ) : (
-              <Search className="w-4 h-4" />
+              <Search className="w-4 h-4 stroke-[1.75]" />
             )}
           </div>
 
@@ -176,61 +176,62 @@ export function SearchModal() {
             type="search"
             value={query}
             onChange={handleInputChange}
-            placeholder="Cari kasut kasual, jam tangan chrono, saiz..."
+            placeholder="Cari kasut kasual, jam tangan..."
             className="flex-1 h-full bg-transparent text-sm sm:text-base font-medium text-[#191817] placeholder:text-stone-400 outline-none pr-2"
             autoComplete="off"
             spellCheck={false}
           />
 
-          {/* Clear Button (Visible when typing) */}
+          {/* Clear Button (Visible only when typing) */}
           {query.length > 0 && (
             <button
               type="button"
               onClick={handleClear}
-              className="w-7 h-7 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center transition-colors cursor-pointer"
+              className="w-6 h-6 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 hover:text-[#191817] flex items-center justify-center transition-colors cursor-pointer mr-1"
               title="Padam carian"
-              aria-label="Padam teks"
+              aria-label="Padam carian"
             >
-              <X className="w-3.5 h-3.5" />
+              <X className="w-3 h-3" />
             </button>
           )}
 
-          {/* Close Button / Shortcut Badge */}
-          <div className="flex items-center gap-1.5 shrink-0 pl-1 border-l border-stone-200">
-            <kbd className="hidden sm:inline-flex items-center px-2 py-1 text-[10px] font-semibold text-stone-400 bg-stone-100 border border-stone-200 rounded tracking-wider uppercase">
+          {/* Close Modal Button & ESC Shortcut Badge */}
+          <div className="flex items-center gap-2 shrink-0 pl-2 border-l border-stone-200/80">
+            <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 text-[10px] font-semibold text-stone-400 bg-stone-100 border border-stone-200 rounded tracking-wider uppercase select-none">
               ESC
             </kbd>
             <button
               type="button"
               onClick={close}
-              className="w-8 h-8 rounded-full hover:bg-stone-100 active:scale-95 text-stone-500 hover:text-[#191817] flex items-center justify-center transition-all cursor-pointer"
+              className="w-8 h-8 rounded-full bg-stone-100/80 hover:bg-stone-200/80 active:scale-95 text-stone-600 hover:text-[#191817] flex items-center justify-center transition-all cursor-pointer"
               aria-label="Tutup carian"
+              title="Tutup (ESC)"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
         </form>
 
-        {/* Scrollable Results / Initial Suggestions Panel */}
-        <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-5 space-y-6 divide-y divide-[#EBE6DF]/80">
+        {/* Scrollable Modal Body */}
+        <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-5 space-y-6">
           {/* 1. INITIAL STATE: User hasn't typed yet */}
           {query.trim().length === 0 && (
             <div className="space-y-6">
               {/* Trending Searches */}
-              <div className="space-y-3">
-                <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-stone-600">
+              <div className="space-y-2.5">
+                <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-stone-500">
                   <TrendingUp className="w-3.5 h-3.5 text-[#B48344]" />
                   <span>Carian Popular Hari Ini</span>
                 </div>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {TRENDING_QUERIES.map((tag) => (
                     <button
                       key={tag}
                       type="button"
                       onClick={() => handleSelectSuggestion(tag)}
-                      className="px-3 py-1.5 rounded-full bg-white hover:bg-stone-100 text-[#191817] border border-[#EBE6DF] hover:border-stone-400 text-xs font-medium transition-all shadow-2xs active:scale-95 cursor-pointer flex items-center gap-1.5"
+                      className="px-3 py-1.5 rounded-full bg-white hover:bg-[#191817] hover:text-white text-stone-700 border border-[#EBE6DF] hover:border-[#191817] text-xs font-semibold transition-all shadow-2xs active:scale-95 cursor-pointer flex items-center gap-1.5 group"
                     >
-                      <Sparkles className="w-3 h-3 text-[#B48344]" />
+                      <Sparkles className="w-3 h-3 text-[#B48344] group-hover:text-[#B48344]" />
                       <span>{tag}</span>
                     </button>
                   ))}
@@ -238,8 +239,8 @@ export function SearchModal() {
               </div>
 
               {/* Quick Categories Navigation */}
-              <div className="space-y-3 pt-4">
-                <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-stone-600">
+              <div className="space-y-2.5 pt-2 border-t border-[#EBE6DF]">
+                <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-stone-500">
                   <Tag className="w-3.5 h-3.5 text-[#B48344]" />
                   <span>Koleksi Pilihan ELFY</span>
                 </div>
@@ -267,17 +268,17 @@ export function SearchModal() {
 
               {/* Trust Assurances Footer */}
               <div className="pt-4 border-t border-[#EBE6DF] grid grid-cols-3 gap-2 text-center">
-                <div className="p-2.5 rounded-xl bg-white/70 border border-[#EBE6DF] flex flex-col items-center">
+                <div className="p-2.5 rounded-xl bg-white/80 border border-[#EBE6DF] flex flex-col items-center">
                   <RefreshCw className="w-4 h-4 text-[#B48344] mb-1" />
                   <span className="text-[10px] font-bold text-[#191817]">Tukar Saiz 7 Hari</span>
                   <span className="text-[9px] text-stone-500">Percuma & Mudah</span>
                 </div>
-                <div className="p-2.5 rounded-xl bg-white/70 border border-[#EBE6DF] flex flex-col items-center">
+                <div className="p-2.5 rounded-xl bg-white/80 border border-[#EBE6DF] flex flex-col items-center">
                   <ShieldCheck className="w-4 h-4 text-[#B48344] mb-1" />
                   <span className="text-[10px] font-bold text-[#191817]">100% Original</span>
                   <span className="text-[9px] text-stone-500">Jaminan Kualiti</span>
                 </div>
-                <div className="p-2.5 rounded-xl bg-white/70 border border-[#EBE6DF] flex flex-col items-center">
+                <div className="p-2.5 rounded-xl bg-white/80 border border-[#EBE6DF] flex flex-col items-center">
                   <Clock className="w-4 h-4 text-[#B48344] mb-1" />
                   <span className="text-[10px] font-bold text-[#191817]">Pos Laju Pantas</span>
                   <span className="text-[9px] text-stone-500">1-3 Hari Semenanjung</span>
@@ -288,7 +289,7 @@ export function SearchModal() {
 
           {/* 2. RESULTS STATE: User is typing */}
           {query.trim().length > 0 && (
-            <div className="space-y-6">
+            <div className="space-y-5">
               {/* Matched Collections (if any) */}
               {collections.length > 0 && (
                 <div className="space-y-2">
@@ -320,12 +321,12 @@ export function SearchModal() {
 
               {/* Matched Products */}
               {products.length > 0 && (
-                <div className="space-y-3">
+                <div className="space-y-2.5">
                   <div className="flex items-center justify-between">
                     <span className="text-[10px] font-bold uppercase tracking-wider text-stone-400">
                       Produk Ditemui ({products.length})
                     </span>
-                    <span className="text-[10px] text-stone-400">
+                    <span className="text-[10px] text-stone-400 hidden sm:inline">
                       Tekan Enter untuk katalog penuh
                     </span>
                   </div>
@@ -374,7 +375,7 @@ export function SearchModal() {
                                   <Money data={price} />
                                 </span>
                               )}
-                              <span className="text-[10px] text-[#2B593F] font-semibold bg-[#2B593F]/10 px-1.5 py-0.5 rounded">
+                              <span className="text-[10px] text-[#2B593F] font-semibold bg-[#2B593F]/10 px-1.5 py-0.2 rounded">
                                 Ada Stok
                               </span>
                             </div>
@@ -417,7 +418,7 @@ export function SearchModal() {
           )}
         </div>
 
-        {/* Modal Footer CTA Bar (When results exist) */}
+        {/* Modal Footer Action (When results exist) */}
         {query.trim().length > 0 && total > 0 && (
           <div className="p-3 sm:p-4 bg-white border-t border-[#EBE6DF] flex items-center justify-between shrink-0 gap-3">
             <span className="text-xs text-stone-500 hidden sm:inline">

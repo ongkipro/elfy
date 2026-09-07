@@ -8,13 +8,24 @@ import {CategoryPills} from '~/components/CategoryPills';
 import type {CollectionItemFragment} from 'storefrontapi.generated';
 
 export const meta: Route.MetaFunction = () => {
+  const title = 'Semua Koleksi Kasut & Jam Tangan | ELFY Official';
+  const description =
+    'Koleksi lengkap kasut kasual, loafers kulit asli, dan jam tangan lelaki rekaan Malaysia. Penghantaran percuma Semenanjung & jaminan tukar saiz 7 hari.';
+  const canonicalUrl = 'https://elfy.my/collections/all';
+
   return [
-    {title: 'Semua Koleksi Kasut & Jam Tangan | ELFY Official'},
-    {
-      name: 'description',
-      content:
-        'Koleksi lengkap kasut kasual, loafers kulit asli, dan jam tangan lelaki rekaan Malaysia.',
-    },
+    {title},
+    {name: 'description', content: description},
+    {tagName: 'link', rel: 'canonical', href: canonicalUrl},
+    {property: 'og:site_name', content: 'ELFY'},
+    {property: 'og:locale', content: 'ms_MY'},
+    {property: 'og:type', content: 'website'},
+    {property: 'og:title', content: title},
+    {property: 'og:description', content: description},
+    {property: 'og:url', content: canonicalUrl},
+    {name: 'twitter:card', content: 'summary_large_image'},
+    {name: 'twitter:title', content: title},
+    {name: 'twitter:description', content: description},
   ];
 };
 

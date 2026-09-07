@@ -14,7 +14,16 @@ import type {
 } from 'storefrontapi.generated';
 
 export const meta: Route.MetaFunction = () => {
-  return [{title: `Hydrogen | Search`}];
+  return [
+    {title: 'Cari Kasut & Jam Tangan | ELFY Official'},
+    {
+      name: 'description',
+      content:
+        'Cari koleksi kasut kasual sartorial dan jam tangan berkualiti tinggi dari ELFY Malaysia.',
+    },
+    {name: 'robots', content: 'noindex, follow'},
+    {tagName: 'link', rel: 'canonical', href: 'https://elfy.my/search'},
+  ];
 };
 
 export async function loader({request, context}: Route.LoaderArgs) {

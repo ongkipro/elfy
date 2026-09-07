@@ -294,35 +294,15 @@ function HeaderMenuMobileToggle() {
 function SearchToggle() {
   const {open} = useAside();
   return (
-    <>
-      {/* Desktop Quick Command Search Trigger */}
-      <button
-        type="button"
-        className="hidden md:flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-stone-100/90 hover:bg-stone-200/90 text-stone-500 hover:text-[#191817] border border-[#EBE6DF] text-xs transition-all cursor-pointer shadow-2xs group"
-        onClick={() => open('search')}
-        aria-label="Cari produk"
-        title="Cari produk ELFY (⌘K)"
-      >
-        <Search className="w-3.5 h-3.5 text-stone-400 group-hover:text-[#B48344] transition-colors" />
-        <span className="text-stone-500 group-hover:text-stone-700 text-[11px] font-medium tracking-normal">
-          Cari kasut, jam...
-        </span>
-        <kbd className="inline-flex items-center px-1.5 py-0.5 text-[9px] font-semibold text-stone-400 bg-white border border-stone-200 rounded shadow-2xs tracking-tighter">
-          ⌘K
-        </kbd>
-      </button>
-
-      {/* Mobile Icon Button */}
-      <button
-        type="button"
-        className="md:hidden w-10 h-10 inline-flex items-center justify-center text-stone-700 hover:text-[#191817] hover:bg-stone-200/70 rounded-full active:scale-95 transition-all duration-200 cursor-pointer"
-        onClick={() => open('search')}
-        aria-label="Cari produk"
-        title="Cari"
-      >
-        <Search className="w-4 h-4" />
-      </button>
-    </>
+    <button
+      type="button"
+      className="w-10 h-10 sm:w-11 sm:h-11 inline-flex items-center justify-center text-stone-700 hover:text-[#191817] hover:bg-stone-200/70 rounded-full active:scale-95 transition-all duration-200 cursor-pointer"
+      onClick={() => open('search')}
+      aria-label="Cari produk"
+      title="Cari produk (⌘K)"
+    >
+      <Search className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+    </button>
   );
 }
 

@@ -7,7 +7,25 @@ import type {BlogsQuery} from 'storefrontapi.generated';
 type BlogNode = BlogsQuery['blogs']['nodes'][0];
 
 export const meta: Route.MetaFunction = () => {
-  return [{title: `Hydrogen | Blogs`}];
+  const title = 'Jurnal & Gaya Hidup | ELFY Official';
+  const description =
+    'Panduan gaya sartorial, tips penjagaan kasut kulit asli, dan cerapan dunia jam tangan dari ELFY Malaysia.';
+  const canonicalUrl = 'https://elfy.my/blogs';
+
+  return [
+    {title},
+    {name: 'description', content: description},
+    {tagName: 'link', rel: 'canonical', href: canonicalUrl},
+    {property: 'og:site_name', content: 'ELFY Journal'},
+    {property: 'og:locale', content: 'ms_MY'},
+    {property: 'og:type', content: 'website'},
+    {property: 'og:title', content: title},
+    {property: 'og:description', content: description},
+    {property: 'og:url', content: canonicalUrl},
+    {name: 'twitter:card', content: 'summary_large_image'},
+    {name: 'twitter:title', content: title},
+    {name: 'twitter:description', content: description},
+  ];
 };
 
 export async function loader(args: Route.LoaderArgs) {

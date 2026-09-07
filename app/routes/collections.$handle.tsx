@@ -14,14 +14,39 @@ import type {ProductItemFragment} from 'storefrontapi.generated';
 import {Truck, RefreshCw, ShieldCheck} from 'lucide-react';
 
 export const meta: Route.MetaFunction = ({data}) => {
+  const collection = data?.collection;
+  if (!collection) {
+    return [{title: 'Koleksi Tidak Ditemui | ELFY'}];
+  }
+
+  const title =
+    collection.seo?.title || `${collection.title} | ELFY Official`;
+  const description =
+    collection.seo?.description ||
+    collection.description ||
+    'Terokai koleksi kasut kasual kulit asli & jam tangan sartorial dari ELFY Malaysia.';
+  const canonicalUrl = `https://elfy.my/collections/${collection.handle}`;
+  const imageUrl = collection.image?.url;
+
   return [
-    {title: `${data?.collection.title ?? 'Koleksi'} | ELFY Official`},
-    {
-      name: 'description',
-      content:
-        data?.collection.description ||
-        'Terokai koleksi kasut kasual kulit asli & jam tangan sartorial dari ELFY Malaysia.',
-    },
+    {title},
+    {name: 'description', content: description},
+    {tagName: 'link', rel: 'canonical', href: canonicalUrl},
+    {property: 'og:site_name', content: 'ELFY'},
+    {property: 'og:locale', content: 'ms_MY'},
+    {property: 'og:type', content: 'website'},
+    {property: 'og:title', content: title},
+    {property: 'og:description', content: description},
+    {property: 'og:url', content: canonicalUrl},
+    ...(imageUrl
+      ? [
+          {property: 'og:image', content: imageUrl},
+          {name: 'twitter:image', content: imageUrl},
+        ]
+      : []),
+    {name: 'twitter:card', content: 'summary_large_image'},
+    {name: 'twitter:title', content: title},
+    {name: 'twitter:description', content: description},
   ];
 };
 
@@ -186,6 +211,17 @@ const COLLECTION_QUERY = `#graphql
       handle
       title
       description
+      seo {
+        description
+        title
+      }
+      image {
+        id
+        url
+        altText
+        width
+        height
+      }
       products(
         first: $first,
         last: $last,

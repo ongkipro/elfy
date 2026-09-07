@@ -8,7 +8,29 @@ type SelectedPolicies = keyof Pick<
 >;
 
 export const meta: Route.MetaFunction = ({data}) => {
-  return [{title: `Hydrogen | ${data?.policy.title ?? ''}`}];
+  const policy = data?.policy;
+  if (!policy) {
+    return [{title: 'Polisi Tidak Ditemui | ELFY'}];
+  }
+
+  const title = `${policy.title} | ELFY Official`;
+  const description = `Maklumat terperinci mengenai ${policy.title.toLowerCase()} rasmi jenama ELFY Malaysia.`;
+  const canonicalUrl = `https://elfy.my/policies/${policy.handle}`;
+
+  return [
+    {title},
+    {name: 'description', content: description},
+    {tagName: 'link', rel: 'canonical', href: canonicalUrl},
+    {property: 'og:site_name', content: 'ELFY'},
+    {property: 'og:locale', content: 'ms_MY'},
+    {property: 'og:type', content: 'article'},
+    {property: 'og:title', content: title},
+    {property: 'og:description', content: description},
+    {property: 'og:url', content: canonicalUrl},
+    {name: 'twitter:card', content: 'summary'},
+    {name: 'twitter:title', content: title},
+    {name: 'twitter:description', content: description},
+  ];
 };
 
 export async function loader({params, context}: Route.LoaderArgs) {

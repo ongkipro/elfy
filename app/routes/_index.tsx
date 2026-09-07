@@ -18,13 +18,24 @@ import {
 } from 'lucide-react';
 
 export const meta: Route.MetaFunction = () => {
+  const title = 'ELFY | Kasut Kasual & Jam Tangan Lelaki Malaysia (Official)';
+  const description =
+    'Jenama kasut kasual kulit asli & jam tangan sartorial rekaan moden Malaysia. Nikmati penghantaran percuma Semenanjung dan jaminan tukar saiz 7 hari percuma.';
+  const canonicalUrl = 'https://elfy.my';
+
   return [
-    {title: 'ELFY | Kasut Kasual & Jam Tangan Lelaki Malaysia (Official)'},
-    {
-      name: 'description',
-      content:
-        'Jenama kasut kasual kulit asli & jam tangan sartorial rekaan moden Malaysia. Nikmati penghantaran percuma Semenanjung dan jaminan tukar saiz 7 hari percuma.',
-    },
+    {title},
+    {name: 'description', content: description},
+    {tagName: 'link', rel: 'canonical', href: canonicalUrl},
+    {property: 'og:site_name', content: 'ELFY'},
+    {property: 'og:locale', content: 'ms_MY'},
+    {property: 'og:type', content: 'website'},
+    {property: 'og:title', content: title},
+    {property: 'og:description', content: description},
+    {property: 'og:url', content: canonicalUrl},
+    {name: 'twitter:card', content: 'summary_large_image'},
+    {name: 'twitter:title', content: title},
+    {name: 'twitter:description', content: description},
   ];
 };
 

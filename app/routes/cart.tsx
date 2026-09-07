@@ -8,12 +8,14 @@ import {ChevronLeft} from 'lucide-react';
 
 export const meta: Route.MetaFunction = () => {
   return [
-    {title: `Beg Belanja | ELFY Kuala Lumpur`},
+    {title: 'Beg Belanja | ELFY Kuala Lumpur'},
     {
       name: 'description',
       content:
         'Semak beg belanja dan teruskan ke pembayaran selamat rasmi ELFY.',
     },
+    {name: 'robots', content: 'noindex, follow'},
+    {tagName: 'link', rel: 'canonical', href: 'https://elfy.my/cart'},
   ];
 };
 

@@ -30,7 +30,10 @@ type OrdersLoaderData = {
 };
 
 export const meta: Route.MetaFunction = () => {
-  return [{title: 'Orders'}];
+  return [
+    {title: 'Sejarah Pesanan | Akaun ELFY'},
+    {name: 'robots', content: 'noindex, nofollow'},
+  ];
 };
 
 export async function loader({request, context}: Route.LoaderArgs) {

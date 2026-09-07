@@ -12,6 +12,7 @@ import {
 } from '~/components/CollectionDescription';
 import type {ProductItemFragment} from 'storefrontapi.generated';
 import {Truck, RefreshCw, ShieldCheck} from 'lucide-react';
+import {Breadcrumb} from '~/components/Breadcrumb';
 
 export const meta: Route.MetaFunction = ({data}) => {
   const collection = data?.collection;
@@ -96,6 +97,18 @@ export default function Collection() {
 
   return (
     <div className="bg-[#FAF9F6] min-h-screen text-[#191817] pb-20">
+      {/* Breadcrumb Navigation */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3.5 pb-1">
+        <Breadcrumb
+          items={[
+            {label: 'Utama', to: '/'},
+            {label: 'Semua Koleksi', to: '/collections/all'},
+            {label: collection.title},
+          ]}
+          currentUrl={`https://elfy.my/collections/${collection.handle}`}
+        />
+      </div>
+
       {/* Editorial Category Header (Bright & Luxurious) */}
       <div className="bg-gradient-to-b from-[#F4F0E8] via-[#FAF9F6] to-[#FAF9F6] text-[#191817] py-14 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-[#EBE6DF]">
         <div className="max-w-7xl mx-auto text-center">

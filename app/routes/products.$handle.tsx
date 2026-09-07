@@ -15,6 +15,7 @@ import {ProductForm} from '~/components/ProductForm';
 import {SizeRecommenderModal} from '~/components/SizeRecommenderModal';
 import {StickyAddToCart} from '~/components/StickyAddToCart';
 import {ProductAccordion} from '~/components/ProductAccordion';
+import {Breadcrumb} from '~/components/Breadcrumb';
 import {useAside} from '~/components/Aside';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {trackViewContent, trackAddToCart, trackInitiateCheckout} from '~/lib/tracking';
@@ -331,14 +332,26 @@ export default function Product() {
   return (
     <div className="bg-[#FAF9F6] min-h-screen text-[#191817]">
       {/* Breadcrumb Navigation */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <Link
-          to="/collections/all"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-500 hover:text-[#191817] transition-colors"
-        >
-          <ChevronLeft className="w-4 h-4" />
-          <span>Kembali ke Koleksi</span>
-        </Link>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 sm:py-4">
+        <Breadcrumb
+          items={[
+            {label: 'Utama', to: '/'},
+            {
+              label:
+                (product as any)?.collections?.nodes?.[0] &&
+                (product as any)?.collections?.nodes?.[0].handle !== 'frontpage'
+                  ? (product as any).collections.nodes[0].title
+                  : 'Semua Koleksi',
+              to:
+                (product as any)?.collections?.nodes?.[0] &&
+                (product as any)?.collections?.nodes?.[0].handle !== 'frontpage'
+                  ? `/collections/${(product as any).collections.nodes[0].handle}`
+                  : '/collections/all',
+            },
+            {label: product.title},
+          ]}
+          currentUrl={`https://elfy.my/products/${product.handle}`}
+        />
       </div>
 
       {/* Main PDP Grid */}
@@ -585,6 +598,13 @@ const PRODUCT_FRAGMENT = `#graphql
         altText
         width
         height
+      }
+    }
+    collections(first: 1) {
+      nodes {
+        id
+        title
+        handle
       }
     }
     options {

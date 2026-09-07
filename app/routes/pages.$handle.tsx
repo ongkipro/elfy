@@ -10,6 +10,7 @@ import {
   CheckCircle2,
   ChevronRight,
 } from 'lucide-react';
+import {Breadcrumb} from '~/components/Breadcrumb';
 
 export const meta: Route.MetaFunction = ({data}) => {
   const page = data?.page;
@@ -106,12 +107,14 @@ export default function Page() {
     <div className="bg-[#FAF9F6] min-h-screen text-[#191817] py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs text-stone-500 mb-6">
-          <Link to="/" className="hover:text-[#191817] transition-colors">
-            Utama
-          </Link>
-          <ChevronRight className="w-3 h-3" />
-          <span className="text-[#191817] font-semibold">{page.title}</span>
+        <div className="mb-6">
+          <Breadcrumb
+            items={[
+              {label: 'Utama', to: '/'},
+              {label: page.title},
+            ]}
+            currentUrl={`https://elfy.my/pages/${page.handle}`}
+          />
         </div>
 
         {/* Header */}

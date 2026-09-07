@@ -1,6 +1,7 @@
-import {useLoaderData} from 'react-router';
+import {useLoaderData, useParams} from 'react-router';
 import type {Route} from './+types/blogs.$blogHandle.$articleHandle';
 import {Image} from '@shopify/hydrogen';
+import {Breadcrumb} from '~/components/Breadcrumb';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 
 export const meta: Route.MetaFunction = ({data, params}) => {
@@ -98,6 +99,7 @@ function loadDeferredData({context}: Route.LoaderArgs) {
 
 export default function Article() {
   const {article} = useLoaderData<typeof loader>();
+  const {blogHandle} = useParams();
   const {title, image, contentHtml, author} = article;
 
   const publishedDate = new Intl.DateTimeFormat('en-US', {
@@ -107,7 +109,18 @@ export default function Article() {
   }).format(new Date(article.publishedAt));
 
   return (
-    <div className="article">
+    <div className="article max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="mb-6">
+        <Breadcrumb
+          items={[
+            {label: 'Utama', to: '/'},
+            {label: 'Jurnal ELFY', to: `/blogs/${blogHandle || 'journal'}`},
+            {label: title},
+          ]}
+          currentUrl={`https://elfy.my/blogs/${blogHandle || 'journal'}/${article.handle}`}
+        />
+      </div>
+
       <h1>
         {title}
         <div>

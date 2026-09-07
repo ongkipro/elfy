@@ -5,6 +5,7 @@ import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {ProductItem} from '~/components/ProductItem';
 import {TrustPaymentBadges} from '~/components/TrustPaymentBadges';
 import {CategoryPills} from '~/components/CategoryPills';
+import {Breadcrumb} from '~/components/Breadcrumb';
 import type {CollectionItemFragment} from 'storefrontapi.generated';
 
 export const meta: Route.MetaFunction = () => {
@@ -59,6 +60,17 @@ export default function CollectionAll() {
 
   return (
     <div className="bg-[#FAF9F6] min-h-screen text-[#191817] pb-20">
+      {/* Breadcrumb Navigation */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3.5 pb-1">
+        <Breadcrumb
+          items={[
+            {label: 'Utama', to: '/'},
+            {label: 'Semua Koleksi'},
+          ]}
+          currentUrl="https://elfy.my/collections/all"
+        />
+      </div>
+
       {/* Editorial Header (Bright & Luxurious) */}
       <div className="bg-gradient-to-b from-[#F4F0E8] via-[#FAF9F6] to-[#FAF9F6] text-[#191817] py-14 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-[#EBE6DF]">
         <div className="max-w-7xl mx-auto text-center">

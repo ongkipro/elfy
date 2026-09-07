@@ -59,7 +59,16 @@ export async function loader({request, context, params}: Route.LoaderArgs) {
 
   // redirect to checkout
   if (cartResult.checkoutUrl) {
-    return redirect(cartResult.checkoutUrl, {headers});
+    let finalCheckoutUrl = cartResult.checkoutUrl;
+    try {
+      const url = new URL(finalCheckoutUrl);
+      if (url.hostname.includes('myshopify.com') || url.hostname === 'elfy.my') {
+        url.hostname =
+          (context.env?.PUBLIC_CHECKOUT_DOMAIN as string) || 'checkout.elfy.my';
+        finalCheckoutUrl = url.toString();
+      }
+    } catch {}
+    return redirect(finalCheckoutUrl, {headers});
   } else {
     throw new Error('No checkout URL found');
   }

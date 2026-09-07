@@ -72,6 +72,18 @@ function CartCheckoutActions({
 }) {
   if (!checkoutUrl) return null;
 
+  const resolvedCheckoutUrl = (() => {
+    try {
+      const url = new URL(checkoutUrl);
+      if (url.hostname.includes('myshopify.com') || url.hostname === 'elfy.my') {
+        url.hostname = 'checkout.elfy.my';
+      }
+      return url.toString();
+    } catch {
+      return checkoutUrl;
+    }
+  })();
+
   const handleClick = () => {
     trackInitiateCheckout(totalAmount, totalQuantity);
   };
@@ -79,7 +91,7 @@ function CartCheckoutActions({
   return (
     <div className="mt-4 pt-3 border-t border-stone-200">
       <a
-        href={checkoutUrl}
+        href={resolvedCheckoutUrl}
         target="_self"
         onClick={handleClick}
         className="group w-full h-12 bg-[#191817] hover:bg-[#B48344] active:scale-[0.98] text-white border-2 border-[#191817] hover:border-[#B48344] rounded-xl font-bold text-xs uppercase tracking-wider inline-flex items-center justify-center gap-2.5 shadow-md hover:shadow-lg transition-all duration-200 select-none"

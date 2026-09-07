@@ -18,7 +18,7 @@ import {ProductAccordion} from '~/components/ProductAccordion';
 import {TrustPaymentBadges} from '~/components/TrustPaymentBadges';
 import {useAside} from '~/components/Aside';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
-import {trackViewContent, trackAddToCart} from '~/lib/tracking';
+import {trackViewContent, trackAddToCart, trackInitiateCheckout} from '~/lib/tracking';
 import {getAttributionPayload, toCartAttributes} from '~/lib/attribution';
 import {
   Star,
@@ -82,7 +82,22 @@ function loadDeferredData({context, params}: Route.LoaderArgs) {
 }
 
 export default function Product() {
-  const cartFetcher = useFetcher();
+  const cartFetcher = useFetcher<any>();
+
+  // Redirect to Shopify Checkout if buy now checkoutUrl is returned
+  useEffect(() => {
+    if (cartFetcher.data?.cart?.checkoutUrl) {
+      try {
+        const url = new URL(cartFetcher.data.cart.checkoutUrl);
+        if (url.hostname.includes('myshopify.com') || url.hostname === 'elfy.my') {
+          url.hostname = 'checkout.elfy.my';
+        }
+        window.location.href = url.toString();
+      } catch {
+        window.location.href = cartFetcher.data.cart.checkoutUrl;
+      }
+    }
+  }, [cartFetcher.data]);
 
   const handleStickyAddToCart = () => {
     if (!selectedVariant) return;
@@ -120,6 +135,45 @@ export default function Product() {
     );
 
     open('cart');
+  };
+
+  const handleStickyBuyNow = () => {
+    if (!selectedVariant) return;
+
+    const unitPrice = price || parseFloat(selectedVariant.price.amount);
+    trackAddToCart({
+      id: selectedVariant.product.handle,
+      title: product.title,
+      price: unitPrice,
+      currency: currencyCode,
+      variantId: selectedVariant.id,
+      variantTitle: selectedVariant.title,
+    });
+    trackInitiateCheckout(unitPrice, 1);
+
+    const attributes =
+      typeof window !== 'undefined'
+        ? toCartAttributes(getAttributionPayload())
+        : undefined;
+
+    cartFetcher.submit(
+      {
+        [CartForm.INPUT_NAME]: JSON.stringify({
+          action: CartForm.ACTIONS.LinesAdd,
+          inputs: {
+            lines: [
+              {
+                merchandiseId: selectedVariant.id,
+                quantity: 1,
+              },
+            ],
+            attributes,
+          },
+        }),
+        redirectTo: 'checkout',
+      },
+      {method: 'POST', action: '/cart'},
+    );
   };
   const {product} = useLoaderData<typeof loader>();
   const [isSizeModalOpen, setIsSizeModalOpen] = useState(false);
@@ -356,6 +410,7 @@ export default function Product() {
         hasSizes={Boolean(sizeOption)}
         selectedSize={selectedSizeValue}
         onAddToCart={handleStickyAddToCart}
+        onBuyNow={handleStickyBuyNow}
         onOpenSizePicker={() => setIsSizeModalOpen(true)}
       />
 

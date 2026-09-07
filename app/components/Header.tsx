@@ -14,8 +14,6 @@ import {
   Menu,
   User,
   Sparkles,
-  MessageCircle,
-  Ruler,
   ChevronRight,
   ShieldCheck,
   Truck,
@@ -131,43 +129,12 @@ export function Header({
                 </>
               )}
             </NavLink>
-
-            <NavLink
-              to="/pages/size-guide"
-              className={({isActive}) =>
-                `relative py-2 text-xs uppercase tracking-[0.16em] font-semibold transition-colors hover:text-[#B48344] flex items-center gap-1.5 ${
-                  isActive ? 'text-[#191817]' : 'text-stone-700'
-                }`
-              }
-            >
-              {({isActive}) => (
-                <>
-                  <Ruler className="w-3.5 h-3.5 text-stone-400 group-hover:text-[#B48344]" />
-                  <span>Panduan Saiz</span>
-                  {isActive && (
-                    <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#B48344] rounded-full animate-in fade-in duration-200" />
-                  )}
-                </>
-              )}
-            </NavLink>
           </nav>
 
-          {/* Right: Actions (Search, WhatsApp VIP, Account, Cart) */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          {/* Right: Actions (Search, Account, Cart) */}
+          <div className="flex items-center gap-1.5 sm:gap-2">
             {/* Search Trigger Button */}
             <SearchToggle />
-
-            {/* VIP WhatsApp Concierge Link */}
-            <a
-              href="https://wa.me/601111111111?text=Hi%20ELFY,%20saya%20perlukan%20bantuan%20saiz"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden xl:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#1E9E4B] text-[11px] font-semibold transition-colors shrink-0"
-              title="Khidmat Bantuan WhatsApp Pantas"
-            >
-              <MessageCircle className="w-3.5 h-3.5 text-[#25D366]" />
-              <span>VIP Chat</span>
-            </a>
 
             {/* Customer Account Icon */}
             <AccountToggle isLoggedIn={isLoggedIn} />
@@ -290,15 +257,6 @@ export function HeaderMenu({
         </span>
 
         <Link
-          to="/pages/size-guide"
-          onClick={close}
-          className="flex items-center gap-2.5 p-2.5 text-xs text-stone-700 hover:text-[#191817] transition-colors"
-        >
-          <Ruler className="w-4 h-4 text-[#B48344]" />
-          <span>Panduan Saiz Kaki Malaysia (CM)</span>
-        </Link>
-
-        <Link
           to="/pages/warranty-returns"
           onClick={close}
           className="flex items-center gap-2.5 p-2.5 text-xs text-stone-700 hover:text-[#191817] transition-colors"
@@ -315,19 +273,6 @@ export function HeaderMenu({
           <Truck className="w-4 h-4 text-[#B48344]" />
           <span>Kadar & Masa Penghantaran Pos</span>
         </Link>
-      </div>
-
-      {/* WhatsApp VIP Concierge Action */}
-      <div className="pt-2">
-        <a
-          href="https://wa.me/601111111111?text=Hi%20ELFY,%20saya%20nak%20tanya%20tentang%20produk%20dan%20saiz"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 w-full py-3.5 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-xl font-semibold text-xs shadow-md transition-all active:scale-[0.99]"
-        >
-          <MessageCircle className="w-4 h-4" />
-          <span>WhatsApp VIP Concierge (Cadangan Saiz)</span>
-        </a>
       </div>
     </nav>
   );
@@ -349,14 +294,35 @@ function HeaderMenuMobileToggle() {
 function SearchToggle() {
   const {open} = useAside();
   return (
-    <button
-      className="w-11 h-11 inline-flex items-center justify-center text-stone-700 hover:text-[#191817] hover:bg-stone-200/70 rounded-full active:scale-95 transition-all duration-200 cursor-pointer"
-      onClick={() => open('search')}
-      aria-label="Cari produk"
-      title="Cari"
-    >
-      <Search className="w-4 h-4" />
-    </button>
+    <>
+      {/* Desktop Quick Command Search Trigger */}
+      <button
+        type="button"
+        className="hidden md:flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-stone-100/90 hover:bg-stone-200/90 text-stone-500 hover:text-[#191817] border border-[#EBE6DF] text-xs transition-all cursor-pointer shadow-2xs group"
+        onClick={() => open('search')}
+        aria-label="Cari produk"
+        title="Cari produk ELFY (⌘K)"
+      >
+        <Search className="w-3.5 h-3.5 text-stone-400 group-hover:text-[#B48344] transition-colors" />
+        <span className="text-stone-500 group-hover:text-stone-700 text-[11px] font-medium tracking-normal">
+          Cari kasut, jam...
+        </span>
+        <kbd className="inline-flex items-center px-1.5 py-0.5 text-[9px] font-semibold text-stone-400 bg-white border border-stone-200 rounded shadow-2xs tracking-tighter">
+          ⌘K
+        </kbd>
+      </button>
+
+      {/* Mobile Icon Button */}
+      <button
+        type="button"
+        className="md:hidden w-10 h-10 inline-flex items-center justify-center text-stone-700 hover:text-[#191817] hover:bg-stone-200/70 rounded-full active:scale-95 transition-all duration-200 cursor-pointer"
+        onClick={() => open('search')}
+        aria-label="Cari produk"
+        title="Cari"
+      >
+        <Search className="w-4 h-4" />
+      </button>
+    </>
   );
 }
 

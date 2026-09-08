@@ -13,6 +13,20 @@
 
 ## 1. Release Changelog & Delivered Scope
 
+### v1.1.1 — Catalog Description Revamp & Malaysian Middle-Up CRO Standardization (2026-09-09)
+1. **Product Description Hygiene (All 51 Products)**:
+   - Eliminated ~100 words of redundant shipping, courier (Pos Laju / J&T), and warranty boilerplate from `product.descriptionHtml` across all 51 products in the catalog.
+   - Preserved shipping timelines, free shipping thresholds, and warranty guarantees exclusively within native `ProductAccordion.tsx` tabs ("Penghantaran & Saiz" and "Jaminan & Waranti").
+2. **Standardized 3-Pillar Copy Formula**:
+   - Re-architected all 51 product descriptions into a concise (~130–160 words) high-converting structure:
+     - *Pilar 1 (Produk)*: Lifestyle & comfort intro in Strategic Hybrid Bahasa Melayu tailored to the model and tropical Malaysian climate.
+     - *Pilar 2 (Knowledge)*: High-value material & craftsmanship specs (air-mesh, arch support insole, anti-slip rubber outsole; or Japanese Quartz movement, 316L/Alloy casing, mineral lens, 3 ATM splash resistance).
+     - *Pilar 3 (Ukuran)*: Exact insole length table (EU 39: 24.5cm s.d. EU 44: 27.0cm) with Asian Wide-Fit (+1 size) guidance for footwear; dial diameter, case thickness, lug width, and wrist fit for watches.
+3. **Catalog Synchronization**:
+   - Synchronized all 51 products live to Shopify GraphQL Admin API (`vvxgev-3p.myshopify.com`) with 0 failures (`scripts/sync-shopify-titles.mjs`).
+   - Exported matching datasets: `scripts/catalog-optimized.json` and `scripts/shopify-products-optimized.csv`.
+   - Documented in `DECISIONS.md` under `ADR-008`.
+
 ### v1.1.0 — Technical SEO, Micro-CRO & Signals Hardening (2026-09-08)
 1. **Technical SEO & Crawl Architecture**:
    - Dynamic `robots.txt` removing restrictive policy blocks to ensure 100% compliance with Google Merchant Center (GMC) and Google Ads crawl requirements.

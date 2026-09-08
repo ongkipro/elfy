@@ -68,7 +68,15 @@ This document serves as the chronological build ledger tracking technical archit
 - **Objective**: Refine catalog merchandising, elevate visual micro-elements, and execute a comprehensive technical SEO and rich snippet overhaul.
 - **Key Deliverables**:
   - **Banner Redesign**: Replaced cluttered overlays with clean 3:2 aspect ratio photography across all 5 active collections.
-  - **Product Descriptions**: Streamlined 51 live product descriptions via Shopify Admin GraphQL mutation scripts, removing duplicate warranty boilerplate and structuring content into Essence, Materials, and Sizing Advisory.
+  - **Product Descriptions Audit & Revamp (All 51 Products)**:
+    - Executed a storewide audit eliminating redundant shipping and warranty text from `product.descriptionHtml` (preventing 100% duplicate copy with `ProductAccordion.tsx` Tab 2 & 3).
+    - Re-architected copy into a concise 3-Pillar structure (~130–160 words): 
+      1. *Product Essence*: Dynamic model-tailored lifestyle & comfort intro in Bahasa Melayu.
+      2. *Knowledge & Craftsmanship*: High-value material specs (breathable air-mesh, arch support insole, anti-slip rubber; or Japanese Quartz caliber, 316L/Alloy casing, mineral lens, 3 ATM water resistance).
+      3. *Fit & Sizing*: Precise CM insole table (EU 39: 24.5cm s.d. EU 44: 27.0cm) with Asian Wide-Fit (+1 size) recommendation for footwear; dial diameter, case thickness, lug width, and wrist fit for watches.
+    - Fixed HTML empty colon parsing bug (`<li><strong>...:</strong> </li>`) via robust `formatHighlight()` helper.
+    - Generated clean export datasets: `scripts/catalog-optimized.json` and `scripts/shopify-products-optimized.csv`.
+    - Executed batch GraphQL updates via `scripts/sync-shopify-titles.mjs`: Successfully updated **51 / 51 products** live on Shopify (`vvxgev-3p.myshopify.com`) with 0 errors.
   - **Related Products Grid**: Replaced heavy promotional blocks on PDP with a clean, randomized 4-product grid (`Produk Berkaitan`) from the same category.
   - **Minimalist Payment Badges**: Replaced external image logos with unified, high-contrast text micro-pill badges (`FPX`, `TNG eWallet`, `GrabPay`, `VISA / MC`) in `TrustPaymentBadges.tsx`.
   - **Dynamic Robots.txt (`app/routes/[robots.txt].tsx`)**:

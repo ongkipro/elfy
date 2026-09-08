@@ -79,3 +79,21 @@
   - Maximum SERP rich result real estate (stars, pricing, stock, FAQs, breadcrumbs).
   - Seamless GMC product feed and return policy validation.
 
+---
+
+## ADR-008: Elimination of Shipping Boilerplate from Product Descriptions in Favor of Dedicated PDP Accordions
+- **Status**: Accepted
+- **Context**: Product descriptions imported from legacy catalogs contained ~100 words of repetitive boilerplate detailing Pos Laju, J&T, delivery timeframes (1-3 days Semenanjung, 3-5 days Sabah/Sarawak), free shipping thresholds, and warranty terms. Concurrently, the headless storefront's PDP component (`ProductAccordion.tsx`) already features dedicated interactive tabs for "Penghantaran & Saiz" (Tab 2) and "Jaminan & Waranti" (Tab 3). Having this text in `descriptionHtml` caused 100% duplicate copy, expanded mobile scroll height unnecessarily, and signaled low-tier dropshipping to middle-up Malaysian shoppers.
+- **Decision**:
+  - Strip all shipping, courier, and warranty mentions from `product.descriptionHtml` across all products.
+  - Standardize product descriptions into a clean, 3-Pillar structure (~130–160 words):
+    1. *Product Essence*: 2-3 sentence lifestyle and comfort summary tailored to the model and Malaysian urban climate.
+    2. *Knowledge & Craftsmanship*: High-value material specs (breathable mesh, ergonomic arch support insole, anti-slip rubber; or Japanese Quartz Caliber, 316L/Alloy casing, mineral lens, 3 ATM splash resistance).
+    3. *Fit & Sizing*: Precise CM insole measurements (EU 39: 24.5cm s.d. EU 44: 27.0cm) with Asian Wide-Fit advisory for footwear; dial diameter, case thickness, lug width, and wrist fit for watches.
+  - Trust, delivery logistics, and SSM guarantees are exclusively owned by the native accordion tabs.
+- **Consequences**:
+  - Eliminates ~60% of unnecessary DOM bloat on PDP descriptions.
+  - Elevates brand perception to a modern sartorial luxury tier (Aritzia / Common Projects standard).
+  - Keeps PDP mobile viewports compact, scannable, and focused squarely on product desire and accurate sizing.
+
+

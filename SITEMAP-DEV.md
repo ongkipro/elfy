@@ -15,10 +15,11 @@ Gunakan tabel ini untuk mengetahui dokumen mana yang menjadi *single source of t
   [ BISNIS & CRO ]        [ DESAIN & UI/UX ]       [ TEKNIS & RUNTIME ]
        |                         |                         |
   * PRD.md                  * UI-UX-GUIDELINES.md     * ARCHITECTURE.md
-* DECISIONS.md            * SITEMAP-DEV.md (Peta)   * TRACKING-SIGNAL-ENGINE.md
-* TASKS.md                                          * OBSERVABILITY.md
-* STATUS.md                                         * AGENTS.md
-                                                     * .env.example
+  * DECISIONS.md            * SITEMAP-DEV.md (Peta)   * TRACKING-SIGNAL-ENGINE.md
+  * TASKS.md                                          * OBSERVABILITY.md
+  * STATUS.md                                         * AGENTS.md
+  * BUILD-LOG.md                                      * RELEASE.md
+                                                      * .env.example
 ```
 
 | Domain | Dokumen Sumber | Isi Utama |
@@ -28,10 +29,12 @@ Gunakan tabel ini untuk mengetahui dokumen mana yang menjadi *single source of t
 | **Desain, Warna & Mobile** | [**`UI-UX-GUIDELINES.md`**](./UI-UX-GUIDELINES.md) | Palet Warm Alabaster, tipografi, spesifikasi Sticky ATC, Bottom Sheet Size Recommender, touch target 48px. |
 | **Arsitektur Teknis** | [**`ARCHITECTURE.md`**](./ARCHITECTURE.md) | Shopify Hydrogen runtime, caching sub-request, CSP whitelist, dan integrasi Storefront API. |
 | **Pelacakan & Ads Signal** | [**`TRACKING-SIGNAL-ENGINE.md`**](./TRACKING-SIGNAL-ENGINE.md) | Dual-funnel Meta Pixel + CAPI, GTM/Google Ads, deduplikasi `event_id`, Cart Attributes handoff. |
-| **Keputusan Teknis (ADR)** | [**`DECISIONS.md`**](./DECISIONS.md) | ADR-001 s/d ADR-005 (Alasan Hydrogen, pembatasan mata uang MYR, format hybrid copy). |
-| **Antrean Pekerjaan** | [**`TASKS.md`**](./TASKS.md) | Checklist pengerjaan Phase 1 (Setup) s/d Phase 5 (Launch). |
+| **Keputusan Teknis (ADR)** | [**`DECISIONS.md`**](./DECISIONS.md) | ADR-001 s/d ADR-007 (Hydrogen, MYR, hybrid copy, minimalist badges, technical SEO & schema). |
+| **Antrean Pekerjaan** | [**`TASKS.md`**](./TASKS.md) | Checklist pengerjaan Phase 1 (Setup) s/d Phase 6 (Merchandising, CRO & Technical SEO). |
 | **Aturan Main AI Agent** | [**`AGENTS.md`**](./AGENTS.md) | Batasan teknis (*invariants*), larangan istilah Indonesia sembarangan, proteksi rahasia token. |
 | **Status & Delivery Ledger** | [**`STATUS.md`**](./STATUS.md) | Catatan status pengerjaan real-time, ringkasan audit spesifikasi, dan delivery gates. |
+| **Log Build & Riwayat** | [**`BUILD-LOG.md`**](./BUILD-LOG.md) | Kronologi detail build, refactoring, audit, dan perubahan teknis antar versi. |
+| **Catatan Rilis Produksi** | [**`RELEASE.md`**](./RELEASE.md) | Versi rilis produksi, commit HEAD, status verifikasi live, dan rincian deployment Oxygen. |
 | **Monitoring & CWV** | [**`OBSERVABILITY.md`**](./OBSERVABILITY.md) | Ambang batas Core Web Vitals (LCP < 1.5s, CLS = 0.00), penanganan error GraphQL. |
 
 ---
@@ -52,19 +55,38 @@ elfy.my
 │   ├── /best-sellers                   -> [PLP Best Sellers] Produk terlaris
 │   └── /new-arrivals                   -> [PLP Rilis Terbaru] Koleksi terkini
 │
-├── /products/:handle                   -> [PDP] Galeri mobile 60fps, Size Recommender, Sticky ATC, Accordion
+├── /products/:handle                   -> [PDP] Galeri mobile 60fps, Size Recommender, Sticky ATC, Accordion, 4 Related Products
 │
-├── /cart                               -> [Cart Route / Fallback] (Primer: Slide-out Cart Drawer)
+├── /search                             -> [Search] Full-text search (noindex, follow)
+├── /cart                               -> [Cart Route / Fallback] (noindex, follow; Primer: Slide-out Cart Drawer)
 │
-├── /pages                              -> [Content & Policy Pages]
+├── /pages                              -> [Content & Policy Pages] (Schema: WebPage + FAQPage)
 │   ├── /size-guide                     -> Panduan ukuran kaki Malaysia (CM, EU, UK, US)
 │   ├── /warranty-returns               -> Kebijakan Jaminan Tukar Saiz 7 Hari & Garansi Jam 1 Tahun
 │   ├── /shipping-faq                   -> Rincian kurir J&T/Pos Laju, SLA Semenanjung & Sabah/Sarawak
-│   └── /about                          -> Cerita brand ELFY & standar pengerjaan
+│   ├── /about                          -> Cerita brand ELFY & standar pengerjaan
+│   └── /contact                        -> Layanan pelanggan & concierge WhatsApp
+│
+├── /policies                           -> [Shopify Legal Policies] (Crawlable for GMC)
+│   ├── /privacy-policy                 -> Kebijakan Privasi Rasmi
+│   ├── /shipping-policy                -> Polisi Penghantaran
+│   ├── /terms-of-service               -> Terma Perkhidmatan
+│   └── /refund-policy                  -> Polisi Pulangan & Bayaran Balik
+│
+├── /blogs                              -> [ELFY Journal] Panduan gaya & artikel horologi/sepatu
+│   └── /:blogHandle/:articleHandle     -> [Article Detail] (Schema: BlogPosting)
+│
+├── /account                            -> [Customer Portal] (noindex, nofollow)
+│   ├── /orders                         -> Riwayat pesanan
+│   └── /profile                        -> Profil pelanggan
+│
+├── /robots.txt                         -> [Dynamic Robots.txt] GMC policy crawl allowed, cart/account/search protected
+├── /sitemap.xml                        -> [Sitemap Index] Root sitemap
+├── /sitemap/:type/:page.xml            -> [Sub-Sitemaps] Canonical-only URLs murni Malaysia (locales: [])
 │
 └── /api                                -> [Internal Resource Endpoints]
-    ├── /predictive-search              -> Pencarian produk instan
-    └── /tracking-event                 -> (Opsional) Endpoint relay server CAPI jika dibutuhkan
+    ├── /meta-events                    -> Server-side Meta CAPI edge proxy
+    └── /predictive-search              -> Pencarian produk instan
 ```
 
 ---

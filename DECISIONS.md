@@ -53,3 +53,29 @@
 - **Decision**: Lock storefront currency to `MYR` formatted as `RM XXX.XX`. Disable automated geo-currency converters.
 - **Consequences**:
   - Simplifies checkout calculations, eliminates currency exchange surprises, and reinforces local presence.
+
+---
+
+## ADR-006: Minimalist Precision Text-Only Payment Rails
+- **Status**: Accepted
+- **Context**: Inconsistent, blurry third-party PNG/SVG logos (FPX, VISA, Mastercard, GrabPay, TNG) introduce visual noise, layout asymmetry, and contrast issues across dark and light themes, degrading the premium aesthetic.
+- **Decision**: Replace external logo images with clean, unified, text-only micro-pill badges (`FPX`, `TNG eWallet`, `GrabPay`, `VISA / MC`) rendered with high-contrast typography, subtle neutral borders, and micro letter-spacing in `TrustPaymentBadges.tsx`.
+- **Consequences**:
+  - Zero external image assets loaded for payment icons (0 kB network overhead).
+  - Pristine visual hierarchy that matches luxury fashion house aesthetics while clearly communicating Malaysian payment methods.
+
+---
+
+## ADR-007: Single-Market Technical SEO, Sub-Sitemap Isolation, and Schema.org Architecture
+- **Status**: Accepted
+- **Context**: Hydrogen's default boilerplate includes multi-market hreflang alternates (`EN-US`, `EN-CA`, `FR-CA`) which generate non-existent URLs and errors in Google Search Console for a single-market store. Additionally, Google Merchant Center (GMC) requires policy pages to be crawlable, and rich search snippets require structured JSON-LD.
+- **Decision**:
+  - Purge boilerplate foreign locales (`locales: []`) in `sitemap.$type.$page[.xml].tsx` and output pure canonical Malaysian URLs.
+  - Remove `Disallow: /policies/` from `robots.txt` to allow full GMC and Google Ads compliance crawling while maintaining disallow rules on `/cart`, `/account`, and `/search`.
+  - Implement comprehensive Google Schema.org JSON-LD across the entire storefront: `Organization`, `WebSite` (with Sitelinks Searchbox), `Product` (with `Offer` and `AggregateRating`), `CollectionPage` + `ItemList`, `FAQPage` (accordion rich snippets), `BlogPosting`, and `BreadcrumbList`.
+  - Standardize 1200x630 OpenGraph and Twitter cards with high-fidelity fallbacks.
+- **Consequences**:
+  - Zero crawl waste or duplicate content penalties in Google Search Console.
+  - Maximum SERP rich result real estate (stars, pricing, stock, FAQs, breadcrumbs).
+  - Seamless GMC product feed and return policy validation.
+

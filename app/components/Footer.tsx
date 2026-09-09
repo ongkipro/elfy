@@ -87,8 +87,8 @@ export function Footer({
             <p className="text-xs text-stone-400 leading-relaxed">
               Kasut kasual sartorial dan jam tangan berkelas untuk gaya hidup urban Malaysia. Gabungan keselesaan berpanjangan dan kualiti material premium.
             </p>
-            <div className="pt-2 text-[11px] text-stone-500">
-              <span className="inline-block border border-stone-800 rounded px-2 py-1 bg-stone-900/60">
+            <div className="pt-2 text-[11px] text-stone-300">
+              <span className="inline-block border border-stone-700 rounded px-2 py-1 bg-stone-900/90 text-stone-300">
                 Perniagaan Berdaftar SSM
               </span>
             </div>
@@ -223,7 +223,7 @@ export function Footer({
               </div>
               <button
                 type="button"
-                className="bg-[#B48344] hover:bg-white hover:text-[#191817] text-white text-xs font-medium px-4 py-2 rounded-lg transition-all duration-200 active:scale-95 inline-flex items-center justify-center select-none cursor-pointer"
+                className="bg-white hover:bg-stone-200 text-[#191817] text-xs font-semibold px-4 py-2 rounded-lg transition-all duration-200 active:scale-95 inline-flex items-center justify-center select-none cursor-pointer"
               >
                 Langgan
               </button>
@@ -232,8 +232,8 @@ export function Footer({
         </div>
 
         {/* Bottom Payment & Copyright */}
-        <div className="pt-8 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
-          <div>
+        <div className="pt-8 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-400">
+          <div className="text-stone-400">
             © {new Date().getFullYear()} ELFY (elfy.my). Hak Cipta Terpelihara.
           </div>
           <div className="flex items-center gap-2 text-[11px]">

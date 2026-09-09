@@ -109,17 +109,19 @@ export function ProductItem({
               }`}
             />
 
-            {/* Secondary Image (Smooth opacity crossfade on card hover) */}
+            {/* Secondary Image (Desktop hover only - hidden on mobile to eliminate ~200KB of wasted payload) */}
             {secondaryImage && (
-              <Image
-                alt={secondaryImage.altText || `${displayTitle} - Alternate Angle`}
-                aspectRatio="1/1"
-                data={secondaryImage}
-                loading="lazy"
-                decoding="async"
-                sizes="(min-width: 1280px) 280px, (min-width: 768px) 33vw, 45vw"
-                className="absolute inset-0 w-full h-full object-cover object-center brightness-[1.01] contrast-[1.01] opacity-0 group-hover:opacity-100 scale-100 group-hover:scale-[1.03] transition-all duration-700 ease-out pointer-events-none"
-              />
+              <div className="hidden md:block absolute inset-0 pointer-events-none">
+                <Image
+                  alt={secondaryImage.altText || `${displayTitle} - Alternate Angle`}
+                  aspectRatio="1/1"
+                  data={secondaryImage}
+                  loading="lazy"
+                  decoding="async"
+                  sizes="(min-width: 1280px) 280px, 33vw"
+                  className="w-full h-full object-cover object-center brightness-[1.01] contrast-[1.01] opacity-0 group-hover:opacity-100 scale-100 group-hover:scale-[1.03] transition-all duration-700 ease-out"
+                />
+              </div>
             )}
           </>
         ) : (

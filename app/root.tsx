@@ -14,7 +14,6 @@ import {
 import type {Route} from './+types/root';
 import favicon from '~/assets/favicon.svg';
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
-import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 import {PageLayout} from './components/PageLayout';
 import {MetaPixel} from '~/components/analytics/MetaPixel';
@@ -45,7 +44,7 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
 };
 
 /**
- * The main and reset stylesheets are added in the Layout component
+ * The main stylesheet is added in the Layout component
  * to prevent a bug in development HMR updates.
  *
  * This avoids the "failed to execute 'insertBefore' on 'Node'" error
@@ -68,10 +67,6 @@ export function links() {
       rel: 'preconnect',
       href: 'https://fonts.gstatic.com',
       crossOrigin: 'anonymous' as const,
-    },
-    {
-      rel: 'stylesheet',
-      href: 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@400..700&display=swap',
     },
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
@@ -97,7 +92,10 @@ export async function loader(args: Route.LoaderArgs) {
       publicStorefrontId: env.PUBLIC_STOREFRONT_ID,
     }),
     consent: {
-      checkoutDomain: env.PUBLIC_CHECKOUT_DOMAIN,
+      checkoutDomain:
+        env.PUBLIC_CHECKOUT_DOMAIN ||
+        env.PUBLIC_STORE_DOMAIN ||
+        'checkout.elfy.my',
       storefrontAccessToken: env.PUBLIC_STOREFRONT_API_TOKEN,
       withPrivacyBanner: false,
       // localize the privacy banner
@@ -199,8 +197,25 @@ export function Layout({children}: {children?: React.ReactNode}) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <link rel="stylesheet" href={resetStyles}></link>
         <link rel="stylesheet" href={appStyles}></link>
+        <link
+          rel="preload"
+          as="style"
+          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@400..700&display=swap"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@400..700&display=swap"
+          media="print"
+          // @ts-expect-error non-blocking font swap for lighthouse
+          onLoad="this.media='all'"
+        />
+        <noscript>
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@400..700&display=swap"
+          />
+        </noscript>
         <Meta />
         <Links />
         <script

@@ -88,6 +88,7 @@ export async function loader(args: Route.LoaderArgs) {
   let page: PageData | null = null;
   try {
     const res = await context.storefront.query(PAGE_QUERY, {
+      cache: context.storefront.CacheLong(),
       variables: {handle},
     });
     if (res.page && res.page.body && res.page.body.trim().length > 0) {

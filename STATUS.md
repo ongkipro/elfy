@@ -18,6 +18,7 @@
 | **Phase 4** | Marketing Signal Engine & Attribution Bridge | **DONE** | Meta Pixel (`1251216460002426`) + GTM injected with CSP nonces; deterministic `event_id` deduplication; Cross-domain Cart Attributes (`_attribution_fbp`, `_fbc`, `_ga`, `_gclid`); Edge Meta CAPI Proxy (`/api/meta-events`). |
 | **Phase 5** | Testing, Performance Audit & Launch Readiness | **DONE** | `npm run typecheck` passed (0 errors); `npm run build` passed (0 errors); MiniOxygen preview verified via HTTP 200 on all primary routes. |
 | **Phase 6** | Merchandising, CRO, Catalog & Technical SEO Audit | **DONE** | 3:2 banners; minimalist text payment badges; 4 randomized related products grid; GMC-compliant `robots.txt`; cleaned sub-sitemaps (no foreign hreflang); complete OpenGraph 1200x630; Schema.org JSON-LD; **51/51 live product descriptions audited & revamped** (eliminated redundant shipping/warranty copy, structured into 3-pillar format with CM insole & horology dimensions). Deployed live to `https://elfy.my/`. |
+| **Phase 7** | Google PageSpeed, Core Web Vitals & Accessibility Audit | **DONE** | Non-blocking CSS & Google Fonts swap; ~370KB hero slide deferral; hidden mobile secondary hover image; edge subrequest CacheShort/CacheLong; 48px touch targets; WCAG AA contrast; 0 console errors (getProductOptions + checkoutDomain fixed). Deployed live to Shopify Oxygen. |
 
 ---
 

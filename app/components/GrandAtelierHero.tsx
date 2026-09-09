@@ -121,10 +121,15 @@ const SLIDE_DURATION = 5500; // 5.5s continuous auto-slider
 export function GrandAtelierHero({}: GrandAtelierHeroProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
 
   const totalSlides = HERO_SLIDES.length;
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % totalSlides);
@@ -193,6 +198,11 @@ export function GrandAtelierHero({}: GrandAtelierHeroProps) {
         {HERO_SLIDES.map((slide, index) => {
           const isActive = index === currentSlide;
           const isLcp = index === 0;
+          // Defer non-critical slides on initial SSR/HTML to eliminate bandwidth contention for LCP.
+          // On client, mount active slide and adjacent next slide to buffer smoothly.
+          const shouldRenderImage =
+            isLcp ||
+            (isMounted && (isActive || index === (currentSlide + 1) % totalSlides));
 
           return (
             <div
@@ -201,26 +211,36 @@ export function GrandAtelierHero({}: GrandAtelierHeroProps) {
                 isActive ? 'opacity-100 z-0' : 'opacity-0 -z-10'
               }`}
             >
-              <picture>
-                {slide.mobileImage !== slide.desktopImage && (
+              {shouldRenderImage && (
+                <picture>
+                  {slide.mobileImage !== slide.desktopImage && (
+                    <source
+                      media="(max-width: 767px)"
+                      srcSet={slide.mobileImage}
+                      type="image/webp"
+                      width={896}
+                      height={1200}
+                    />
+                  )}
                   <source
-                    media="(max-width: 767px)"
-                    srcSet={slide.mobileImage}
+                    media="(min-width: 768px)"
+                    srcSet={slide.desktopImage}
                     type="image/webp"
+                    width={1376}
+                    height={768}
                   />
-                )}
-                <source srcSet={slide.desktopImage} type="image/webp" />
-                <img
-                  src={slide.desktopImage}
-                  alt={slide.alt}
-                  className="w-full h-full object-cover object-[75%_center] md:object-right-center opacity-95 transition-transform duration-1000 ease-out"
-                  loading={isLcp ? 'eager' : 'lazy'}
-                  fetchPriority={isLcp ? 'high' : 'low'}
-                  decoding={isLcp ? 'sync' : 'async'}
-                  width={1376}
-                  height={768}
-                />
-              </picture>
+                  <img
+                    src={slide.desktopImage}
+                    alt={slide.alt}
+                    className="w-full h-full object-cover object-[75%_center] md:object-right-center opacity-95 transition-transform duration-1000 ease-out"
+                    loading={isLcp ? 'eager' : 'lazy'}
+                    fetchPriority={isLcp ? 'high' : 'low'}
+                    decoding={isLcp ? 'sync' : 'async'}
+                    width={1376}
+                    height={768}
+                  />
+                </picture>
+              )}
             </div>
           );
         })}

@@ -74,7 +74,9 @@ export async function loader(args: Route.LoaderArgs) {
 
 async function loadCriticalData({context}: Route.LoaderArgs) {
   const [{products}] = await Promise.all([
-    context.storefront.query(HOMEPAGE_BEST_SELLERS_QUERY),
+    context.storefront.query(HOMEPAGE_BEST_SELLERS_QUERY, {
+      cache: context.storefront.CacheShort(),
+    }),
   ]);
 
   return {
@@ -84,7 +86,9 @@ async function loadCriticalData({context}: Route.LoaderArgs) {
 
 function loadDeferredData({context}: Route.LoaderArgs) {
   const featuredWatches = context.storefront
-    .query(HOMEPAGE_WATCHES_QUERY)
+    .query(HOMEPAGE_WATCHES_QUERY, {
+      cache: context.storefront.CacheShort(),
+    })
     .then((res) => res.products.nodes)
     .catch((error: Error) => {
       console.error(error);

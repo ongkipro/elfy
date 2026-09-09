@@ -58,6 +58,17 @@ export const meta: Route.MetaFunction = ({data}) => {
     {name: 'description', content: description},
     {name: 'robots', content: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'},
     {tagName: 'link', rel: 'canonical', href: canonicalUrl},
+    ...(imageUrl
+      ? [
+          {
+            tagName: 'link',
+            rel: 'preload',
+            as: 'image',
+            href: imageUrl,
+            fetchpriority: 'high',
+          },
+        ]
+      : []),
     {property: 'og:site_name', content: 'ELFY'},
     {property: 'og:locale', content: 'ms_MY'},
     {property: 'og:type', content: 'product'},
@@ -96,6 +107,7 @@ async function loadCriticalData({context, params, request}: Route.LoaderArgs) {
 
   const [{product}] = await Promise.all([
     storefront.query(PRODUCT_QUERY, {
+      cache: storefront.CacheShort(),
       variables: {handle, selectedOptions: getSelectedProductOptions(request)},
     }),
   ]);
@@ -556,7 +568,7 @@ export default function Product() {
                         type="button"
                         onClick={() => scrollToMobileImage(idx)}
                         aria-label={`Lihat foto ${idx + 1} daripada ${images.length}`}
-                        className="h-7 px-1 flex items-center justify-center cursor-pointer"
+                        className="min-w-[48px] min-h-[48px] -mx-1.5 -my-2 flex items-center justify-center cursor-pointer"
                       >
                         <span
                           className={`h-1.5 rounded-full transition-all duration-300 ${
@@ -606,12 +618,14 @@ export default function Product() {
               {/* Product Header */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs uppercase tracking-[0.25em] font-bold text-[#B48344]">
+                  <span className="text-xs uppercase tracking-[0.25em] font-bold text-[#8C6527]">
                     ELFY Kuala Lumpur
                   </span>
-                  <div className="flex items-center gap-1 text-amber-500 text-xs font-semibold shrink-0">
-                    <Star className="w-3.5 h-3.5 fill-amber-400 stroke-amber-400" />
-                    <span>4.9 <span className="hidden sm:inline">(128 Ulasan Malaysia)</span><span className="sm:hidden">(128)</span></span>
+                  <div className="flex items-center gap-1.5 text-xs shrink-0">
+                    <Star className="w-3.5 h-3.5 fill-amber-500 stroke-amber-500 text-amber-500" />
+                    <span className="font-semibold text-[#191817]">4.9</span>
+                    <span className="text-stone-600 hidden sm:inline">(128 Ulasan Malaysia)</span>
+                    <span className="text-stone-600 sm:hidden">(128)</span>
                   </div>
                 </div>
 
@@ -625,7 +639,7 @@ export default function Product() {
                     {currencyCode} {price.toFixed(2)}
                   </span>
                   {hasDiscount && (
-                    <span className="text-base text-stone-400 line-through">
+                    <span className="text-base text-stone-500 line-through">
                       {currencyCode} {compareAt.toFixed(2)}
                     </span>
                   )}
@@ -649,7 +663,8 @@ export default function Product() {
                 />
               </div>
 
-              {/* Product Accordion (Shipping, Specs, Warranty) */}
+              {/* Product Details & Specifications (Accessible Section Heading for Screen Readers & SEO) */}
+              <h2 className="sr-only">Maklumat, Spesifikasi &amp; Jaminan Produk</h2>
               <ProductAccordion
                 productType={product.productType || 'Footwear'}
                 descriptionHtml={product.descriptionHtml}
@@ -856,6 +871,8 @@ const PRODUCT_FRAGMENT = `#graphql
         }
       }
     }
+    encodedVariantAvailability
+    encodedVariantExistence
     selectedOrFirstAvailableVariant(selectedOptions: $selectedOptions, ignoreUnknownOptions: true, caseInsensitiveMatch: true) {
       ...ProductVariant
     }

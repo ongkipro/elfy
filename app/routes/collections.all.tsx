@@ -62,6 +62,7 @@ async function loadCriticalData({context, request}: Route.LoaderArgs) {
 
   const [{products}] = await Promise.all([
     storefront.query(CATALOG_QUERY, {
+      cache: storefront.CacheShort(),
       variables: {...paginationVariables},
     }),
   ]);
@@ -181,7 +182,7 @@ export default function CollectionAll() {
             <ProductItem
               key={product.id}
               product={product}
-              loading={index < 8 ? 'eager' : undefined}
+              loading={index < 2 ? 'eager' : 'lazy'}
             />
           )}
         </PaginatedResourceSection>

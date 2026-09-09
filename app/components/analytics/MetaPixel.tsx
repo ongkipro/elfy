@@ -37,7 +37,11 @@ export function MetaPixel({pixelId = '1251216460002426', nonce}: MetaPixelProps)
         fbq('init', pixelId);
       }
 
+      let injected = false;
       const injectScript = () => {
+        if (injected) return;
+        injected = true;
+        cleanup();
         const script = document.createElement('script');
         script.async = true;
         script.src = 'https://connect.facebook.net/en_US/fbevents.js';
@@ -46,11 +50,21 @@ export function MetaPixel({pixelId = '1251216460002426', nonce}: MetaPixelProps)
         firstScript?.parentNode?.insertBefore(script, firstScript);
       };
 
-      if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
-        (window as any).requestIdleCallback(injectScript, {timeout: 2000});
-      } else {
-        setTimeout(injectScript, 1000);
-      }
+      const interactionEvents = ['scroll', 'touchstart', 'pointerdown', 'mousemove', 'keydown'];
+      const onUserInteraction = () => {
+        injectScript();
+      };
+      const cleanup = () => {
+        interactionEvents.forEach((event) => {
+          window.removeEventListener(event, onUserInteraction);
+        });
+      };
+
+      interactionEvents.forEach((event) => {
+        window.addEventListener(event, onUserInteraction, {once: true, passive: true});
+      });
+
+      const timer = setTimeout(injectScript, 4500);
     }
 
     // Track PageView on route transitions

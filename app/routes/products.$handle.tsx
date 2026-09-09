@@ -535,6 +535,7 @@ export default function Product() {
                   >
                     <Image
                       data={img}
+                      alt={img.altText || `${displayTitle} - Foto ${idx + 1}`}
                       aspectRatio="1/1"
                       className="w-full h-full object-cover object-center brightness-[1.03] contrast-[1.02]"
                       sizes="(max-width: 480px) 88vw, 420px"
@@ -595,6 +596,7 @@ export default function Product() {
                 >
                   <Image
                     data={img}
+                    alt={img.altText || `${displayTitle} - Foto ${idx + 1}`}
                     aspectRatio="1/1"
                     className="w-full h-full object-cover object-center hover:scale-[1.025] transition-transform duration-700 ease-out brightness-[1.01] contrast-[1.01]"
                     sizes="(min-width: 1024px) 28vw, 50vw"

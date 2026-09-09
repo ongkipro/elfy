@@ -29,6 +29,51 @@ Disallow: /search
 Allow: /search/
 Disallow: /search/?*
 
+# AI Search, Retrieval & Shopping Recommendation Crawlers (Enable AI Discovery)
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: OAI-SearchBot
+User-agent: ClaudeBot
+User-agent: Claude-Web
+User-agent: anthropic-ai
+User-agent: PerplexityBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: Meta-ExternalAgent
+User-agent: FacebookBot
+User-agent: cohere-ai
+Allow: /
+Allow: /llms.txt
+Allow: /collections/
+Allow: /products/
+Allow: /blogs/
+Allow: /pages/
+Disallow: /cart
+Disallow: /account
+Disallow: /checkouts/
+Disallow: /checkout
+Disallow: /orders
+Disallow: /search
+Disallow: /search/?*
+Disallow: /*sort_by*
+Disallow: /*filter*
+
+# Aggressive Scrapers / Rate Limiting Crawlers
+User-agent: Bytespider
+Crawl-delay: 10
+Disallow: /cart
+Disallow: /account
+Disallow: /search
+
+User-agent: CCBot
+Crawl-delay: 10
+Disallow: /cart
+Disallow: /account
+Disallow: /search
+
+User-agent: Amazonbot
+Crawl-delay: 5
+
 User-agent: Nutch
 Disallow: /
 
@@ -53,7 +98,8 @@ Crawl-delay: 1
  * Online Store has as defaults for their robots.txt
  */
 function generalDisallowRules({sitemapUrl}: {sitemapUrl?: string}) {
-  return `Disallow: /cart
+  return `Allow: /llms.txt
+Disallow: /cart
 Disallow: /account
 Disallow: /collections/*sort_by*
 Disallow: /*/collections/*sort_by*

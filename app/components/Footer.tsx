@@ -36,7 +36,7 @@ export function Footer({
               <Truck className="w-5 h-5 text-[#B48344]" />
             </div>
             <div>
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-white">Pantas 1-3 Hari</h4>
+              <p className="text-xs font-semibold uppercase tracking-wider text-white">Pantas 1-3 Hari</p>
               <p className="text-[11px] text-stone-400 mt-0.5">Semenanjung (Pos Laju & J&T)</p>
             </div>
           </div>
@@ -46,7 +46,7 @@ export function Footer({
               <RefreshCw className="w-5 h-5 text-[#B48344]" />
             </div>
             <div>
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-white">7-Day Free Exchange</h4>
+              <p className="text-xs font-semibold uppercase tracking-wider text-white">7-Day Free Exchange</p>
               <p className="text-[11px] text-stone-400 mt-0.5">Jaminan tukar saiz ke pintu rumah</p>
             </div>
           </div>
@@ -56,7 +56,7 @@ export function Footer({
               <ShieldCheck className="w-5 h-5 text-[#B48344]" />
             </div>
             <div>
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-white">100% Original</h4>
+              <p className="text-xs font-semibold uppercase tracking-wider text-white">100% Original</p>
               <p className="text-[11px] text-stone-400 mt-0.5">Kulit asli & 1 tahun waranti enjin</p>
             </div>
           </div>
@@ -66,7 +66,7 @@ export function Footer({
               <MessageSquare className="w-5 h-5 text-[#25D366]" />
             </div>
             <div>
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-white">Bantuan WhatsApp</h4>
+              <p className="text-xs font-semibold uppercase tracking-wider text-white">Bantuan WhatsApp</p>
               <p className="text-[11px] text-stone-400 mt-0.5">Khidmat pelanggan mesra & responsif</p>
             </div>
           </div>
@@ -96,9 +96,9 @@ export function Footer({
 
           {/* Nav Col 1: Koleksi Produk */}
           <div className="space-y-3">
-            <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-white">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-white">
               Koleksi Produk
-            </h4>
+            </h3>
             <ul className="space-y-2.5 text-xs text-stone-400">
               <li>
                 <Link
@@ -159,9 +159,9 @@ export function Footer({
 
           {/* Nav Col 2: Bantuan & Jaminan */}
           <div className="space-y-3">
-            <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-white">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-white">
               Bantuan &amp; Jaminan
-            </h4>
+            </h3>
             <ul className="space-y-2.5 text-xs text-stone-400">
               <li>
                 <Link
@@ -206,9 +206,9 @@ export function Footer({
 
           {/* Newsletter / Reassurance Col */}
           <div className="space-y-3">
-            <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-white">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-white">
               Kelebihan ELFY
-            </h4>
+            </h3>
             <p className="text-xs text-stone-400 leading-relaxed">
               Dapatkan diskaun RM 20 untuk pembelian pertama dan jemputan awal koleksi drop baharu.
             </p>

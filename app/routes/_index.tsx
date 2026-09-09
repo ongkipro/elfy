@@ -25,14 +25,18 @@ export const links: Route.LinksFunction = () => {
       href: '/hero-desktop.webp',
       media: '(min-width: 768px)',
       type: 'image/webp',
-    },
+      fetchPriority: 'high',
+      fetchpriority: 'high',
+    } as any,
     {
       rel: 'preload',
       as: 'image',
       href: '/hero-mobile.webp',
       media: '(max-width: 767px)',
       type: 'image/webp',
-    },
+      fetchPriority: 'high',
+      fetchpriority: 'high',
+    } as any,
   ];
 };
 
@@ -165,7 +169,7 @@ export default function Homepage() {
       {/* 2. DUAL CATEGORY SPOTLIGHT (Footwear & Horology) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
-          <span className="text-xs uppercase tracking-[0.2em] font-semibold text-[#B48344] block mb-2">
+          <span className="text-xs uppercase tracking-[0.2em] font-semibold text-[#8C5E24] block mb-2">
             Kategori Utama
           </span>
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#191817]">
@@ -187,8 +191,8 @@ export default function Homepage() {
                 className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-[0.9] group-hover:brightness-[0.95]"
                 loading="lazy"
                 decoding="async"
-                width={1264}
-                height={848}
+                width={848}
+                height={568}
               />
             </picture>
             {/* Subtle Gradient Overlay for High Contrast Text */}
@@ -226,8 +230,8 @@ export default function Homepage() {
                 className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-[0.9] group-hover:brightness-[0.95]"
                 loading="lazy"
                 decoding="async"
-                width={1264}
-                height={848}
+                width={848}
+                height={568}
               />
             </picture>
             {/* Subtle Gradient Overlay for High Contrast Text */}
@@ -259,7 +263,7 @@ export default function Homepage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10">
             <div>
-              <span className="text-xs uppercase tracking-[0.2em] font-semibold text-[#B48344] block mb-2">
+              <span className="text-xs uppercase tracking-[0.2em] font-semibold text-[#8C5E24] block mb-2">
                 Paling Diminati
               </span>
               <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#191817]">
@@ -268,7 +272,7 @@ export default function Homepage() {
             </div>
             <Link
               to="/collections/all"
-              className="group mt-3 sm:mt-0 text-xs font-semibold text-[#191817] hover:text-[#B48344] inline-flex items-center gap-1.5 transition-colors duration-200"
+              className="group mt-3 sm:mt-0 text-xs font-semibold text-[#191817] hover:text-[#8C5E24] inline-flex items-center gap-1.5 transition-colors duration-200"
             >
               <span>Lihat Semua Koleksi ({data.bestSellers.length}+)</span>
               <ArrowRight className="w-3.5 h-3.5 shrink-0 group-hover:translate-x-1 transition-transform duration-200" />
@@ -292,7 +296,7 @@ export default function Homepage() {
       {/* 4. THE ELFY STANDARDS: FRAMELESS ARCHITECTURAL REASSURANCE */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-          <span className="text-xs uppercase tracking-[0.2em] font-semibold text-[#B48344] block mb-2">
+          <span className="text-xs uppercase tracking-[0.2em] font-semibold text-[#8C5E24] block mb-2">
             The ELFY Standards
           </span>
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#191817]">
@@ -379,7 +383,7 @@ export default function Homepage() {
               </p>
               <div className="pt-2 flex items-center justify-between text-[11px]">
                 <strong className="text-[#191817] font-medium">Hafiz Zulkifli</strong>
-                <span className="text-stone-400">Bangsar, KL</span>
+                <span className="text-stone-600 font-medium">Bangsar, KL</span>
               </div>
             </div>
 
@@ -396,7 +400,7 @@ export default function Homepage() {
               </p>
               <div className="pt-2 flex items-center justify-between text-[11px]">
                 <strong className="text-[#191817] font-medium">Khairul Anuar</strong>
-                <span className="text-stone-400">Georgetown, Penang</span>
+                <span className="text-stone-600 font-medium">Georgetown, Penang</span>
               </div>
             </div>
 
@@ -413,7 +417,7 @@ export default function Homepage() {
               </p>
               <div className="pt-2 flex items-center justify-between text-[11px]">
                 <strong className="text-[#191817] font-medium">Raymond Tan</strong>
-                <span className="text-stone-400">Johor Bahru</span>
+                <span className="text-stone-600 font-medium">Johor Bahru</span>
               </div>
             </div>
           </div>

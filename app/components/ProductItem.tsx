@@ -101,7 +101,13 @@ export function ProductItem({
               data={primaryImage}
               loading={loading}
               decoding="async"
-              sizes="(min-width: 1280px) 280px, (min-width: 768px) 33vw, 45vw"
+              sizes="(min-width: 1280px) 280px, (min-width: 1024px) 25vw, (min-width: 768px) 33vw, calc(50vw - 24px)"
+              srcSetOptions={{
+                startingWidth: 180,
+                incrementSize: 100,
+                intervals: 7,
+                placeholderWidth: 100,
+              }}
               className={`w-full h-full object-cover object-center brightness-[1.01] contrast-[1.01] transition-all duration-700 ease-out ${
                 secondaryImage
                   ? 'group-hover:opacity-0 group-hover:scale-[1.03]'
@@ -118,7 +124,13 @@ export function ProductItem({
                   data={secondaryImage}
                   loading="lazy"
                   decoding="async"
-                  sizes="(min-width: 1280px) 280px, 33vw"
+                  sizes="(min-width: 1280px) 280px, (min-width: 1024px) 25vw, 33vw"
+                  srcSetOptions={{
+                    startingWidth: 280,
+                    incrementSize: 100,
+                    intervals: 5,
+                    placeholderWidth: 100,
+                  }}
                   className="w-full h-full object-cover object-center brightness-[1.01] contrast-[1.01] opacity-0 group-hover:opacity-100 scale-100 group-hover:scale-[1.03] transition-all duration-700 ease-out"
                 />
               </div>

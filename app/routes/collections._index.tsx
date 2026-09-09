@@ -95,7 +95,7 @@ export default function Collections() {
       {/* Editorial Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-1 pb-4 sm:pb-6">
         <div className="bg-gradient-to-b from-[#F4F0E8] via-[#FAF9F6] to-[#FAF9F6] rounded-2xl sm:rounded-3xl text-[#191817] py-10 sm:py-16 px-4 sm:px-6 lg:px-8 border border-[#EBE6DF] text-center">
-          <span className="text-xs uppercase tracking-[0.25em] font-semibold text-[#B48344] block mb-2 sm:mb-2.5">
+          <span className="text-xs uppercase tracking-[0.25em] font-semibold text-[#8C5E24] block mb-2 sm:mb-2.5">
             Koleksi Rasmi ELFY • Kuala Lumpur
           </span>
           <h1 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#191817]">

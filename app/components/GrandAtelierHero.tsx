@@ -218,8 +218,8 @@ export function GrandAtelierHero({}: GrandAtelierHeroProps) {
                       media="(max-width: 767px)"
                       srcSet={slide.mobileImage}
                       type="image/webp"
-                      width={896}
-                      height={1200}
+                      width={720}
+                      height={964}
                     />
                   )}
                   <source

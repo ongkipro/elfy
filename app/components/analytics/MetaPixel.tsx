@@ -30,18 +30,26 @@ export function MetaPixel({pixelId = '1251216460002426', nonce}: MetaPixelProps)
       window.fbq = fbq;
       window._fbq = fbq;
 
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = 'https://connect.facebook.net/en_US/fbevents.js';
-      if (nonce) script.nonce = nonce;
-      const firstScript = document.getElementsByTagName('script')[0];
-      firstScript?.parentNode?.insertBefore(script, firstScript);
-
       const vid = getOrCreateVisitorId();
       if (vid) {
         fbq('init', pixelId, {external_id: vid});
       } else {
         fbq('init', pixelId);
+      }
+
+      const injectScript = () => {
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://connect.facebook.net/en_US/fbevents.js';
+        if (nonce) script.nonce = nonce;
+        const firstScript = document.getElementsByTagName('script')[0];
+        firstScript?.parentNode?.insertBefore(script, firstScript);
+      };
+
+      if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(injectScript, {timeout: 2000});
+      } else {
+        setTimeout(injectScript, 1000);
       }
     }
 

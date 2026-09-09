@@ -73,20 +73,6 @@ export function links() {
       rel: 'stylesheet',
       href: 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@400..700&display=swap',
     },
-    {
-      rel: 'preload',
-      href: '/hero-mobile.webp',
-      as: 'image',
-      type: 'image/webp',
-      media: '(max-width: 767px)',
-    },
-    {
-      rel: 'preload',
-      href: '/hero-desktop.webp',
-      as: 'image',
-      type: 'image/webp',
-      media: '(min-width: 768px)',
-    },
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
 }

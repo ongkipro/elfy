@@ -525,7 +525,7 @@ export default function Product() {
                       data={img}
                       aspectRatio="1/1"
                       className="w-full h-full object-cover object-center brightness-[1.03] contrast-[1.02]"
-                      sizes="88vw"
+                      sizes="(max-width: 480px) 88vw, 420px"
                       loading={idx === 0 ? 'eager' : 'lazy'}
                       fetchPriority={idx === 0 ? 'high' : 'auto'}
                       decoding={idx === 0 ? 'sync' : 'async'}
@@ -586,9 +586,9 @@ export default function Product() {
                     aspectRatio="1/1"
                     className="w-full h-full object-cover object-center hover:scale-[1.025] transition-transform duration-700 ease-out brightness-[1.01] contrast-[1.01]"
                     sizes="(min-width: 1024px) 28vw, 50vw"
-                    loading={idx <= 1 ? 'eager' : 'lazy'}
-                    fetchPriority={idx <= 1 ? 'high' : 'auto'}
-                    decoding={idx <= 1 ? 'sync' : 'async'}
+                    loading="lazy"
+                    fetchPriority="auto"
+                    decoding="async"
                   />
                   {hasDiscount && idx === 0 && (
                     <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-stone-700 text-[10px] font-semibold px-2.5 py-1 rounded-xs uppercase tracking-[0.16em] shadow-2xs pointer-events-none">

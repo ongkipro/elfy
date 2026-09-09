@@ -5,9 +5,9 @@ interface GoogleTagManagerProps {
   nonce?: string;
 }
 
-export function GoogleTagManager({gtmId = 'GTM-ELFYMY', nonce}: GoogleTagManagerProps) {
+export function GoogleTagManager({gtmId, nonce}: GoogleTagManagerProps) {
   useEffect(() => {
-    if (typeof window === 'undefined' || !gtmId) return;
+    if (typeof window === 'undefined' || !gtmId || gtmId === 'GTM-ELFYMY') return;
 
     window.dataLayer = window.dataLayer || [];
 

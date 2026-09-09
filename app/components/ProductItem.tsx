@@ -47,7 +47,7 @@ function getEditorialMeta(handle: string, productType?: string | null): {
 
 export function ProductItem({
   product,
-  loading,
+  loading = 'lazy',
 }: {
   product:
     | CollectionItemFragment
@@ -100,7 +100,8 @@ export function ProductItem({
               aspectRatio="1/1"
               data={primaryImage}
               loading={loading}
-              sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 50vw"
+              decoding="async"
+              sizes="(min-width: 1280px) 280px, (min-width: 768px) 33vw, 45vw"
               className={`w-full h-full object-cover object-center brightness-[1.01] contrast-[1.01] transition-all duration-700 ease-out ${
                 secondaryImage
                   ? 'group-hover:opacity-0 group-hover:scale-[1.03]'
@@ -115,7 +116,8 @@ export function ProductItem({
                 aspectRatio="1/1"
                 data={secondaryImage}
                 loading="lazy"
-                sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 50vw"
+                decoding="async"
+                sizes="(min-width: 1280px) 280px, (min-width: 768px) 33vw, 45vw"
                 className="absolute inset-0 w-full h-full object-cover object-center brightness-[1.01] contrast-[1.01] opacity-0 group-hover:opacity-100 scale-100 group-hover:scale-[1.03] transition-all duration-700 ease-out pointer-events-none"
               />
             )}

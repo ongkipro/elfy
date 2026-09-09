@@ -11,6 +11,12 @@ import {
   Star,
   Sparkles,
 } from 'lucide-react';
+import heroDesktopWebp from '~/assets/hero-desktop.webp';
+import heroMobileWebp from '~/assets/hero-mobile.webp';
+import mensSneakersWebp from '~/assets/banners/mens-sneakers-3x2.webp';
+import mensWatchesWebp from '~/assets/banners/mens-watches-3x2.webp';
+import newArrivalsWebp from '~/assets/banners/new-arrivals-3x2.webp';
+import bestSellersWebp from '~/assets/banners/best-sellers-3x2.webp';
 
 interface GrandAtelierHeroProps {
   featuredShoe?: any;
@@ -46,8 +52,8 @@ const HERO_SLIDES: HeroSlide[] = [
     primaryCtaLink: '/collections/mens-sneakers',
     secondaryCtaText: 'Koleksi Jam Tangan',
     secondaryCtaLink: '/collections/mens-watches',
-    desktopImage: '/hero-desktop.webp',
-    mobileImage: '/hero-mobile.webp',
+    desktopImage: heroDesktopWebp,
+    mobileImage: heroMobileWebp,
     alt: 'ELFY Malaysia - Kasut Kasual & Jam Tangan Minimalist',
   },
   {
@@ -62,8 +68,8 @@ const HERO_SLIDES: HeroSlide[] = [
     primaryCtaLink: '/collections/mens-sneakers',
     secondaryCtaText: 'Panduan Saiz (CM)',
     secondaryCtaLink: '/pages/size-guide',
-    desktopImage: '/banners/mens-sneakers-3x2.webp',
-    mobileImage: '/banners/mens-sneakers-3x2.webp',
+    desktopImage: mensSneakersWebp,
+    mobileImage: mensSneakersWebp,
     alt: 'Koleksi Kasut Kasual Kulit ELFY',
   },
   {
@@ -78,8 +84,8 @@ const HERO_SLIDES: HeroSlide[] = [
     primaryCtaLink: '/collections/mens-watches',
     secondaryCtaText: 'Jam Tangan Wanita',
     secondaryCtaLink: '/collections/womens-watches',
-    desktopImage: '/banners/mens-watches-3x2.webp',
-    mobileImage: '/banners/mens-watches-3x2.webp',
+    desktopImage: mensWatchesWebp,
+    mobileImage: mensWatchesWebp,
     alt: 'Koleksi Jam Tangan Eksekutif ELFY',
   },
   {
@@ -94,8 +100,8 @@ const HERO_SLIDES: HeroSlide[] = [
     primaryCtaLink: '/collections/new-arrivals',
     secondaryCtaText: 'Semua Koleksi',
     secondaryCtaLink: '/collections/all',
-    desktopImage: '/banners/new-arrivals-3x2.webp',
-    mobileImage: '/banners/new-arrivals-3x2.webp',
+    desktopImage: newArrivalsWebp,
+    mobileImage: newArrivalsWebp,
     alt: 'Koleksi New Arrivals ELFY',
   },
   {
@@ -108,10 +114,10 @@ const HERO_SLIDES: HeroSlide[] = [
       'Model paling digemari pelanggan di seluruh Semenanjung Malaysia. Jaminan tukar saiz percuma pintu ke pintu tanpa kerumitan.',
     primaryCtaText: 'Terokai Best Sellers',
     primaryCtaLink: '/collections/best-sellers',
-    secondaryCtaText: 'Jaminan & Waranti',
-    secondaryCtaLink: '/pages/warranty-returns',
-    desktopImage: '/banners/best-sellers-3x2.webp',
-    mobileImage: '/banners/best-sellers-3x2.webp',
+    secondaryCtaText: 'Lihat Semua',
+    secondaryCtaLink: '/collections/all',
+    desktopImage: bestSellersWebp,
+    mobileImage: bestSellersWebp,
     alt: 'Koleksi Best Sellers ELFY',
   },
 ];
@@ -213,15 +219,6 @@ export function GrandAtelierHero({}: GrandAtelierHeroProps) {
             >
               {shouldRenderImage && (
                 <picture>
-                  {slide.mobileImage !== slide.desktopImage && (
-                    <source
-                      media="(max-width: 767px)"
-                      srcSet={slide.mobileImage}
-                      type="image/webp"
-                      width={720}
-                      height={964}
-                    />
-                  )}
                   <source
                     media="(min-width: 768px)"
                     srcSet={slide.desktopImage}
@@ -229,15 +226,22 @@ export function GrandAtelierHero({}: GrandAtelierHeroProps) {
                     width={1376}
                     height={768}
                   />
+                  <source
+                    media="(max-width: 767px)"
+                    srcSet={slide.mobileImage}
+                    type="image/webp"
+                    width={720}
+                    height={964}
+                  />
                   <img
-                    src={slide.desktopImage}
+                    src={slide.mobileImage}
                     alt={slide.alt}
-                    className="w-full h-full object-cover object-[75%_center] md:object-right-center opacity-95 transition-transform duration-1000 ease-out"
+                    className="w-full h-full object-cover object-[75%_center] md:object-right-center"
                     loading={isLcp ? 'eager' : 'lazy'}
                     fetchPriority={isLcp ? 'high' : 'low'}
-                    decoding={isLcp ? 'sync' : 'async'}
-                    width={1376}
-                    height={768}
+                    decoding="async"
+                    width={720}
+                    height={964}
                   />
                 </picture>
               )}

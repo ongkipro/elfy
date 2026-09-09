@@ -16,13 +16,17 @@ import {
   ChevronRight,
   CheckCircle2,
 } from 'lucide-react';
+import heroDesktopWebp from '~/assets/hero-desktop.webp';
+import heroMobileWebp from '~/assets/hero-mobile.webp';
+import mensSneakersWebp from '~/assets/banners/mens-sneakers-3x2.webp';
+import mensWatchesWebp from '~/assets/banners/mens-watches-3x2.webp';
 
 export const links: Route.LinksFunction = () => {
   return [
     {
       rel: 'preload',
       as: 'image',
-      href: '/hero-desktop.webp',
+      href: heroDesktopWebp,
       media: '(min-width: 768px)',
       type: 'image/webp',
       fetchPriority: 'high',
@@ -31,7 +35,7 @@ export const links: Route.LinksFunction = () => {
     {
       rel: 'preload',
       as: 'image',
-      href: '/hero-mobile.webp',
+      href: heroMobileWebp,
       media: '(max-width: 767px)',
       type: 'image/webp',
       fetchPriority: 'high',
@@ -45,7 +49,7 @@ export const meta: Route.MetaFunction = () => {
   const description =
     'Jenama kasut kasual kulit asli & jam tangan sartorial rekaan moden Malaysia. Nikmati penghantaran percuma Semenanjung dan jaminan tukar saiz 7 hari percuma.';
   const canonicalUrl = 'https://elfy.my';
-  const ogImageUrl = 'https://elfy.my/hero-desktop.webp';
+  const ogImageUrl = heroDesktopWebp;
 
   return [
     {title},
@@ -184,9 +188,9 @@ export default function Homepage() {
             className="group relative rounded-2xl overflow-hidden border border-[#EBE6DF] hover:border-stone-400 bg-stone-900 aspect-[4/3] sm:aspect-[16/10] transition-all duration-300 flex flex-col justify-end p-6 sm:p-8"
           >
             <picture>
-              <source srcSet="/banners/mens-sneakers-3x2.webp" type="image/webp" />
+              <source srcSet={mensSneakersWebp} type="image/webp" />
               <img
-                src="/banners/mens-sneakers-3x2.webp"
+                src={mensSneakersWebp}
                 alt="Koleksi Kasut Kulit ELFY"
                 className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-[0.9] group-hover:brightness-[0.95]"
                 loading="lazy"
@@ -223,9 +227,9 @@ export default function Homepage() {
             className="group relative rounded-2xl overflow-hidden border border-[#EBE6DF] hover:border-stone-400 bg-stone-900 aspect-[4/3] sm:aspect-[16/10] transition-all duration-300 flex flex-col justify-end p-6 sm:p-8"
           >
             <picture>
-              <source srcSet="/banners/mens-watches-3x2.webp" type="image/webp" />
+              <source srcSet={mensWatchesWebp} type="image/webp" />
               <img
-                src="/banners/mens-watches-3x2.webp"
+                src={mensWatchesWebp}
                 alt="Koleksi Jam Tangan ELFY"
                 className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-[0.9] group-hover:brightness-[0.95]"
                 loading="lazy"

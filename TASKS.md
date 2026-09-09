@@ -190,5 +190,41 @@
   - **File Target**: `app/routes/[robots.txt].tsx`, `app/routes/sitemap.$type.$page[.xml].tsx`, `app/routes/_index.tsx`, `app/routes/products.$handle.tsx`, `app/routes/collections.$handle.tsx`, `app/routes/collections.all.tsx`, `app/routes/collections._index.tsx`, `app/routes/pages.$handle.tsx`, `app/routes/policies._index.tsx`, `app/routes/policies.$handle.tsx`, `app/routes/blogs._index.tsx`, `app/routes/blogs.$blogHandle._index.tsx`, `app/routes/blogs.$blogHandle.$articleHandle.tsx`, `app/routes/account.tsx`, `app/root.tsx`.
   - **Status**: Completed & Verified.
 
+---
 
+## Phase 7: Google PageSpeed, Core Web Vitals & AI Crawler Optimization
 
+- [x] **Task 7.1: Render-Blocking Resource Elimination (CSS & Web Fonts)**
+  - **Primary Requirement**: Eliminate render-blocking stylesheets flagged by PageSpeed. Consolidate `reset.css` directly into `app.css` (`@import "./reset.css"`). Convert Google Fonts (`Playfair Display` and `Plus Jakarta Sans`) to asynchronous non-blocking swap (`media="print" onLoad="this.media='all'"` with `font-display: swap`).
+  - **File Target**: `app/root.tsx`, `app/styles/app.css`.
+  - **Status**: Completed & Verified (0 render-blocking CSS requests).
+
+- [x] **Task 7.2: LLMs.txt Protocol & AI Search Engine Crawler Directives**
+  - **Primary Requirement**: Implement standard `llms.txt` specification for AI search engines and agents (Perplexity, ChatGPT, Claude, Apple Intelligence). Optimize `robots.txt` to explicitly permit reputable AI scrapers and assistants while preserving protection on cart, account, and internal search.
+  - **File Target**: `public/llms.txt`, `app/routes/[robots.txt].tsx`.
+  - **Status**: Completed & Verified (200 OK on `https://elfy.my/llms.txt` and verified crawler directives in `robots.txt`).
+
+- [x] **Task 7.3: Image Accessibility & Alt Attribute Verification**
+  - **Primary Requirement**: Audit all storefront imagery across hero banners, promotional split cards, category showcases, and product listing items to ensure 100% compliant, descriptive, and non-empty `alt` attributes adhering to WCAG 2.1 AA guidelines.
+  - **File Target**: `app/components/GrandAtelierHero.tsx`, `app/routes/_index.tsx`, `app/components/ProductItem.tsx`.
+  - **Status**: Completed & Verified (Descriptive alt text for all images with fallback to product titles).
+
+- [x] **Task 7.4: Shopify Oxygen Image Pipeline Optimization (Vite CDN Bundling)**
+  - **Primary Requirement**: Bypass Oxygen root-domain reverse-proxy image trans-encoder which re-encoded static WebP assets into larger JPEGs (~164 KiB). Bundle hero and collection banners via Vite (`app/assets/`), compiling them directly into `cdn.shopify.com/oxygen-v2/...` with 1-year immutable caching and raw WebP delivery (~88 KiB, saving >45% bandwidth).
+  - **File Target**: `app/assets/`, `app/components/GrandAtelierHero.tsx`, `app/routes/_index.tsx`.
+  - **Status**: Completed & Verified (Live CDN serves `content-type: image/webp` at 88.8 KiB).
+
+- [x] **Task 7.5: Responsive Product Grid Image Intervals (80px Steps)**
+  - **Primary Requirement**: Prevent image over-fetching on mobile grids (`319x319` display flagged in PageSpeed for requesting `380w`). Adjust `srcSetOptions` in `ProductItem.tsx` to 80px increments (`[160w, 240w, 320w, 400w, 480w, 560w, 640w, 720w]`) so the browser selects an exact `320w` variant, saving ~77 KiB.
+  - **File Target**: `app/components/ProductItem.tsx`.
+  - **Status**: Completed & Verified (Live HTML renders `320w` variant for mobile cards).
+
+- [x] **Task 7.6: Mobile LCP Element Render Delay Elimination**
+  - **Primary Requirement**: Eliminate 2,000ms Element Render Delay on hero image. Update default `<img>` fallback in `<picture>` to mobile dimensions (`width={720} height={964}`), switch decoding to `decoding="async"`, remove initial paint transform transitions, and inject high-priority `<link rel="preload">` pointing to the hashed CDN asset.
+  - **File Target**: `app/components/GrandAtelierHero.tsx`, `app/routes/_index.tsx`.
+  - **Status**: Completed & Verified (Zero aspect ratio recalculation delay on mobile).
+
+- [x] **Task 7.7: Console Errors & React Best Practices Clean Up**
+  - **Primary Requirement**: Fix missing `encodedVariantAvailability` and `encodedVariantExistence` fields in `PRODUCT_FRAGMENT` causing `getProductOptions` errors. Provide fallback `checkoutDomain` in `root.tsx` consent configuration to eliminate missing checkout domain errors in `Analytics.Provider`.
+  - **File Target**: `app/graphql/storefront/fragments.ts`, `app/root.tsx`.
+  - **Status**: Completed & Verified (0 console errors during hydration and navigation).

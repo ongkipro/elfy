@@ -103,3 +103,41 @@ This document serves as the chronological build ledger tracking technical archit
   - **Deployment**:
     - Changes verified via `npm run typecheck` (0 errors) and `npm run build` (clean SSR bundle).
     - Committed under commit `6f469f6`, pushed to `origin main`, and deployed to Shopify Oxygen in 40s.
+
+---
+
+## [2026-09-09] Phase 7: Google PageSpeed, Core Web Vitals & AI Crawler Optimization
+- **Objective**: Maximize Lighthouse performance scores, resolve render-blocking critical paths, optimize mobile image delivery, eliminate LCP delays, and implement AI search crawler readiness.
+- **Key Deliverables**:
+  - **Render-Blocking CSS & Font Swap**:
+    - Merged `reset.css` directly into `app.css` (`@import "./reset.css"`), cutting 1 critical network request.
+    - Loaded Google Fonts asynchronously with `media="print" onLoad="this.media='all'"` and `font-display: swap` to prevent font-rendering freezes.
+  - **Shopify Oxygen Static Image Pipeline Overhaul**:
+    - Diagnosed Oxygen's root-domain image reverse proxy converting static `.webp` files in `public/` to large JPEGs (~164 KiB).
+    - Moved hero and banner imagery to `app/assets/` and imported them via Vite.
+    - Assets are compiled directly into `https://cdn.shopify.com/oxygen-v2/...` with content hashes and immutable caching, delivering pure WebP:
+      - `hero-mobile.webp`: reduced from 163.8 KiB to 88.8 KiB (>45% bandwidth savings).
+      - `banners/mens-sneakers-3x2.webp`: reduced from 70.9 KiB to 33.9 KiB (>52% savings).
+      - `banners/mens-watches-3x2.webp`: reduced from 84.8 KiB to 44.9 KiB (>47% savings).
+  - **Responsive Product Grid Optimization (80px Intervals)**:
+    - Updated `srcSetOptions` in `ProductItem.tsx` to 80px steps: `[160w, 240w, 320w, 400w, 480w, 560w, 640w, 720w]`.
+    - Eliminated ~77 KiB over-fetching on mobile 319x319 product cards by ensuring exact 320w match.
+    - Hidden inactive `secondaryImage` hover layers on mobile touch viewports.
+  - **Elimination of LCP Element Render Delay (2,000ms)**:
+    - Updated fallback `<img>` dimensions in `GrandAtelierHero.tsx` to mobile native `720x964` (matching `<source>` and `<link rel="preload">`).
+    - Changed decoding to `decoding="async"` to eliminate main-thread synchronous decode blocking.
+    - Removed `transition-transform duration-1000` from initial LCP paint.
+    - Preloaded hero images in `<head>` linking directly to hashed CDN asset URLs with `fetchPriority="high"`.
+  - **AI Crawler Readiness & LLMs.txt**:
+    - Created `public/llms.txt` following standard AI agent discovery protocol, detailing brand architecture, collection links, and policies.
+    - Optimized `app/routes/[robots.txt].tsx` with explicit `Allow` directives for major AI scrapers and search assistants (`Google-Extended`, `GPTBot`, `ClaudeBot`, `PerplexityBot`, `Amazonbot`, `Applebot`, `meta-externalagent`), while strictly disallowing `/cart`, `/account`, and `/search`.
+  - **Accessibility & Contrast (WCAG 2.1 AA)**:
+    - Audited and ensured all image tags possess descriptive, contextual `alt` attributes.
+    - Increased interactive button touch targets to 48px x 48px.
+    - Elevated typography contrast: gold accents darkened to `#8C6527`, rating count to `#191817`, strikethrough price to `text-stone-500`.
+  - **Console Errors Eradication**:
+    - Added `encodedVariantAvailability` and `encodedVariantExistence` to `PRODUCT_FRAGMENT` to fix `getProductOptions` errors.
+    - Added fallback `checkoutDomain` in `root.tsx` consent configuration.
+  - **Deployment**:
+    - Validated with `npm run typecheck` (0 errors) and `npm run build` (clean SSR build).
+    - Deployed live to Shopify Oxygen across commits `ddfd560`, `3c39040`, `83e0a9e`, and `28a0789`.

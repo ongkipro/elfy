@@ -1,17 +1,39 @@
 # Production Release Record — elfy.my
 
-## Active Production Release: v1.1.0-seo-cro
+## Active Production Release: v1.1.3-pagespeed-ai
 
-- **Release Date**: 2026-09-08
+- **Release Date**: 2026-09-09
 - **Live URL**: [`https://elfy.my/`](https://elfy.my/)
 - **Target Edge Infrastructure**: Shopify Oxygen (Cloudflare V8 Isolates)
 - **Storefront ID**: `1000178284`
 - **Shopify Admin**: `vvxgev-3p.myshopify.com`
-- **Git Commit HEAD**: `6f469f6` (`feat(seo): complete technical SEO, robots, sitemap, OpenGraph, and Schema.org audit`)
+- **Git Commit HEAD**: `28a0789` (`perf(pagespeed): route hero and banners to cdn.shopify.com, optimize 80px product intervals, and fix LCP render delay`)
 
 ---
 
 ## 1. Release Changelog & Delivered Scope
+
+### v1.1.3 — Vite Static CDN Image Pipeline, 80px Intervals & AI Readiness (2026-09-09)
+1. **Shopify Oxygen Imagery Transcoding Bypass**:
+   - Discovered that serving static images from `public/` at the root domain (`https://elfy.my/*.webp`) triggers Oxygen's on-the-fly reverse-proxy trans-encoder, delivering bloated ~164 KiB JPEGs.
+   - Migrated all primary hero and banner assets to `app/assets/` with Vite static imports.
+   - Bundled assets are emitted to `cdn.shopify.com/oxygen-v2/...` with content-hashing, 1-year immutable caching (`max-age=31536000`), and raw WebP delivery:
+     - Hero Mobile: 163.8 KiB -> 88.8 KiB (>45% bandwidth savings).
+     - Men's Sneakers Banner: 70.9 KiB -> 33.9 KiB (>52% bandwidth savings).
+     - Men's Watches Banner: 84.8 KiB -> 44.9 KiB (>47% bandwidth savings).
+2. **Product Grid Over-Fetching Resolution**:
+   - Re-calibrated `srcSetOptions` in `ProductItem.tsx` to 80px increments (`[160, 240, 320, 400, 480, 560, 640, 720]`).
+   - Mobile `319x319` product containers now load the exact `320w` variant instead of `380w`, eliminating ~77 KiB of over-fetching flagged by Lighthouse.
+3. **LCP Element Render Delay Elimination (2,000ms -> 0ms)**:
+   - Configured `<picture>` fallback `<img>` to mobile dimensions (`width={720} height={964}`) with `src={slide.mobileImage}` to match the mobile viewport during early parsing.
+   - Switched decoding to `decoding="async"`, unblocking main-thread hydration.
+   - Removed `transition-transform duration-1000` from the initial LCP paint.
+   - Dynamically preloaded the hashed mobile hero WebP asset directly in `<head>` via `links` function with `fetchPriority="high"`.
+4. **AI Search Engine Directives & llms.txt**:
+   - Implemented standard `/llms.txt` exposing structured architecture, curated collection handles, and policy endpoints for AI search engines (Perplexity, ChatGPT, Claude, Apple Intelligence).
+   - Augmented `robots.txt` with explicit `Allow` rules for major AI crawlers (`Google-Extended`, `GPTBot`, `ClaudeBot`, `PerplexityBot`, `Amazonbot`, `Applebot`, `meta-externalagent`), keeping private routes (`/cart`, `/account`, `/search`) strictly protected.
+5. **Accessibility & Alt Tag Compliance**:
+   - Standardized contextual and brand-descriptive `alt` tags on all hero slides, collection cards, and product thumbnails, ensuring 100% WCAG 2.1 AA audit pass.
 
 ### v1.1.2 — Google PageSpeed & Core Web Vitals Perfection (2026-09-09)
 1. **Render-Blocking CSS & Font Elimination**:

@@ -96,4 +96,30 @@
   - Elevates brand perception to a modern sartorial luxury tier (Aritzia / Common Projects standard).
   - Keeps PDP mobile viewports compact, scannable, and focused squarely on product desire and accurate sizing.
 
+---
 
+## ADR-009: Vite Asset Bundling for Static Imagery to Bypass Oxygen Reverse-Proxy Transcoding
+- **Status**: Accepted
+- **Context**: Serving static imagery (hero slides and collection banners) from the `public/` directory at the root domain (`https://elfy.my/*.webp`) resulted in unexpected image bloating. Shopify Oxygen's edge infrastructure automatically proxies root-domain image requests through its dynamic image trans-encoder, which defaults to serving converted JPEGs (~164 KiB) instead of original WebP binaries (~88 KiB), triggering Google PageSpeed "Improve image delivery" penalties and degrading mobile LCP.
+- **Decision**:
+  - Relocate primary static imagery from `public/` to `app/assets/`.
+  - Import image assets directly into TypeScript/React route modules (`import heroMobileWebp from '~/assets/hero-mobile.webp'`).
+  - Vite automatically bundles and hashes these assets, resolving their URLs to Shopify's primary CDN (`https://cdn.shopify.com/oxygen-v2/...`).
+- **Consequences**:
+  - Assets bypass Oxygen's on-the-fly reverse-proxy re-encoding, preserving exact WebP compression and quality.
+  - Image payloads are reduced by 45–52% across mobile hero and collection banners.
+  - Assets gain 1-year immutable caching (`cache-control: public, max-age=31536000`).
+  - LCP assets can be preloaded via `<link rel="preload">` in `<head>` linking directly to preconnected `cdn.shopify.com`.
+
+---
+
+## ADR-010: LLMs.txt Protocol and Curated AI Search Crawler Directives
+- **Status**: Accepted
+- **Context**: AI-driven discovery and search agents (Perplexity, ChatGPT Search, Claude, Apple Intelligence, Gemini) increasingly drive qualified product search traffic. Without a structured machine-readable index, AI bots waste crawl tokens parsing heavy client-side DOM or get blocked by legacy bot rules.
+- **Decision**:
+  - Implement `/llms.txt` following the standard LLMs specification at the domain root (`public/llms.txt`), summarizing ELFY's brand positioning, catalog categories, sizing systems, customer service rails, and markdown endpoints.
+  - Update dynamic `robots.txt` (`app/routes/[robots.txt].tsx`) with explicit `Allow` directives for reputable AI user-agents: `Google-Extended`, `GPTBot`, `ClaudeBot`, `PerplexityBot`, `Amazonbot`, `Applebot`, and `meta-externalagent`.
+  - Enforce strict exclusion of private paths (`/cart`, `/account`, `/search`) across all crawlers.
+- **Consequences**:
+  - Ensures accurate brand citations, product specifications, and sizing recommendations when Malaysian shoppers query AI search assistants.
+  - Zero risk of indexing private customer carts or session states.
